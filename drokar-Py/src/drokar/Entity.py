@@ -36,3 +36,6 @@ class Player(Entity):
         #entity consumes an item, adjusts player stats based on it.
         # food = healing, potion = enhance stats etc.
         None
+    
+    def say_hello(self):
+        #test source control
