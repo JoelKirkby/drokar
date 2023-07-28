@@ -23,6 +23,8 @@ class Player(Entity):
     def __init__(self):
         self.HP=None
         self.MP=None
+        self.skill_levels={}
+        self.player_data=self.load_player_data()
 
     def update_stats(self):
         # Check if any new bonuses or equipment applied, then change player status accordingly
