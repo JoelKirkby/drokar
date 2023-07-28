@@ -43,6 +43,14 @@ class Player(Entity):
                          'Inventory':{},
                          'Equipment':{equip_slot:None for equip_slot in EQUIP_SLOTS}
                         }
+        
+        self.calculate_skill_levels()
+
+    def calculate_skill_levels(self):
+        for skill,XP_total in self.player_data['Skill_xp'].items():
+            for i, xp_value in enumerate(TOTAL_XPS[:-1]):
+                if XP_total >= xp_value and XP_total < TOTAL_XPS[i+1]:
+                    self.skill_levels[skill]=i+1
     def consume_item(self):
         #entity consumes an item, adjusts player stats based on it.
         # food = healing, potion = enhance stats etc.
