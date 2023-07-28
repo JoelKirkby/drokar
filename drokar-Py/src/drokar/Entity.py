@@ -32,6 +32,17 @@ class Player(Entity):
         #equips an item and calls update_stats to ensure new stats are applied
         None
 
+    def save_player_data(self):
+        pickle.dump(self.player_data,open('data.p','wb'))
+
+    def load_player_data(self):
+        if os.path.exists('data.p'):
+            self.player_data=pickle.load(open('data.p','rb'))
+        else:
+            self.player_data={'Skill_xp':{skill:0 for skill in SKILL_LIST},
+                         'Inventory':{},
+                         'Equipment':{equip_slot:None for equip_slot in EQUIP_SLOTS}
+                        }
     def consume_item(self):
         #entity consumes an item, adjusts player stats based on it.
         # food = healing, potion = enhance stats etc.
