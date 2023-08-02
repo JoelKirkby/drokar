@@ -14,6 +14,17 @@ class Menu:
         self.player_data=self.load_player_data()
         self.Player=Player(self.player_data)
 
+    def main(self):
+        print("Hello, please select an activity from the following menu:")
+        selection=''
+        while len(selection)!=1:
+            selection = input('Press P for prospecting, M for Metallurgy, F for fitness\n')
+        selection.lower()
+        
+        if selection=='p':
+            selection=''
+            while len(selection)!=1:
+                selection = input('Which ore would you like to mine?\n (1) Copper Ore 5XP, (2) Tin Ore 5XP, (3) Flux 7XP\n Please enter your selection:')
     def save_player_data(self): #saves character data to a local .p file
         pickle.dump(self.player_data,open('data.p','wb'))
 
