@@ -13,4 +13,21 @@ class Menu:
     def __init__(self):
         self.player_data=self.load_player_data()
         self.Player=Player(self.player_data)
+
+    def save_player_data(self): #saves character data to a local .p file
+        pickle.dump(self.player_data,open('data.p','wb'))
+
+    def load_player_data(self): #loads character data from a .p file, if file doesn't exist then creates new character data
+        if os.path.exists('data.p'):
+            player_data=pickle.load(open('data.p','rb'))
+            {player_data['skill_xp'].update({key:0}) for key in SKILL_LIST if key not in player_data['skill_xp']} 
+            {player_data['skill_xp'].pop(key) for key in list(player_data['skill_xp']) if key not in SKILL_LIST}
+        else:
+            player_data={'skill_xp':{skill:0 for skill in SKILL_LIST},
+                         'inventory':[],
+                         'currency':{currency:0 for currency in CURRENCIES},
+                         'equipment':{equip_slot:None for equip_slot in EQUIP_SLOTS}
+                        }
+        
+        return player_data
         
