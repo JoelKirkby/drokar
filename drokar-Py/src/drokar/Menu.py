@@ -25,6 +25,20 @@ class Menu:
             selection=''
             while len(selection)!=1:
                 selection = input('Which ore would you like to mine?\n (1) Copper Ore 5XP, (2) Tin Ore 5XP, (3) Flux 7XP\n Please enter your selection:')
+                if selection.isnumeric() and selection=='1':
+                    selection=''
+                    while(selection)!='s':
+                        RunEvent=threading.Event()
+                        RunEvent.set()
+                        task_thread=threading.Thread(target=self.Player.Prospecting.run_task, args=('Copper Ore',self.Player.inventory,RunEvent),daemon=True)
+                        task_thread.start()
+                        selection=input('Mining Copper ore, input "s" to cancel')
+                        if selection=='s':
+                            print('stopping activity')
+                            RunEvent.clear()
+                            task_thread.join()
+                            self.save_player_data()
+                            self.main()
     def save_player_data(self): #saves character data to a local .p file
         pickle.dump(self.player_data,open('data.p','wb'))
 
