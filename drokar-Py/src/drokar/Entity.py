@@ -40,11 +40,6 @@ class Player(Entity):
     def equip_item(self): #equips an item and calls update_stats to ensure new stats are applied
         None #TODO
 
-    def calculate_skill_levels(self):
-        for skill,XP_total in self.player_data['Skill_xp'].items():
-            for i, xp_value in enumerate(TOTAL_XPS[:-1]):
-                if XP_total >= xp_value and XP_total < TOTAL_XPS[i+1]:
-                    self.skill_levels[skill]=i+1
     def consume_item(self):
         #entity consumes an item, adjusts player stats based on it.
         # food = healing, potion = enhance stats etc.

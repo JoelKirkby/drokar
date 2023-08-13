@@ -67,6 +67,14 @@ class Skill:
         
         print(f'{xp_difference} XP until level {self.level+1}')
         return xp_difference, level_up            
+
+    def calculate_level(self):
+        for i, xp_value in enumerate(TOTAL_XPS[:-1]):
+            if self.total_xp >= xp_value and self.total_xp < TOTAL_XPS[i+1]:
+                level=i+1
+                break
+        
+        return level
         task_info=self.tasks[task]
         
         while RunEvent.is_set():
