@@ -75,6 +75,20 @@ class Skill:
                 break
         
         return level
+
+    def check_for_unlocks(self,level_up=False) -> None:
+        '''
+        Check for available tasks based on skill level. Default mode of operation (level_up==False) is for populating available tasks on data load
+        level_up==True
+        '''
+        for task, properties in self.tasks.items():
+            new_unlock = properties['lvl_requirement']==self.level and level_up # Check if level up unlocked anything new
+            already_unlocked = task not in self.available_tasks and properties['lvl_requirement']<=self.level # Populate available tasks based on level
+
+            if new_unlock or already_unlocked:
+                self.available_tasks.update({task:properties})
+                if new_unlock:
+                    print(f"At level {self.level} you unlocked {task}!")
         task_info=self.tasks[task]
         
         while RunEvent.is_set():
