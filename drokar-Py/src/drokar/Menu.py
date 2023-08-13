@@ -19,7 +19,7 @@ class Menu:
         selection=''
         while len(selection)!=1:
             selection = input('Press P for prospecting, M for Metallurgy, F for fitness\n')
-        selection.lower()
+        selection=selection.lower()
         
         if selection=='p':
             selection=''
