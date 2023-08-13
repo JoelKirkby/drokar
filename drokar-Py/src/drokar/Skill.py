@@ -52,7 +52,21 @@ class Skill:
         self.available_tasks={}
         self.check_for_unlocks()
 
-    def run_task(self,task,inventory,RunEvent):
+    def xp_to_next_level(self,total_xp):
+        level_xp = TOTAL_XPS[self.level]#-TOTAL_XPS[self.level-1]
+        xp_difference= level_xp - total_xp
+        if xp_difference < 0:
+            self.level+=1
+            print(f"You leveled up from {self.level-1} to {self.level}!")
+            self.check_for_unlocks(level_up=True)
+            level_xp = TOTAL_XPS[self.level] # - TOTAL_XPS[self.level-1]
+            xp_difference = level_xp - total_xp
+            level_up=True        
+        else:
+            level_up=False
+        
+        print(f'{xp_difference} XP until level {self.level+1}')
+        return xp_difference, level_up            
         task_info=self.tasks[task]
         
         while RunEvent.is_set():
