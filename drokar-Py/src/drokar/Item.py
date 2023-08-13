@@ -9,8 +9,9 @@ in order
 
 item_list={'Copper Ore':[5,'A red ore, can be refined using Metallurgy',False,{}],
            'Tin Ore': [5, 'A faint silver ore, can be refined using Metallurgy',False,{}],
-           'Silver Ore': [35, 'A shimmering silver ore, can be refined using Metallurgy',False,{}]}
-
+           'Silver Ore': [35, 'A shimmering silver ore, can be refined using Metallurgy',False,{}],
+           
+           'Bronze Bar':[15, 'A refined brown bar which can be used to make weapons, armor, and vessels',False,{'Metallurgy':1}]}
 
 class Item:
     def __init__(self,item_name):
