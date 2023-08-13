@@ -1,9 +1,11 @@
+from drokar.Skill import Skill, SKILL_LIST
+
 class Entity:
     def __init__(self):
         self.HP=None
         self.MP=None
         self.level=None
-        self.inventory={} #!TODO load inventory from some player data
+        self.inventory=[] #!TODO load inventory from some player data
         self.experience={} #!TODO populate skill list from somewhere dynamic
 
     def level_up(self,skill):
