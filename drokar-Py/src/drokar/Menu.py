@@ -40,7 +40,7 @@ class Menu:
                             self.save_player_data()
                             self.main()
     def save_player_data(self): #saves character data to a local .p file
-        pickle.dump(self.player_data,open('data.p','wb'))
+        pickle.dump(self.Player.player_data,open('data.p','wb'))
 
     def load_player_data(self): #loads character data from a .p file, if file doesn't exist then creates new character data
         if os.path.exists('data.p'):
