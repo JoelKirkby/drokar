@@ -89,18 +89,43 @@ class Skill:
                 self.available_tasks.update({task:properties})
                 if new_unlock:
                     print(f"At level {self.level} you unlocked {task}!")
+    def run_task(self,task,player_data,RunEvent):
         task_info=self.tasks[task]
-        
+        item_requirement = task_info.get('requires',False)
+
+        inventory=player_data['inventory']
+        skill_xp=player_data['skill_xp'][self.name]
+
         while RunEvent.is_set():
             print(f'\nPerforming {self.name} task: {task}')
+
+            if item_requirement:
+                for item in item_requirement:
+                    find_item = existing_item=next((i for i in inventory if i.name == item), False)
+                    if not find_item or find_item.quantity<1:
+                        print(f"Not enough {item} in inventory, enter any key to continue:")
+                        RunEvent.clear()
+                        return
+                    find_item.quantity-=1
+
             task_time=task_info['action_time']
             time.sleep(task_time)
+
             items = task_info['item_yield']
+
+            #Gain XP, check for level ups
+            player_data['skill_xp'][self.name] += self.tasks[task]['XP_gain']
+            self.xp_to_next_level(player_data['skill_xp'][self.name])
+            
+
+
             for item in items:
                 existing_item=next((i for i in inventory if i.name == item.name), False)
                 if existing_item:
                     existing_item.quantity+=1
+                    quantity=existing_item.quantity
                 else:
                     inventory.append(item)
-                print(f'gained 1 {item.name}, you now have {item.quantity} in total') 
-        None
+                    quantity=item.quantity
+                print(f'gained 1 {item.name}, you now have {quantity} in total') 
+
