@@ -1,5 +1,5 @@
 from drokar.Entity import Player
-from drokar.Skill import Skill
+from drokar.Skill import Skill, SKILL_LIST
 import pickle
 import os
 import sys

@@ -1,10 +1,18 @@
 from drokar.Item import Item
 import time
 
+SKILL_XPDIFF_PER_LEVEL=[int(100*1.104**x) for x in range(0,99)]
+TOTAL_XPS=[0]
 
-mining_tasks = {'Copper Ore':
+for num,el in enumerate(SKILL_XPDIFF_PER_LEVEL):
+    level_XP=TOTAL_XPS[num]+el
+    TOTAL_XPS.append(level_XP)
+
+SKILL_LIST=['Prospecting','Metallurgy','Fitness']
+
+MINING_TASKS = {'Copper Ore':
                     {'lvl_requirement':1,
-                     'XP_gain':10,
+                     'XP_gain':30,
                      'item_yield':[Item('Copper Ore')],
                      'action_time':1.5
                      },
@@ -13,17 +21,28 @@ mining_tasks = {'Copper Ore':
                      'XP_gain':10,
                      'item_yield':[Item('Tin Ore')],
                      'action_time':1.5
-                 }     
+                 },     
+                 'Silver Ore': {
+                     'lvl_requirement':10,
+                     'XP_gain':30,
+                     'item_yield':[Item('Silver Ore')],
+                     'action_time':2
+                 }  
                 } 
 
-metallurgy_tasks = {'Bronze Bar':
+METALLURGY_TASKS = {'Bronze Bar':
                     {'lvl_requirement':1,
                      'XP_gain':20,
-                     'item_yield':1,
+                     'item_yield':[Item('Bronze Bar')],
                      'requires':['Copper Ore', 'Tin Ore'],
                      'action_time':1.5
                      } 
-                }     
+                }
+
+FITNESS_TASKS={}
+
+TASK_INDEX={'Prospecting':MINING_TASKS,
+            'Metallurgy':METALLURGY_TASKS,
 class Skill:
     def __init__(self,name,tasks:dict,total_xp=0):
         self.total_xp=total_xp
