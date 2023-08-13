@@ -25,6 +25,22 @@ class Menu:
             selection=''
             while len(selection)!=1:
                 selection = input('Which ore would you like to mine?\n (1) Copper Ore 5XP, (2) Tin Ore 5XP, (3) Flux 7XP\n Please enter your selection:')
+                selection_options = ['1', '2', '3']
+                if selection.isnumeric() and selection in selection_options:
+                    option = {'1':'Copper Ore', '2': 'Tin Ore'}
+                    
+                    while(selection)!='s':
+                        RunEvent=threading.Event()
+                        RunEvent.set()
+                        task_thread=threading.Thread(target=self.Player.skills['Prospecting'].run_task, args=(option[selection],self.Player.player_data,RunEvent),daemon=True)
+                        task_thread.start()
+                        selection=input(f'Mining {option[selection]} input "s" to cancel')
+                        if selection=='s':
+                            print('stopping activity')
+                            RunEvent.clear()
+                            task_thread.join()
+                            self.save_player_data()
+                            self.main()
                 if selection.isnumeric() and selection=='1':
                     selection=''
                     while(selection)!='s':
