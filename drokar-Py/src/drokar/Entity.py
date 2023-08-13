@@ -22,33 +22,23 @@ class Entity:
         self.inventory={}
 
 class Player(Entity):
-    def __init__(self):
-        self.HP=None
-        self.MP=None
-        self.skill_levels={}
-        self.player_data=self.load_player_data()
-
-    def update_stats(self):
-        # Check if any new bonuses or equipment applied, then change player status accordingly
-        None
-    
-    def equip(self):
-        #equips an item and calls update_stats to ensure new stats are applied
-        None
-
-    def save_player_data(self):
-        pickle.dump(self.player_data,open('data.p','wb'))
-
-    def load_player_data(self):
-        if os.path.exists('data.p'):
-            self.player_data=pickle.load(open('data.p','rb'))
-        else:
-            self.player_data={'Skill_xp':{skill:0 for skill in SKILL_LIST},
-                         'Inventory':{},
-                         'Equipment':{equip_slot:None for equip_slot in EQUIP_SLOTS}
-                        }
+    def __init__(self,player_data):
         
-        self.calculate_skill_levels()
+        #Initialize player data - experience, levels, inventory, currencies
+        self.player_data=player_data
+        self.inventory=player_data['inventory']
+        self.skill_xp=player_data['skill_xp']
+        self.skill_levels={}
+        self.currency=player_data['currency']
+
+        #Initialize Skills
+        self.skills={skill_name: Skill(skill_name,total_xp=self.skill_xp[skill_name]) for skill_name in SKILL_LIST}
+
+    def update_stats(self):# Check if any new bonuses or equipment applied, then change player status accordingly
+        None #TODO
+    
+    def equip_item(self): #equips an item and calls update_stats to ensure new stats are applied
+        None #TODO
 
     def calculate_skill_levels(self):
         for skill,XP_total in self.player_data['Skill_xp'].items():
