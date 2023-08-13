@@ -44,10 +44,13 @@ FITNESS_TASKS={}
 TASK_INDEX={'Prospecting':MINING_TASKS,
             'Metallurgy':METALLURGY_TASKS,
 class Skill:
-    def __init__(self,name,tasks:dict,total_xp=0):
-        self.total_xp=total_xp
-        self.name=name
-        self.tasks=tasks
+    def __init__(self,name,total_xp=0):
+        self.total_xp = total_xp
+        self.name = name
+        self.tasks = TASK_INDEX[name]
+        self.level = self.calculate_level()
+        self.available_tasks={}
+        self.check_for_unlocks()
 
     def run_task(self,task,inventory,RunEvent):
         task_info=self.tasks[task]
