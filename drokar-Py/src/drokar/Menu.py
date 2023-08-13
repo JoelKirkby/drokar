@@ -11,8 +11,8 @@ CURRENCIES=['Gold']
 
 class Menu:
     def __init__(self):
-        self.player_data=self.load_player_data()
-        self.Player=Player(self.player_data)
+        player_data=self.load_player_data()
+        self.Player=Player(player_data)
 
     def main(self):
         print("Hello, please select an activity from the following menu:")
