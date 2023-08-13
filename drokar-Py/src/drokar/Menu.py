@@ -4,7 +4,7 @@ import pickle
 import os
 import sys
 import threading
-SKILL_LIST=['Prospecting','Metallurgy','Fitness']
+
 EQUIP_SLOTS=['gloves','boots','helm','armor','trinket','idol','off_hand','main_hand','cloak']
 CURRENCIES=['Gold']
 
