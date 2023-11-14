@@ -22,17 +22,16 @@ class Entity:
         self.inventory={}
 
 class Player(Entity):
-    def __init__(self,player_data):
-        
-        #Initialize player data - experience, levels, inventory, currencies
-        self.player_data=player_data
-        self.inventory=player_data['inventory']
-        self.skill_xp=player_data['skill_xp']
-        self.skill_levels={}
-        self.currency=player_data['currency']
+    def __init__(self, player_data):
+        # Initialize player data - experience, levels, inventory, currencies
+        self.player_data = player_data
+        self.inventory = player_data["inventory"]
+        self.skill_xp = player_data["skill_xp"]
+        self.skill_levels = {}
+        self.currency = player_data["currency"]
 
-        #Initialize Skills
-        self.skills={skill_name: Skill(skill_name,total_xp=self.skill_xp[skill_name]) for skill_name in SKILL_LIST}
+        # Initialize Skills
+        self.skills = {skill_name: Skill(skill_name, total_xp=self.skill_xp[skill_name]) for skill_name in SKILL_LIST}
 
     def update_stats(self):# Check if any new bonuses or equipment applied, then change player status accordingly
         None #TODO
