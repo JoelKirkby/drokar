@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="title">{{skill}}</h1>
+    <br>
+    <blockquote class="para">
+        Skill level: {{level}}
+    </blockquote>
+    <br>
+    <div class="container">
+        <ul>
+            {% for task, params in skill_data.items() %}
+              {%if params['lvl_requirement'] <= level %}
+              <button href="/Prospecting" class="btn mb-2">
+                <div id="btn-container">
+                <span class="gold-text">{{task}} - {{ params["XP_gain"] }}XP&nbsp;&nbsp; </span>
+                <img  src="{{url_for('static',filename='images/pickaxe.svg')}}" alt="pickaxe"/>
+                </div>
+              </button>
+            </button>
+              {% else %}
+              <div id="master-container">
+                <button href="/Prospecting" class="btn mb-2" disabled>
+                  <div id="btn-container">
+                    <span class="gold-text">{{task}} - {{params["XP_gain"]}}XP&nbsp;&nbsp; </span>
+                    <img  src="{{url_for('static',filename='images/pickaxe.svg')}}" alt="pickaxe"/>
+                  </div>
+                </button>
+                <div class="lvl-required-container">
+                  <p class="unavailable"> Level {{ params['lvl_requirement'] }} required </p>
+                </div>
+            </div>
+            </button>
+              {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
