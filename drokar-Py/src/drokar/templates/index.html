@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="title">Drokar Main Menu</h1>
+    <br>
+    <blockquote class="para">
+        Select a skill to continue:
+    </blockquote>
+    <br>
+    <div class="container">
+        <ul>
+            <!-- <button href="Prospecting"> class="btn mb-2 font-weight-bold black-btn"> -->
+            <button href="/Prospecting" class="btn mb-2">
+                <div id="btn-container">
+                <span class="gold-text"> Prospecting&nbsp;&nbsp; </span>
+                <img  src="{{url_for('static',filename='images/pickaxe.svg')}}" alt="pickaxe"/>
+                </div>
+            </button>
+            <button href="Metallurgy" class="btn mb-2">
+                <div id="btn-container">
+                    <span class="gold-text"> Metallurgy </span>
+                    <img src="{{url_for('static', filename='images/metallurgy-icon.svg') }}" alt="metallurgy"/>
+                </div>
+            </button>
+        </ul>
+    </div>
+{% endblock %}
