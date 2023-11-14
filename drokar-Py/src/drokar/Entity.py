@@ -44,5 +44,5 @@ class Player(Entity):
         # food = healing, potion = enhance stats etc.
         None
     
-    def say_hello(self):
-        #test source control
+    def sell_item(self, item):
+        self.currency["Gold"] += item.sell_value
