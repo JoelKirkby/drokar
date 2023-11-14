@@ -49,8 +49,11 @@ def prospecting():
 #         return render_template("store.html")
 class Client:
     def __init__(self):
-        None
-    
+        player_data = self.load_player_data()
+        self.Player = Player(player_data)
+
+    def main(self):
+        app.run("127.0.0.1", 8080, debug=True)
     def run_task(self):
         None
 
