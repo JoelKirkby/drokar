@@ -21,6 +21,17 @@ function Inventory() {
     return (
       <div className="Inventory">
         Inventory
+        <div className="inventoryActionButtons">
+            <button className="sellButton"> Sell </button>
+        </div>
+        <div className="tabsGold">
+            <div className="tabs">
+                Tabs
+            </div>
+            <div className="currency">
+                0gp
+            </div>
+        </div>
         <div className="itemZone">
             <div className="inventoryGrid">
                 {DUMMY_INVENTORY.map(item =>
