@@ -1,0 +1,28 @@
+.App {
+  text-align: center;
+  display:grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% 50%;
+}
+
+.Skills, .Menu {
+  height: 100px;
+  width: 100%;
+  border: 3px solid green;
+}
+
+.Inventory, .Events {
+  height: 500px;
+  width: 100%;
+  border: 3px solid blue;
+}
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
