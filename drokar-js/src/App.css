@@ -17,6 +17,29 @@
   border: 3px solid blue;
 }
 
+.inventoryItem {
+  display:flex;
+  align-items: flex-start; 
+  height: 100px;
+  width: 100px;
+  border: 3px solid rgb(162, 85, 85);
+  border-radius: 6px;
+}
+
+.inventoryItemQuantity {
+  position: relative;
+  top: 2px;
+  left: -15px;
+  background-color: grey;
+  z-index: 2;
+  padding:0 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  font-size: 16;
+  width:30%;
+  margin: 0 auto;
+}
 
 @keyframes App-logo-spin {
   from {
