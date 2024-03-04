@@ -5,6 +5,10 @@ import Inventory from './components/Inventory';
 import Events from './components/Events';
 
 function App() {
+  const loadPlayerData = useContext(PlayerDataContext)
+  const [playerData, setPlayerData] = useState(loadPlayerData)
+  const [activeTask, setActiveTask] = useState({})     
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
