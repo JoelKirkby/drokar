@@ -37,3 +37,25 @@ const runTask = (task, skill, playerData, setPlayerData) => {
 
   setPlayerData(data)
 };
+
+const Tasks = (props) => {
+  const {playerData, setPlayerData, activeTask, setActiveTask} = useContext(PlayerDataContext)
+  // TODO, this function gets loaded on every render. Ineffecient
+
+  const launchTask = (task, skill, playerData, setPlayerData) => {
+    console.log(`activeInterval = ${activeTask.taskId}`)
+    
+    clearInterval(activeTask.taskId)
+    let intervalId = 0;
+    let name = ''
+
+    if (activeTask.name != task.name) {
+      intervalId = setInterval(runTask, task.duration, task, skill, playerData, setPlayerData)
+      name = task.name
+    } 
+
+    setActiveTask({
+      name: name,
+      taskId: intervalId
+    })
+  }
