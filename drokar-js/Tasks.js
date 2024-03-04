@@ -15,9 +15,6 @@ const tasks = {
 const skillLevel = 1
 
 
-
-
-
 const runTask = (task, skill, playerData, setPlayerData) => {
   var load_task = tasks[skill].find((obj) => obj.name == task.name)
   let data = {...playerData};
@@ -85,3 +82,6 @@ const Tasks = (props) => {
   }
   
   export default Tasks;
+
+
+
