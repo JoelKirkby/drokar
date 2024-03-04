@@ -1,10 +1,12 @@
 import { ItemData } from "../helpers/ItemData";
 
-function InventoryItem({item, quantity}) {
+function InventoryItem({itemName, attr}) {
     return (
       <div className="inventoryItem">
-        <img src={ItemData[item].image} className='inventoryGridImg'/>
-        <div className="inventoryItemQuantity">{quantity}</div>
+        <div className="inventoryImgContainer"> 
+          <img src={ItemData[itemName].image} className='inventoryGridImg' alt="inventoryitem"/>
+        </div>
+        <div className="inventoryItemQuantity">{attr.quantity}</div>
       </div>
     );
   }
