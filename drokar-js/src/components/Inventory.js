@@ -47,8 +47,11 @@ function Inventory() {
         </div>
         <div className="itemZone">
             <div className="inventoryGrid">
-                {DUMMY_INVENTORY.map(item =>
-                    <InventoryItem item={item.name} quantity={item.quantity}/>
+                {Object.keys(inventory_items).map(function(itemName, i) {
+                    return inventory_items[itemName].quantity > 0 
+                    ? <InventoryItem  itemName={itemName} attr={inventory_items[itemName]}/>
+                    : null
+                }         
                 )}
             </div>
             <div className="equippedWindow">EquippedWindow</div>
