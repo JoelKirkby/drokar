@@ -59,3 +59,22 @@ const Tasks = (props) => {
       taskId: intervalId
     })
   }
+  
+
+  var skill = props.skill
+  return (
+    <Box className="Tasks">
+      {tasks[skill].map((task, key) => {
+          return skillLevel >= task.levelRequirement ? 
+            <div className="taskContainer" onClick={() => launchTask(task, skill, playerData, setPlayerData)}>
+              <img src={task.image}></img>
+              {`${task.name} - ${task.xpGain} XP`}
+            </div>
+          : null
+        }
+         )}
+    </Box>
+  );
+}
+
+export default Tasks;
