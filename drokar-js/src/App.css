@@ -49,6 +49,15 @@
   width:30%;
   margin: 0 auto;
 }
+
+.inventoryImgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
 .inventoryGridImg {
   max-width: 50px;
   max-height: 50px;
