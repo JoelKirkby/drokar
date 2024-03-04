@@ -60,7 +60,6 @@ const Tasks = (props) => {
     })
   }
   
-
   var skill = props.skill
   return (
     <Box className="Tasks">
@@ -78,3 +77,4 @@ const Tasks = (props) => {
 }
 
 export default Tasks;
+
