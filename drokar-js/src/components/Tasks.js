@@ -79,6 +79,19 @@ const Tasks = (props) => {
           : null
         }
          )}
+        {/* For debugging, display total XP */}
+        <h1> {playerData.skills[skill]} XP </h1>
+        {JSON.stringify(activeTask) === "{}"
+          ? null
+          : <ProgressLine key={playerData.skills[skill].toString()+activeTask.name} visualParts={[ 
+                {
+                  percentage:"100%",
+                  color:"red",
+                }
+                ]} speed={activeTask.duration/1000}/>
+              }
+
+
     </Box>
   );
 }
