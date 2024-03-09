@@ -45,16 +45,21 @@ const Tasks = (props) => {
   // TODO, this function gets loaded on every render. Ineffecient
 
   const launchTask = (task, skill, playerData, setPlayerData) => {
-    console.log(`activeInterval = ${activeTask.taskId}`)
-    
     clearInterval(activeTask.taskId)
-    let intervalId = 0;
-    let name = ''
+    var newTask;
+
+    var load_task = tasks[skill].find((obj) => obj.name == task.name)
 
     if (activeTask.name != task.name) {
-      intervalId = setInterval(runTask, task.duration, task, skill, playerData, setPlayerData)
-      name = task.name
+      var intervalId = setInterval(runTask, task.duration, load_task, skill, playerData, setPlayerData)
+      newTask = {...task,
+      taskId: intervalId}
+    }
+    else {
+      newTask = {}
     } 
+    setActiveTask(newTask)
+  }
 
     setActiveTask({
       name: name,
