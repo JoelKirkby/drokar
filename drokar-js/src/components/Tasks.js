@@ -1,9 +1,10 @@
 import '../App.css'
 import { Box } from '@mui/material';
 import { ProspectingTasks, MetallurgyTasks } from '../helpers/TaskData';
-import { useContext, useEffect } from 'react';
+import { useContext} from 'react';
 import { PlayerDataContext } from '../helpers/Contexts';
 import { ItemData } from '../helpers/ItemData';
+import ProgressLine from './ProgressLine';
 
 const tasks = {
   Prospecting: ProspectingTasks,
@@ -11,8 +12,6 @@ const tasks = {
       }
 
 
-
-const skillLevel = 1
 
 const runTask = (load_task, skill, playerData, setPlayerData) => {
   
@@ -60,12 +59,6 @@ const Tasks = (props) => {
     setActiveTask(newTask)
   }
 
-    setActiveTask({
-      name: name,
-      taskId: intervalId
-    })
-  }
-  
   var skill = props.skill
   return (
     <Box className="Tasks">
