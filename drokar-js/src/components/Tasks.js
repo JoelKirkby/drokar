@@ -14,26 +14,28 @@ const tasks = {
 
 const skillLevel = 1
 
-const runTask = (task, skill, playerData, setPlayerData) => {
-  var load_task = tasks[skill].find((obj) => obj.name == task.name)
+const runTask = (load_task, skill, playerData, setPlayerData) => {
+  
   let data = {...playerData};
   
-  let i = 0;
+  // Consume items required for task -  TODO this will bug if multiple items and one material is short. Return if insufficient
   for (const [costItem, costAmount] of Object.entries(load_task.consumes)) {
      if (costItem in data.inventory && data.inventory[costItem].quantity >= costAmount) {
       data.inventory[costItem].quantity -= costAmount
      } else {
       return
      }
-    i++
   }
 
+  // Generate items from the task
   for (const [yieldItem, yieldAmount] of Object.entries(load_task.yields)) {
     yieldItem in data.inventory 
       ? data.inventory[yieldItem].quantity += yieldAmount
       : data.inventory[yieldItem] = {quantity: yieldAmount}
-    i++
   }
+
+  // Gain experience
+  data.skills[skill] += load_task.xpGain
 
   setPlayerData(data)
 };
