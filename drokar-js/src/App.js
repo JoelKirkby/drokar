@@ -7,12 +7,13 @@ import Events from './components/Events';
 function App() {
   const loadPlayerData = useContext(PlayerDataContext)
   const [playerData, setPlayerData] = useState(loadPlayerData)
+  let playerLevels = useMemo(() => calculateLevels(playerData, setPlayerData), [playerData])
   const [activeTask, setActiveTask] = useState({})     
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask}}>
+      <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels}}>
         <Drawer variant="permanent" open={true} sx={{ position: 'relative' }}>
           {list('left')}
         </Drawer>

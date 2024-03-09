@@ -41,8 +41,7 @@ const runTask = (load_task, skill, playerData, setPlayerData) => {
 };
 
 const Tasks = (props) => {
-  const {playerData, setPlayerData, activeTask, setActiveTask} = useContext(PlayerDataContext)
-  // TODO, this function gets loaded on every render. Ineffecient
+  const {playerData, setPlayerData, activeTask, setActiveTask, playerLevels} = useContext(PlayerDataContext)
 
   const launchTask = (task, skill, playerData, setPlayerData) => {
     clearInterval(activeTask.taskId)
@@ -71,7 +70,7 @@ const Tasks = (props) => {
   return (
     <Box className="Tasks">
       {tasks[skill].map((task, key) => {
-          return skillLevel >= task.levelRequirement ? 
+          return playerLevels[skill][0] >= task.levelRequirement ? 
             <div className="taskContainer" onClick={() => launchTask(task, skill, playerData, setPlayerData)}>
               <img src={task.image}></img>
               {`${task.name} - ${task.xpGain} XP`}
