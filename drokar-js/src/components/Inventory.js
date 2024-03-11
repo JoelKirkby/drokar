@@ -3,6 +3,8 @@ import InventoryItem from './InventoryItem';
 import ItemInfoPanel from './ItemInfoPanel';
 import Equipment from './Equipment';
 import { PlayerDataContext } from '../helpers/Contexts';
+import { useContext, useState} from 'react';
+
 const toggleActiveItem = (itemName, activeItem, setActiveItem) => {
     if (activeItem != itemName) {
       setActiveItem(itemName)
@@ -14,7 +16,6 @@ function Inventory() {
     const {playerData, setPlayerData} = useContext(PlayerDataContext)
     const [activeItem, setActiveItem] = useState('')
     var inventory_items = playerData.inventory
-    
     return (
       <div className="Inventory">
         Inventory
@@ -26,7 +27,7 @@ function Inventory() {
                 Tabs
             </div>
             <div className="currency">
-                0gp
+                {playerData.gold} gp
             </div>
         </div>
         <div className="itemZone">
@@ -50,7 +51,7 @@ function Inventory() {
                 }         
                 )}
             </div>
-            <div className="equippedWindow">EquippedWindow</div>
+            
         </div>
         <Equipment playerData={playerData} setPlayerData={setPlayerData}/>
       </div>
