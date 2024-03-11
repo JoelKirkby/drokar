@@ -8,12 +8,25 @@ const DUMMY_INVENTORY = {
     },
 }
 
+const DUMMY_EQUIPMENT = {
+    weapon: '',
+    offHand:'',
+    helmet: '' ,
+    body: '',
+    leg: '',
+    feet: '',
+    // quantities = {ammo: 1} Consider things with quantities eg. ammo
+
+}
+
 const playerInfo = {
     skills: {
-        prospecting: 1,
-        metallurgy: 1,
+        Prospecting: 0,
+        Metallurgy: 0,
     },
-    inventory: DUMMY_INVENTORY
+    inventory: DUMMY_INVENTORY,
+    gold: 0,
+    equipped: DUMMY_EQUIPMENT
 };
 
 export const PlayerDataContext = createContext(playerInfo)
