@@ -40,7 +40,11 @@ function Inventory() {
             <div className="inventoryGrid">
                 {Object.keys(inventory_items).map(function(itemName, i) {
                     return inventory_items[itemName].quantity > 0 
-                    ? <InventoryItem  itemName={itemName} attr={inventory_items[itemName]}/>
+                    ?  <div onClick={() => toggleActiveItem(itemName, activeItem, setActiveItem)}>
+                        <InventoryItem  
+                        itemName={itemName} 
+                        quantity={inventory_items[itemName].quantity} />
+                        </div>
                     : null
                 }         
                 )}
