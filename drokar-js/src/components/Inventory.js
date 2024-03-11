@@ -1,6 +1,7 @@
 import '../App.css'
 import InventoryItem from './InventoryItem';
 import ItemInfoPanel from './ItemInfoPanel';
+import Equipment from './Equipment';
 import { PlayerDataContext } from '../helpers/Contexts';
 const toggleActiveItem = (itemName, activeItem, setActiveItem) => {
     if (activeItem != itemName) {
@@ -51,6 +52,7 @@ function Inventory() {
             </div>
             <div className="equippedWindow">EquippedWindow</div>
         </div>
+        <Equipment playerData={playerData} setPlayerData={setPlayerData}/>
       </div>
     );
   }
