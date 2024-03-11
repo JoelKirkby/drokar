@@ -1,10 +1,17 @@
 import '../App.css'
 import InventoryItem from './InventoryItem';
+import ItemInfoPanel from './ItemInfoPanel';
 import { PlayerDataContext } from '../helpers/Contexts';
-import { useContext } from 'react';
+const toggleActiveItem = (itemName, activeItem, setActiveItem) => {
+    if (activeItem != itemName) {
+      setActiveItem(itemName)
+    }
+    else {setActiveItem('')}
+  }
 
 function Inventory() {
     const {playerData, setPlayerData} = useContext(PlayerDataContext)
+    const [activeItem, setActiveItem] = useState('')
     var inventory_items = playerData.inventory
     
     return (
@@ -22,6 +29,14 @@ function Inventory() {
             </div>
         </div>
         <div className="itemZone">
+            {activeItem ? 
+            <ItemInfoPanel 
+              itemName={activeItem} 
+              quantity={playerData['inventory'][activeItem].quantity}
+              playerData={playerData}
+              setPlayerData={setPlayerData} />
+            : null
+            }   
             <div className="inventoryGrid">
                 {Object.keys(inventory_items).map(function(itemName, i) {
                     return inventory_items[itemName].quantity > 0 
