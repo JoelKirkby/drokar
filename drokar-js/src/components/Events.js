@@ -8,6 +8,16 @@ function Events() {
       <div className="Events">
         Events
         <div>{activeTask.name}</div>
+
+        {JSON.stringify(activeTask) === "{}"
+          ? null
+          : <ProgressLine key={playerData.skills[skill].toString()+activeTask.name} visualParts={[ 
+                {
+                  percentage:"100%",
+                  color:"red",
+                }
+                ]} speed={activeTask.duration/1000}/>
+              }
       </div>
     );
   }
