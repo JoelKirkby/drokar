@@ -1,28 +1,40 @@
-import pickaxeImg from  './images/pickaxe.svg'
-import metallurgyImg from './images/greenstone.svg'
-import barImg from './images/bar.svg'
-import stoneImg from './images/stone.svg'
+import pickaxe from  './images/pickaxe.svg'
+import tin from './images/greenstone.svg'
+import bar from './images/bar.svg'
+import copper from './images/stone.svg'
+import bronzeAxe from './images/bronzeAxe.svg'
+import platemail from './images/platemail.svg'
+import plateleg from './images/plateleg.svg'
+import platehelm from './images/helmet.svg'
+import shield from './images/shield.svg'
 
 export const ItemData = {
+    // Prospecting items
     "Copper Ore":{
-        'sellValue': 5,
-        'description': "A red ore, can be refined using Metallurgy",
-        'image': stoneImg,
+        sellValue: 5,
+        description: "A red ore, can be refined using Metallurgy",
+        image: copper,
+        acquiredBy: ["Prospecting Level 1", "Combat"],
+        usedIn: {'Metallurgy':1}
         },
     "Tin Ore":
         {
-        'sellValue': 5,
-        'description': "A faint silver ore, can be refined using Metallurgy",
-        'image': metallurgyImg,
+        sellValue: 5,
+        description: "A faint silver ore, can be refined using Metallurgy",
+        image: tin,
+        acquiredBy: ["Prospecting Level 1", "Combat"],
+        usedIn: {'Metallurgy':1}
         },
 
     "Silver Ore":
         {
-        'sellValue': 5,
-        'description': "A faint silver ore, can be refined using Metallurgy",
-        'image': metallurgyImg,
+        sellValue: 5,
+        description: "A faint silver ore, can be refined using Metallurgy",
+        image: tin,
+        acquiredBy: ["Prospecting Level 10", "Combat"],
+        usedIn: {'Metallurgy':10}
         },
-    
+
     // Bronze items - Metallurgy
     'Bronze Bar':
         {
