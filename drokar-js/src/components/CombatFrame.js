@@ -41,7 +41,7 @@ function CombatFrame({combatData, name}) {
     var percentHp = combatData.currentHp / combatData.maxHp * 100
     var percentMana = combatData.currentMana / combatData.maxMana * 100
     var percentFury = combatData.currentFury / combatData.maxFury * 100
-    
+    var healthColor = calculateColor(percentHp)
     return (
     <div className="combatFrame">
         <div className="combatPanel">
@@ -57,11 +57,11 @@ function CombatFrame({combatData, name}) {
                 sx={{
                     backgroundColor: 'white',
                     '& .MuiLinearProgress-bar': {
-                        backgroundColor: calculateColor(percentHp)},
+                        backgroundColor: healthColor},
                     width:"75%",
                     margin: "0 5px",
                     }} />
-            <Favorite color="success"/>
+            <Favorite style={{fill: healthColor}}/>
             {combatData.currentHp}/{combatData.maxHp}
             </div>
 
