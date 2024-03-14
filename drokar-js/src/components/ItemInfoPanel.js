@@ -39,9 +39,18 @@ const equipItem = (itemName, playerData, setPlayerData) => {
     equippedItem in newPlayerData.inventory ? newPlayerData.inventory[equippedItem] += 1
       : newPlayerData.inventory[equippedItem] = {"quantity": 1}
   } 
-
+  console.log(`Before combat update ${JSON.stringify(newPlayerData)}`)
+  if ("combatStats" in itemData) {
+    for (const [stat, value] of Object.entries(itemData.combatStats)) {
+      if (stat == "attackSpeed") {
+        newPlayerData.combatStats[stat] = value
+      } else {
+        newPlayerData.combatStats[stat] += value
+    }
+    }
+  }
     newPlayerData.equipped[itemSlot] = itemName
-
+    console.log(`After combat update ${JSON.stringify(newPlayerData)}`)
     setPlayerData(newPlayerData)
   // Replenish equipped item if something else was equipped
 }
