@@ -35,9 +35,6 @@ function CombatFrame({combatData, name}) {
     //     currentFury: 100,
     //     maxFury: 100
     // }
-    console.log(`name = ${name} ${JSON.stringify(combatData)}`)
-
-    
     var percentHp = combatData.currentHp / combatData.maxHp * 100
     var percentMana = combatData.currentMana / combatData.maxMana * 100
     var percentFury = combatData.currentFury / combatData.maxFury * 100
@@ -112,9 +109,9 @@ function CombatFrame({combatData, name}) {
             Damage: {combatData.damage} <br></br>
             Attack speed : {combatData.attackSpeed/1000}s<br></br>
             <div className= "divider"></div>
-            Melee Defense: {combatData.defenses.melee}<br></br>
-            Ranged Defense: {combatData.defenses.missile}<br></br>
-            Magic Defense: {combatData.defenses.magic}<br></br>
+            Melee Defense: {combatData.armor}<br></br>
+            Ranged Defense: {combatData.rangedArmor}<br></br>
+            Magic Defense: {combatData.magicArmor}<br></br>
             <div className= "divider"></div>
             {/* Attacks: {TODO - show attacks list.} */}
         </div>

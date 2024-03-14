@@ -29,9 +29,9 @@ const DUMMY_COMBAT_STATS = {
     attackSpeed: 2000,
     currentFury: 1,
     maxFury: 100,
-    defenses: {melee: 1,
-        missile: 2,
-        magic: 3},
+    armor: 1,
+    rangedArmor: 2,
+    magicArmor: 3,
 }
 
 const playerInfo = {
@@ -42,7 +42,7 @@ const playerInfo = {
     inventory: DUMMY_INVENTORY,
     gold: 0,
     equipped: DUMMY_EQUIPMENT,
-    combatStats : DUMMY_COMBAT_STATS
+    combatStats: DUMMY_COMBAT_STATS
 };
 
 export const PlayerDataContext = createContext(playerInfo)

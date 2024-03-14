@@ -20,9 +20,9 @@ export const MonsterData = {
         //             }
         //         },
         attackChances: [1],
-        defenses: {melee: 0,
-                    missile: 0,
-                    magic: 0},
+        armor: 0,
+        rangedArmor: 0,
+        magicArmor: 0,
     },
 
     'Goblin Wizard' :{
@@ -62,8 +62,8 @@ export const MonsterData = {
                         },
         },
         furyAttackChances : [1],
-        defenses: { melee: 0,
-                    missile: 0,
-                    magic: 0},
+        armor:0,
+        rangedArmor: 0,
+        magicArmor: 0,
     },        
 }
