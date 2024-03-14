@@ -15,7 +15,7 @@ function App() {
       <CssBaseline />
       <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster}}>
         <Drawer variant="permanent" open={true} sx={{ position: 'relative' }}>
-          {list('left')}
+          <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
         </Drawer>
 
         <Box
