@@ -5,10 +5,15 @@ import Inventory from './components/Inventory';
 import Events from './components/Events';
 
 function App() {
+  // Declare active states for the app
+  const [activeSkill, setActiveSkill] = useState("Prospecting")
   const loadPlayerData = useContext(PlayerDataContext)
   const [playerData, setPlayerData] = useState(loadPlayerData)
-  let playerLevels = useMemo(() => calculateLevels(playerData, setPlayerData), [playerData])
-  const [activeTask, setActiveTask] = useState({})     
+  let playerLevels = useMemo(() => calculateLevels(playerData), [playerData])
+  const [activeTask, setActiveTask] = useState({})
+  const [activeMonster, setActiveMonster] = useState({})
+  console.log(`activeMonster2 = ${JSON.stringify(activeMonster)}`)
+
 
   return (
     <Box sx={{ display: 'flex' }}>
