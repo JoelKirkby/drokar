@@ -52,14 +52,15 @@ linear-gradient(#673E1D 25%, #643B1A 25%, #643B1A 50%, transparent 50%, transpar
 background-color: #5D3413;
 background-size: 30px 30px;
 padding: 10px;
+width:100%;
 }
 
 .grid-container > div {
-background-color: rgba(255, 255, 255, 0.8);
-text-align: center;
-padding: 20px 0;
-font-size: 30px;
+background-color: rgba(255, 255, 255, 0.3);
+/* padding: 20px 0; */
 border-radius: 4px;
+height: 80px;
+width: 200px;
 }
 
 .grid-container > .blank {
@@ -69,3 +70,8 @@ padding: 20px 0;
 font-size: 30px;
 }
   
+
+.equipmentImg {
+    height: 80px;
+    width:100%;
+  }
