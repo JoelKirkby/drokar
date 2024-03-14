@@ -1,12 +1,15 @@
-export const MonsterData = [
-    {
-        name:'Goblin',
+import goblin from './images/goblin.svg';
+import goblinWizard from './images/goblinWizard.svg';
+
+export const MonsterData = {
+    'Goblin':{
         level: 2,
+        img: goblin,
         maxHp: 50,
         maxMana: 10,
         furyRate: 0,
         damage: 2, 
-        speed: 2600, //ms
+        attackSpeed: 2600, //ms
         // attacks: {"Attack":  TODO - Keep it simple for now.
         //             {
         //             accuracy: 0.8,
@@ -22,15 +25,15 @@ export const MonsterData = [
                     magic: 0},
     },
 
-    {
-        name:'Goblin Wizard',
-        level: 2,
+    'Goblin Wizard' :{
+        level: 4,
+        img: goblinWizard,
         maxHp: 50,
         maxMana: 10,
         furyRate: 1,
         // Keeping it simple with just damage and speed, will allow for multiple attacks and types of attacks later.
         damage: 2,
-        speed: 2600, //ms
+        attackSpeed: 2600, //ms
         // attacks: {"Attack": 
         //             {
         //             accuracy: 0.8,
@@ -63,4 +66,4 @@ export const MonsterData = [
                     missile: 0,
                     magic: 0},
     },        
-]
+}
