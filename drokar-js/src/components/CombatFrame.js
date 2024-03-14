@@ -45,8 +45,9 @@ function CombatFrame({combatData, name}) {
     return (
     <div className="combatFrame">
         <div className="combatPanel">
-            {name} - Lv {combatData.level}
-            <img src={combatData.img} alt="fighter"/>
+            <div className="flexContainer">
+                <img src={combatData.img} alt="fighter"/>
+            </div>
             <div className="combatBarIcon">
             
             <LinearProgress 
