@@ -1,5 +1,5 @@
 import { LinearProgress, createTheme } from "@mui/material";
-import { Gavel, Favorite, AutoAwesome, Cyclone } from "@mui/icons-material";
+import { Gavel, Favorite, AutoAwesome, Cyclone, ColorizeSharp } from "@mui/icons-material";
 import { ThemeProvider } from "@mui/material/styles";
 
 const calculateColor = (percent) => {
@@ -102,12 +102,21 @@ function CombatFrame({combatData, name}) {
                         width:"75%",
                         margin: "0 5px",
                         }} />
-                <Cyclone color="error"/>
-                {combatData.attackSpeed} 
+                <ColorizeSharp color="error" sx={{transform: "scaleY(-1)"}}/>
+                {(combatData.attackSpeed/1000).toFixed(2)} /s
             </div>
         </div>
         <div className="combatStats">
-            Wow
+            {name} - Lv {combatData.level || 1}
+            <div className= "divider"></div>
+            Damage: {combatData.damage} <br></br>
+            Attack speed : {combatData.attackSpeed/1000}s<br></br>
+            <div className= "divider"></div>
+            Melee Defense: {combatData.defenses.melee}<br></br>
+            Ranged Defense: {combatData.defenses.missile}<br></br>
+            Magic Defense: {combatData.defenses.magic}<br></br>
+            <div className= "divider"></div>
+            {/* Attacks: {TODO - show attacks list.} */}
         </div>
     </div>
     );
