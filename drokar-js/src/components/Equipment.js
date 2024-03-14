@@ -3,19 +3,31 @@ import './Equipment.css';
 
 // Item information panel which shows the item, description, sell value, and slider to sell
 // TODO = Acquired and used by section, it's own tab?
+function EquipSlot(slot, playerData, setPlayerData) {
+
+  return (
+    <div className={slot}>
+    {playerData.equipped[slot] 
+    ? <img className='equipmentImg' onDoubleClick={(e) => {unequipItem(slot, playerData, setPlayerData)}} src={ItemData[playerData.equipped[slot]].image}></img>
+    : ''
+    }
+    </div>
+  );
+}
 function Equipment({playerData, setPlayerData}) {
+
     return (
       <div className="grid-container">
         <div className="blank1 blank"></div>
-        <div className="helmet">{playerData.equipped.helmet}</div>
+        {EquipSlot("helmet", playerData, setPlayerData)}
         <div className="blank2 blank"></div>
-        <div className="weapon">{playerData.equipped.weapon}</div>
-        <div className="chest">{playerData.equipped.chest}</div>
-        <div className="shield">{playerData.equipped.offHand}</div>
+        {EquipSlot("weapon", playerData, setPlayerData)}
+        {EquipSlot("body", playerData, setPlayerData)}
+        {EquipSlot("offHand", playerData, setPlayerData)}
         <div className="blank3 blank"></div>
-        <div className="leg">{playerData.equipped.leg}</div>
+        {EquipSlot("leg", playerData, setPlayerData)}
         <div className="blank4 blank"></div>
-        <div className="feet">{playerData.equipped.feet}</div>
+        {EquipSlot("feet", playerData, setPlayerData)}
       </div>
     );
   }
