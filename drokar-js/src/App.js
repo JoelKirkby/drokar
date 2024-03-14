@@ -1,8 +1,24 @@
+// styling
 import './App.css';
-import Skills from  './components/Skills';
-import Menu from  './components/Menu';
+
+// import libraries and components
+import { styled } from '@mui/material/styles'
+import {Box } from '@mui/material';
+import { useState, useContext, useMemo } from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiDrawer from '@mui/material/Drawer';
+
+// My components
+import Tasks from  './components/Tasks';
 import Inventory from './components/Inventory';
 import Events from './components/Events';
+import SideBar from './components/SideBar';
+import CombatFrame from './components/CombatFrame';
+
+// My data
+import { xpToLevel } from './helpers/gameData';
+import { PlayerDataContext } from './helpers/Contexts';
+
 const drawerWidth = 240;
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
