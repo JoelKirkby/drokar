@@ -4,6 +4,7 @@ import ItemInfoPanel from './ItemInfoPanel';
 import Equipment from './Equipment';
 import { PlayerDataContext } from '../helpers/Contexts';
 import { useContext, useState} from 'react';
+import { Button } from '@mui/material';
 
 const toggleActiveItem = (itemName, activeItem, setActiveItem) => {
     if (activeItem != itemName) {
@@ -12,20 +13,26 @@ const toggleActiveItem = (itemName, activeItem, setActiveItem) => {
     else {setActiveItem('')}
   }
 
+const toggleEquipment = (showEquipment, setShowEquipment) => {
+    setShowEquipment(!showEquipment)
+    }
+
 function Inventory() {
     const {playerData, setPlayerData} = useContext(PlayerDataContext)
     const [activeItem, setActiveItem] = useState('')
+    const [showEquipment, setShowEquipment] = useState(false)
+    const [activeMonster, setActiveMonster] = useState({})
     var inventory_items = playerData.inventory
     return (
       <div className="Inventory">
         Inventory
         <div className="inventoryActionButtons">
-            <button className="sellButton"> Sell </button>
+            <Button sx={{fontSize: "10px", fontWeight: "bold"}} variant="contained" className="sellButton" onClick={(e) => setShowEquipment(!showEquipment)}> Toggle Equipment </Button>
         </div>
         <div className="tabsGold">
-            <div className="tabs">
+            {/* <div className="tabs">
                 Tabs
-            </div>
+            </div> */}
             <div className="currency">
                 {playerData.gold} gp
             </div>
@@ -53,7 +60,7 @@ function Inventory() {
             </div>
             
         </div>
-        <Equipment playerData={playerData} setPlayerData={setPlayerData}/>
+        {showEquipment ? <Equipment playerData={playerData} setPlayerData={setPlayerData}/> : null}
       </div>
     );
   }
