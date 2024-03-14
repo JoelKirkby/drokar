@@ -1,9 +1,11 @@
 import '../App.css'
 import { PlayerDataContext } from '../helpers/Contexts';
 import { useContext } from 'react';
+import ProgressLine from './ProgressLine';
 
-function Events() {
-    const {activeTask, setActivetask} = useContext(PlayerDataContext)
+function Events(props) {
+    const {activeTask, setActivetask, playerData} = useContext(PlayerDataContext)
+    let skill = activeTask.skill
     return (
       <div className="Events">
         Events
