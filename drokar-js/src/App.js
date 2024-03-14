@@ -35,7 +35,11 @@ function App() {
             <Inventory/>
           </Box>
           <Box className="row2">
-            <Events/>
+            <Events skill={activeSkill}/>
+            <div className="combatContainer">
+            <CombatFrame combatData={playerData.combatStats} name="You"/>
+            {JSON.stringify(activeMonster) !== "{}" && <CombatFrame combatData={activeMonster} name={activeMonster.name}/>}
+            </div>
           </Box>
         </Box>
       {/* </div> */}
