@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import { MonsterData } from "../helpers/MonsterData";
 import { useState, useContext } from "react";
 import { PlayerDataContext } from "../helpers/Contexts";
+import "./Combat.css";
 
 const setMonsterData = (selectedMonster, setActiveMonster) => {
     // Set current health values to max health

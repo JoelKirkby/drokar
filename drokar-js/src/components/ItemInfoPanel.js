@@ -3,6 +3,7 @@ import InventoryItem from "./InventoryItem";
 import { Slider, Button } from "@mui/material";
 import TollIcon from '@mui/icons-material/Toll';
 import { useState } from "react";
+import './ItemInfoPanel.css'
 
 const measureSlider = (event, setSellQuantity) => {
   console.log(`Slider value = ${event.target.value}`)

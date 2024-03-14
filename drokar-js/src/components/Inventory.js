@@ -1,4 +1,5 @@
 import '../App.css'
+import './Inventory.css'
 import InventoryItem from './InventoryItem';
 import ItemInfoPanel from './ItemInfoPanel';
 import gold from '../helpers/images/gold.svg';
