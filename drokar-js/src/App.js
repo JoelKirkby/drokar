@@ -13,7 +13,7 @@ function App() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels}}>
+      <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster}}>
         <Drawer variant="permanent" open={true} sx={{ position: 'relative' }}>
           {list('left')}
         </Drawer>
