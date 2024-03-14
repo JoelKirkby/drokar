@@ -1,8 +1,8 @@
 import { ItemData } from "../helpers/ItemData";
 import './Equipment.css';
-
 // Item information panel which shows the item, description, sell value, and slider to sell
 // TODO = Acquired and used by section, it's own tab?
+
 const unequipItem = (itemSlot, playerData, setPlayerData) => {
   // TODO - Hardcode to only equip 1 of the items for now - will go back for equipping things with stack size eg. arrows
   let newPlayerData = {...playerData}
@@ -12,6 +12,17 @@ const unequipItem = (itemSlot, playerData, setPlayerData) => {
   equippedItem in newPlayerData.inventory 
     ? newPlayerData.inventory[equippedItem].quantity += 1
     : newPlayerData.inventory[equippedItem] = {"quantity": 1}
+  
+  // Remove combat stats
+  if (ItemData[equippedItem].combatStats) {
+    for (const [stat, value] of Object.entries(ItemData[equippedItem].combatStats)) {
+      if (stat == "attackSpeed") {
+        newPlayerData.combatStats[stat] = 2000
+      } else {
+        newPlayerData.combatStats[stat] -= value
+      }
+    }
+  }
   
   // Clear item slot
   newPlayerData.equipped[itemSlot] = ''
@@ -29,6 +40,7 @@ function EquipSlot(slot, playerData, setPlayerData) {
     </div>
   );
 }
+
 function Equipment({playerData, setPlayerData}) {
 
     return (
