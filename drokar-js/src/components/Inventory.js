@@ -1,6 +1,7 @@
 import '../App.css'
 import InventoryItem from './InventoryItem';
 import ItemInfoPanel from './ItemInfoPanel';
+import gold from '../helpers/images/gold.svg';
 import Equipment from './Equipment';
 import { PlayerDataContext } from '../helpers/Contexts';
 import { useContext, useState} from 'react';
@@ -25,17 +26,14 @@ function Inventory() {
     var inventory_items = playerData.inventory
     return (
       <div className="Inventory">
-        Inventory
-        <div className="inventoryActionButtons">
-            <Button sx={{fontSize: "10px", fontWeight: "bold"}} variant="contained" className="sellButton" onClick={(e) => setShowEquipment(!showEquipment)}> Toggle Equipment </Button>
-        </div>
-        <div className="tabsGold">
-            {/* <div className="tabs">
-                Tabs
-            </div> */}
-            <div className="currency">
-                {playerData.gold} gp
-            </div>
+
+        <div className="flexContainerNoCenter">
+          <div className="currency">
+              <img src={gold}></img>{playerData.gold} gold
+          </div>
+          <div className="inventoryActionButtons">
+              <Button sx={{fontSize: "10px", fontWeight: "bold"}} variant="contained" className="sellButton" onClick={(e) => setShowEquipment(!showEquipment)}> Toggle Equipment </Button>
+          </div>
         </div>
         <div className="itemZone">
             {activeItem ? 
