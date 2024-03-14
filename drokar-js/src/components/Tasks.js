@@ -1,15 +1,16 @@
 import '../App.css'
 import { Box } from '@mui/material';
-import { ProspectingTasks, MetallurgyTasks } from '../helpers/TaskData';
+import { ProspectingTasks, MetallurgyTasks} from '../helpers/TaskData';
 import { useContext} from 'react';
 import { PlayerDataContext } from '../helpers/Contexts';
 import { ItemData } from '../helpers/ItemData';
 import ProgressLine from './ProgressLine';
+import CombatTasks from './CombatTasks';
 
 const tasks = {
   Prospecting: ProspectingTasks,
-  Metallurgy: MetallurgyTasks
-      }
+  Metallurgy: MetallurgyTasks,
+  }
 
 
 
@@ -41,7 +42,7 @@ const runTask = (load_task, skill, playerData, setPlayerData) => {
 
 const Tasks = (props) => {
   const {playerData, setPlayerData, activeTask, setActiveTask, playerLevels} = useContext(PlayerDataContext)
-
+  const irregularTasks = {'Combat': <CombatTasks/>}
   const launchTask = (task, skill, playerData, setPlayerData) => {
     clearInterval(activeTask.taskId)
     var newTask;
@@ -60,16 +61,20 @@ const Tasks = (props) => {
   }
 
   var skill = props.skill
+  console.log(`skill = ${skill}`)
   return (
     <Box className="Tasks">
-      {tasks[skill].map((task, key) => {
+      {/* If irregular task, render special window. Otherwise list tasks out in a basic fashion */}
+      {skill in irregularTasks ?  <CombatTasks/> 
+          : tasks[skill].map((task, key) => 
+          {
           return playerLevels[skill][0] >= task.levelRequirement ? 
             <div className="taskContainer" onClick={() => launchTask(task, skill, playerData, setPlayerData)}>
               <img src={task.image}></img>
               {`${task.name} - ${task.xpGain} XP`}
             </div>
           : null
-        }
+          }
          )}
     </Box>
   );
