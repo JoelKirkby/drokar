@@ -1,0 +1,243 @@
+.App {
+  text-align: center;
+  /* display: flex;
+  flex-direction: row; */
+  /* display:grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% 50%; */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemTitle {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.currency {
+  display:flex;
+  align-items: center;
+  color: white;
+  background-color: goldenrod;
+  font-weight: bold;
+  border-radius: 10px;
+  width: 25%;
+  margin: 3px;
+}
+
+.currency img {
+  margin: 0px 6px 3px 8px;
+  max-width: 40px;
+  image-rendering: pixelated;
+}
+
+.flexContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flexContainerNoCenter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.combatBarIcon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width:100%;
+} 
+
+.itemDescription {
+  font-style: italic;
+  font-size: 10px;
+}
+.row1 {
+  display: flex;
+  flex-direction: row;
+  grid-template-columns: 50%, 50%;
+  border: 5px solid black;
+  height:400px;
+}
+
+.imageDescription {
+  display: flex;
+  flex-direction: row;
+}
+.descriptionImageContainer .inventoryItem {
+  transform: scale(0.8);
+  max-width: 100%;
+  max-height: 100%;
+}
+.descriptionImageContainer {
+  width:50%;
+  max-width:50%;
+}
+.descriptionName {
+  width:50%;
+  max-width:50%;
+  height:50%;
+}
+
+.monsterTask {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: space-between; */
+  border: 5px solid black;
+  height: 100px;
+  width: 100%;
+}
+
+.itemZone {
+  display:flex;
+}
+
+.combatContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.combatFrame {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+}
+
+.divider {
+  border-bottom: 3px solid black;
+  width: 95%;
+  height: 5px;
+  margin: 0 auto;
+}
+
+.combatPanel {
+  width: 80%;
+  border: 1px solid black;
+}
+.combatStats {
+  width: 50%;
+  padding: 0 9px;
+  display: block;
+  border: 1px solid black;
+}
+
+.combatPanel img {
+  max-height: 100px;
+  max-width: 100px;
+}
+
+.sidebar {
+  width:100%;
+  border: 20px solid yellow;
+}
+
+.Tasks, .Inventory {
+  height: 100%;
+  width: 50%;
+  border: 1px solid grey;
+}
+
+.monsterTask img {
+  max-height: 80px;
+}
+
+.taskContainer img {
+  max-height: 20px;
+}
+
+.itemInfoPanel {
+  width:35%;
+  border: 5px solid blue;
+}
+.inventoryGrid {
+  background-color: darkslategrey;
+  border-radius: 10px;
+  border: 3px solid slategrey;
+  height: 340px;
+  gap: 20px;
+  display:flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  padding: 10px;
+  width: 100%;
+}
+
+.inventoryItem {
+  background-color: peru;
+  height: 80px;
+  width: 80px;
+  border-radius: 8px;
+}
+
+.inventoryItemQuantity {
+  position: relative;
+  display:flex;
+  bottom: 105%;
+  left: 70%;
+  background-color: grey;
+  z-index: 2;
+  /* padding:0 10px; */
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  font-size: 12px;
+  width:40%;
+  height: 40%;
+  /* margin: 0 auto; */
+  align-items: center;
+  justify-content: center;
+}
+
+.inventoryImgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.inventoryGridImg {
+  /* max-width: 50px; */
+  height: 80%;
+  width: 80%;
+  /* width:100%; */
+  /* max-height: 30px; */
+  
+}
+.Events {
+  display: flex;
+  flex-direction: column;
+}
+/* .Inventory, .Events {
+  height: 500px;
+  width: 100%;
+  border: 3px solid blue;
+} */
+
+.inventoryGrid {
+  display: flex;
+  flex-direction: row;
+}
+
+/* .inventoryGridImg {
+  width:100%;
+  max-width: 30px;
+  max-height: 30px;
+
+} */
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

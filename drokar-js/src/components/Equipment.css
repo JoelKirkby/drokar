@@ -1,0 +1,77 @@
+
+
+.head {
+    grid-area: head;
+}
+
+.chest {
+    grid-area: chest;
+}
+
+.legs {
+    grid-area: legs;
+
+}
+.feet {
+    grid-area: feet;
+
+}
+
+.blank1 {
+    grid-area: blank1;
+}
+
+.blank2 {
+    grid-area: blank2;
+}
+
+.blank3 {
+    grid-area: blank3;
+}
+
+.blank4 {
+    grid-area: blank4;
+}
+
+.grid-container {
+display: grid;
+grid-template-areas:
+    'blank1 head blank2'
+    'weapon chest shield'
+    'blank3 legs blank4'
+    'blank3 feet blank4';
+gap: 10px;
+/* background-color: #2196F3; */
+background:
+linear-gradient(27deg, #5F3615 5px, transparent 5px) 0 5px,
+linear-gradient(207deg, #5F3615 5px, transparent 5px) 10px 0px,
+linear-gradient(27deg, #6C4322 5px, transparent 5px) 0px 10px,
+linear-gradient(207deg, #6C4322 5px, transparent 5px) 10px 5px,
+linear-gradient(90deg, #653C1A 10px, transparent 10px),
+linear-gradient(#673E1D 25%, #643B1A 25%, #643B1A 50%, transparent 50%, transparent 75%, #6E4524 75%, #6E4524);
+background-color: #5D3413;
+background-size: 30px 30px;
+padding: 10px;
+width:100%;
+}
+
+.grid-container > div {
+background-color: rgba(255, 255, 255, 0.3);
+/* padding: 20px 0; */
+border-radius: 4px;
+height: 80px;
+width: 200px;
+}
+
+.grid-container > .blank {
+background-color: rgba(255, 255, 255, 0);
+text-align: center;
+padding: 20px 0;
+font-size: 30px;
+}
+  
+
+.equipmentImg {
+    height: 80px;
+    width:100%;
+  }
