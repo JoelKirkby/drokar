@@ -19,6 +19,7 @@ import CombatFrame from './components/CombatFrame';
 import { xpToLevel } from './helpers/gameData';
 import { PlayerDataContext } from './helpers/Contexts';
 
+
 const drawerWidth = 240;
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -67,7 +68,6 @@ function App() {
   let playerLevels = useMemo(() => calculateLevels(playerData), [playerData])
   const [activeTask, setActiveTask] = useState({})
   const [activeMonster, setActiveMonster] = useState({})
-  console.log(`activeMonster2 = ${JSON.stringify(activeMonster)}`)
 
 
   return (
@@ -77,7 +77,6 @@ function App() {
         <Drawer variant="permanent" open={true} sx={{ position: 'relative' }}>
           <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
         </Drawer>
-
         <Box
             component="main"
             sx={{
@@ -102,7 +101,6 @@ function App() {
             </div>
           </Box>
         </Box>
-      {/* </div> */}
     </PlayerDataContext.Provider>
     </Box>
   );
