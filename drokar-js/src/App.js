@@ -3,6 +3,17 @@ import Skills from  './components/Skills';
 import Menu from  './components/Menu';
 import Inventory from './components/Inventory';
 import Events from './components/Events';
+const calculateLevels = ((playerData) => {
+  var levels = {}
+  for (const [skill, xp] of Object.entries(playerData.skills)) {
+    let lvl = xpToLevel.findIndex((num) => num > xp)
+    let progressToNextLvl = 100 * ((xp - xpToLevel[lvl-1]) / (xpToLevel[lvl] - xpToLevel[lvl-1]))
+    levels[skill] = [lvl, progressToNextLvl]
+  }
+  console.log(`levels = ${JSON.stringify(levels)}`)
+  return levels
+  
+})
 
 function App() {
   // Declare active states for the app
