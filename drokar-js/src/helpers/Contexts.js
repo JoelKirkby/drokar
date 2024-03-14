@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-
+import hero from './images/hero.svg'
 
 const DUMMY_INVENTORY = {
     "Copper Ore": {
@@ -19,6 +19,21 @@ const DUMMY_EQUIPMENT = {
 
 }
 
+const DUMMY_COMBAT_STATS = {
+    maxHp: 50,
+    img: hero,
+    currentHp : 20,
+    currentMana: 10,
+    maxMana: 20,
+    damage: 1,
+    attackSpeed: 2000,
+    currentFury: 1,
+    maxFury: 100,
+    defenses: {melee: 1,
+        missile: 2,
+        magic: 3},
+}
+
 const playerInfo = {
     skills: {
         Prospecting: 0,
@@ -26,7 +41,8 @@ const playerInfo = {
     },
     inventory: DUMMY_INVENTORY,
     gold: 0,
-    equipped: DUMMY_EQUIPMENT
+    equipped: DUMMY_EQUIPMENT,
+    combatStats : DUMMY_COMBAT_STATS
 };
 
 export const PlayerDataContext = createContext(playerInfo)
