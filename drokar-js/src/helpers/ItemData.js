@@ -87,6 +87,7 @@ export const ItemData = {
         equip: 'leg',
         combatStats: {
             armor: 5, 
+            rangedArmor: 7,
             magicArmor: -1, 
             maxHealth: 5 
         }
@@ -99,7 +100,8 @@ export const ItemData = {
         equip: 'body',
         combatStats: {
             armor: 8, 
-            magicArmor: -1, 
+            rangedArmor: 12,
+            magicArmor: -2, 
             maxHealth: 10
         }
     },
