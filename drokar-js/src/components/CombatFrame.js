@@ -1,6 +1,7 @@
 import { LinearProgress, createTheme } from "@mui/material";
 import { Gavel, Favorite, AutoAwesome, Cyclone, ColorizeSharp } from "@mui/icons-material";
 import { ThemeProvider } from "@mui/material/styles";
+import { useEffect, useState, useRef } from "react";
 import "./Combat.css";
 
 const calculateColor = (percent) => {
@@ -26,8 +27,39 @@ const theme = createTheme({
   });
 
 
-function CombatFrame({combatData, name}) {
 
+function CombatFrame({playerData, name, setFunc}) {
+    console.log("ding")
+    var combatData = playerData.combatStats
+    var percentHp = combatData.currentHp / combatData.maxHp * 100
+    var percentMana = combatData.currentMana / combatData.maxMana * 100
+    var percentFury = combatData.currentFury / combatData.maxFury * 100
+    var attackSpeed = combatData.attackSpeed
+    var healthColor = calculateColor(percentHp)
+
+    const [attackProg, setAttackProg] = useState(0)
+    //console.log(attackProg)
+    const refAttackProg = useRef('')
+    useEffect(() => {
+        // console.log(`old=${refAttackProg.current} new = ${attackProg}`)
+        if (refAttackProg.current > attackProg) {
+            console.log("Attacking")
+            let newComData = {...playerData}
+            playerData.combatStats.currentHp -= 5
+            console.log(Date.now())
+            setFunc(newComData)
+        }
+        refAttackProg.current = attackProg
+        }, [attackProg])
+    // useEffect(() => {
+    //     var tickRate = 200;
+    //     const prog =  (tickRate / attackSpeed) * 100
+    //     const timer = setInterval(() => {
+    //         setAttackProg(prev => (prev + prog)% 100)
+    //         }, tickRate)
+    //     return () => clearInterval(timer)
+    //     }
+    // , [])
     // const DUMMYCOMBAT_DATA = {
     //     currentHp: 35,
     //     maxHp: 50,
@@ -36,15 +68,17 @@ function CombatFrame({combatData, name}) {
     //     currentFury: 100,
     //     maxFury: 100
     // }
-    var percentHp = combatData.currentHp / combatData.maxHp * 100
-    var percentMana = combatData.currentMana / combatData.maxMana * 100
-    var percentFury = combatData.currentFury / combatData.maxFury * 100
-    var healthColor = calculateColor(percentHp)
+    
+
     return (
     <div className="combatFrame">
         <div className="combatPanel">
             <div className="flexContainer">
-                <img src={combatData.img} alt="fighter"/>
+                {playerData.combatStats.currentHp <= 0 
+                ? <p>You R ded lmoa</p>
+                : <img src={combatData.img} alt="fighter"/>
+                }
+                
             </div>
             <div className="combatBarIcon">
             
@@ -81,7 +115,7 @@ function CombatFrame({combatData, name}) {
             <div className="combatBarIcon">
                 <LinearProgress 
                     value={percentFury} 
-                    variant={percentFury === 100 ? "indeterminate" : "determinate"} /* Animate when full */
+                    variant={attackProg === 100 ? "indeterminate" : "determinate"}  /* Animate when full */
                     color="warning"
                     sx={{
                         width:"75%",
@@ -93,8 +127,8 @@ function CombatFrame({combatData, name}) {
 
             <div className="combatBarIcon">
                 <LinearProgress 
-                    value={percentFury} 
-                    variant={percentFury === 100 ? "indeterminate" : "determinate"} /* Animate when full */
+                    value={refAttackProg.current} 
+                    variant={"determinate"} /* Animate when full */
                     color="error"
                     sx={{
                         width:"75%",

@@ -96,7 +96,7 @@ function App() {
           <Box className="row2">
             <Events skill={activeSkill}/>
             <div className="combatContainer">
-            <CombatFrame combatData={playerData.combatStats} name="You"/>
+            <CombatFrame playerData={playerData} setFunc={setPlayerData} name="You"/>
             {JSON.stringify(activeMonster) !== "{}" && <CombatFrame combatData={activeMonster} name={activeMonster.name}/>}
             </div>
           </Box>

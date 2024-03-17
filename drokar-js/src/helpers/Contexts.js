@@ -22,7 +22,7 @@ const DUMMY_EQUIPMENT = {
 const DUMMY_COMBAT_STATS = {
     maxHp: 50,
     img: hero,
-    currentHp : 20,
+    currentHp : 45,
     currentMana: 10,
     maxMana: 20,
     damage: 1,
