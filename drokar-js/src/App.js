@@ -83,7 +83,25 @@ function App() {
   let playerLevels = useMemo(() => calculateLevels(playerData), [playerData])
   const [activeTask, setActiveTask] = useState({})
   const [activeMonster, setActiveMonster] = useState({})
+  const [activeCombat, setActiveCombat] = useState(false)
 
+  const launchCombat = (activeCombat, setActiveCombat) => {
+      const prog = 100 / (playerData.combatStats.attackSpeed / tickRate)
+      const enemyProg = 100 / (activeMonster.attackSpeed / tickRate)
+      if (!activeCombat) {
+        const timer = setInterval(() => {
+            setAttackProg(prev => (prev + prog)% 100)
+            setEnemyAttackProg(prev => (prev + enemyProg)% 100)
+            }, tickRate)
+        setActiveCombat(timer)
+      }
+      else {
+        clearInterval(activeCombat)
+        setAttackProg(0)
+        setEnemyAttackProg(0)
+        setActiveCombat(false)
+      }
+      }
 
   return (
     <Box sx={{ display: 'flex' }}>
