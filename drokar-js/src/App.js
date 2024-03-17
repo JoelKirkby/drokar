@@ -83,9 +83,12 @@ function App() {
   let playerLevels = useMemo(() => calculateLevels(playerData), [playerData])
   const [activeTask, setActiveTask] = useState({})
   const [activeMonster, setActiveMonster] = useState({})
+  const tickRate = 40;
   const [attackProg, setAttackProg] = useState(0)
   const [enemyAttackProg, setEnemyAttackProg] = useState(0)
   const [activeCombat, setActiveCombat] = useState(false)
+  const refAttackProg = useRef('')
+  const refEnemyAttackProg = useRef('')
   useEffect(() => {
       // If attack progress is completed, and combat is active, attack the monster
       if ((refAttackProg.current > attackProg) && activeCombat) {
