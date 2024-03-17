@@ -83,6 +83,8 @@ function App() {
   let playerLevels = useMemo(() => calculateLevels(playerData), [playerData])
   const [activeTask, setActiveTask] = useState({})
   const [activeMonster, setActiveMonster] = useState({})
+  const [attackProg, setAttackProg] = useState(0)
+  const [enemyAttackProg, setEnemyAttackProg] = useState(0)
   const [activeCombat, setActiveCombat] = useState(false)
 
   const launchCombat = (activeCombat, setActiveCombat) => {
