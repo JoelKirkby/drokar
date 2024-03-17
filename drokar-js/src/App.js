@@ -60,6 +60,21 @@ const calculateLevels = ((playerData) => {
   
 })
 
+function roll(probabilities) {
+  // Roll an outcome based on input probabilities O[n]
+  const totalProbability = probabilities.reduce((sum, probability) => sum + probability, 0);
+  const randomValue = Math.random() * totalProbability;
+  let cumulativeProbability = 0;
+
+  for (let i = 0; i < probabilities.length; i++) {
+    cumulativeProbability += probabilities[i];
+    if (randomValue < cumulativeProbability) {
+      return i;
+    }
+  }
+
+  return probabilities.length - 1;
+}
 function App() {
   // Declare active states for the app
   const [activeSkill, setActiveSkill] = useState("Prospecting")
