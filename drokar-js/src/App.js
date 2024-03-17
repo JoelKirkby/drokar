@@ -86,6 +86,45 @@ function App() {
   const [attackProg, setAttackProg] = useState(0)
   const [enemyAttackProg, setEnemyAttackProg] = useState(0)
   const [activeCombat, setActiveCombat] = useState(false)
+  useEffect(() => {
+      // If attack progress is completed, and combat is active, attack the monster
+      if ((refAttackProg.current > attackProg) && activeCombat) {
+          console.log("Attacking")
+          let newPlayerData = {...playerData}
+          let newMonsterData = {...activeMonster}
+
+          newMonsterData.currentHp -= Math.max(( playerData.combatStats.damage - newMonsterData.armor ), 0)
+          newPlayerData.combatStats.currentFury += 1
+          // Proof of concept - kickback. Will implement this for magic attacks to delay casting.
+          // setEnemyAttackProg(prev => Math.max(prev-35, 0))
+          if (newMonsterData.currentHp <= 0) {
+            console.log("Monster Dead")
+            setActiveMonster({})
+            clearInterval(activeCombat)
+            setActiveCombat(false)
+          } 
+          setPlayerData(newPlayerData)
+          setActiveMonster(newMonsterData)
+          
+      }
+
+      // If enemy attack progress is completed, and combat is active, attack the player
+      if ((refEnemyAttackProg.current > enemyAttackProg) && activeCombat) {
+          console.log("Enemy Attacking")
+          let newPlayerData = {...playerData}
+          let newMonsterData = {...activeMonster}
+          newPlayerData.combatStats.currentHp -= Math.max((activeMonster.damage - newPlayerData.combatStats.armor), 0)
+          newMonsterData.currentFury +=3
+          console.log(Date.now())
+          setActiveMonster(newMonsterData)
+          setPlayerData(newPlayerData)
+      }
+      
+      // Cache previous attack progress values, if the new value is lower then the attack charge has been completed
+      refAttackProg.current = attackProg
+      refEnemyAttackProg.current = enemyAttackProg
+
+      }, [attackProg, enemyAttackProg])
 
   const launchCombat = (activeCombat, setActiveCombat) => {
     // Calculate per tick progression based on attackSpeed and tickRate
