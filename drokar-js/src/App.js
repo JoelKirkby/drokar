@@ -88,22 +88,26 @@ function App() {
   const [activeCombat, setActiveCombat] = useState(false)
 
   const launchCombat = (activeCombat, setActiveCombat) => {
-      const prog = 100 / (playerData.combatStats.attackSpeed / tickRate)
-      const enemyProg = 100 / (activeMonster.attackSpeed / tickRate)
-      if (!activeCombat) {
-        const timer = setInterval(() => {
-            setAttackProg(prev => (prev + prog)% 100)
-            setEnemyAttackProg(prev => (prev + enemyProg)% 100)
-            }, tickRate)
-        setActiveCombat(timer)
-      }
-      else {
-        clearInterval(activeCombat)
-        setAttackProg(0)
-        setEnemyAttackProg(0)
-        setActiveCombat(false)
-      }
-      }
+    // Calculate per tick progression based on attackSpeed and tickRate
+    const prog = 100 / (playerData.combatStats.attackSpeed / tickRate)
+    const enemyProg = 100 / (activeMonster.attackSpeed / tickRate)
+    
+    if (!activeCombat) {
+      const timer = setInterval(() => {
+          setAttackProg(prev => (prev + prog)% 100)
+          setEnemyAttackProg(prev => (prev + enemyProg)% 100)
+          }, tickRate)
+      setActiveCombat(timer)
+    }
+    else {
+      // Stop combat, clear the loop, revert attack progress to 0
+      clearInterval(activeCombat)
+      setAttackProg(0)
+      setEnemyAttackProg(0)
+      setActiveCombat(false)
+    }
+    }
+  console.log(`Checking activeMonster`)
 
   return (
     <Box sx={{ display: 'flex' }}>
