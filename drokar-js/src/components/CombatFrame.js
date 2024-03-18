@@ -124,18 +124,22 @@ function CombatFrame({playerData, name, setFunc}) {
                 <Cyclone color="warning"/>
                 {combatData.currentFury}/{combatData.maxFury} 
             </div>
-
-            <div className="combatBarIcon">
-                <LinearProgress 
-                    value={refAttackProg.current} 
-                    variant={"determinate"} /* Animate when full */
-                    color="error"
-                    sx={{
-                        width:"75%",
-                        margin: "0 5px",
-                        }} />
-                <ColorizeSharp color="error" sx={{transform: "scaleY(-1)"}}/>
-                {(combatData.attackSpeed/1000).toFixed(2)} /s
+            {activeAttack.length > 0  ? <p className="attackName">{activeAttack[0]} - {(activeAttack[1] / 1000).toFixed(2)}s</p> : null}
+            {activeAttack.length > 0  ?
+                <div className="combatBarIcon">
+                    <LinearProgress 
+                        value={attackProg} 
+                        variant={"determinate"} /* Animate when full */
+                        color="error"
+                        sx={{
+                            width:"75%",
+                            margin: "0 5px",
+                            "& .MuiLinearProgress-bar": {
+                                transition: "transform .1s linear"
+                            }
+                            }} />
+                    <ColorizeSharp color="error" sx={{transform: "scaleY(-1)"}}/>
+                    {(combatData.attackSpeed/1000).toFixed(2)} /s
             </div>
         </div>
         <div className="combatStats">

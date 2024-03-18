@@ -25,8 +25,29 @@ const DUMMY_COMBAT_STATS = {
     currentHp : 45,
     currentMana: 10,
     maxMana: 20,
-    damage: 1,
-    attackSpeed: 2000,
+    meleeDamage: 1,
+    rangedDamage: 0, // 0 for now, will be added later
+    magicDamage: 0, // 0 for now, will be added later
+    attackSpeed: 2600, //ms
+    attacks: [
+        {
+            name: "Attack",
+            accuracy: 0.8,
+            speed: 3500,
+            damage: 0,
+            type: "melee",
+            manacost: 0,
+        },
+        {
+            name: "Vicious Strike",
+            accuracy: 0.9,
+            speed: 1500,
+            damage: 4,
+            type: "melee",
+            manacost: 0,
+        },
+    ],
+    attackChances: [0.5, 0.5],
     currentFury: 1,
     maxFury: 100,
     armor: 1,
