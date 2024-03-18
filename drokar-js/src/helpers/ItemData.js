@@ -49,7 +49,7 @@ export const ItemData = {
             image: bronzeAxe,
             equip: 'weapon',
             combatStats: {
-                damage: 5, 
+                meleeDamage: 5, 
                 attackSpeed: 3000}
         },
     'Bronze Helmet':
@@ -61,7 +61,7 @@ export const ItemData = {
         combatStats: {
             armor: 3, 
             magicArmor: -1, 
-            maxHealth: 5 
+            maxHp: 5 
         }
     },
     'Bronze Buckler':
@@ -74,7 +74,7 @@ export const ItemData = {
             armor: 3,
             rangedArmor: 5, 
             magicArmor: -1, 
-            health: 5, 
+            maxHp: 5, 
             blockChance: 15, 
             blockAmount: 2
         }
@@ -89,7 +89,7 @@ export const ItemData = {
             armor: 5, 
             rangedArmor: 7,
             magicArmor: -1, 
-            maxHealth: 5 
+            maxHp: 5 
         }
     },
     'Bronze Platemail':
@@ -102,7 +102,7 @@ export const ItemData = {
             armor: 8, 
             rangedArmor: 12,
             magicArmor: -2, 
-            maxHealth: 10
+            maxHp: 10
         }
     },
 }
