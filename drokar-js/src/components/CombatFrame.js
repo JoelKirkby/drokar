@@ -115,7 +115,7 @@ function CombatFrame({playerData, name, setFunc}) {
             <div className="combatBarIcon">
                 <LinearProgress 
                     value={percentFury} 
-                    variant={attackProg === 100 ? "indeterminate" : "determinate"}  /* Animate when full */
+                    variant={percentFury >= 100 ? "indeterminate" : "determinate"}  /* Animate when full */
                     color="warning"
                     sx={{
                         width:"75%",
