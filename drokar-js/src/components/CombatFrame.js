@@ -145,7 +145,7 @@ function CombatFrame({playerData, name, setFunc}) {
         <div className="combatStats">
             {name} - Lv {combatData.level || 1}
             <div className= "divider"></div>
-            Damage: {combatData.damage} <br></br>
+            Damage: {combatData.meleeDamage} <br></br>
             Attack speed : {combatData.attackSpeed/1000}s<br></br>
             <div className= "divider"></div>
             Melee Defense: {combatData.armor}<br></br>
