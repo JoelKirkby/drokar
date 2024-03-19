@@ -1,4 +1,14 @@
 
+.attackName {
+    margin: 0;
+    padding: 0;
+    font-style: italic;
+}
+.combatStats h3 {
+    margin: 0;
+    padding: 0;
+    font-style: bold;
+}
 .combatContainer {
     display: flex;
     flex-direction: row;
@@ -48,7 +58,10 @@
     display: block;
     border: 1px solid black;
 }
-  
+
+.MuiLinearProgress-bar1 {
+    transition: transform .1s linear !important;
+}
 .combatPanel img {
     max-height: 100px;
     max-width: 100px;
