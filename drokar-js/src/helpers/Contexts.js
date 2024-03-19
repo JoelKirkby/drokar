@@ -49,6 +49,18 @@ const DUMMY_COMBAT_STATS = {
     ],
     attackChances: [0.5, 0.5],
     currentFury: 1,
+    furyAttacks : [
+        {
+        name: "Drokar's Might",
+        accuracy: 1,
+        speed: 2500,
+        damage: 20,
+        type: "melee",
+        damageMultiplier: 1.5,
+        manaCost: 0
+        }
+    ],
+    furyAttackChances : [1],
     maxFury: 100,
     armor: 1,
     rangedArmor: 2,
