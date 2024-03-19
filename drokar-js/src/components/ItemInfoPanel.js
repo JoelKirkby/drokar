@@ -10,7 +10,7 @@ const measureSlider = (event, setSellQuantity) => {
   setSellQuantity(event.target.value)
 }
 
-const sellItem = (itemName, sellQuantity, playerData, setPlayerData) => {
+const sellItem = (itemName, sellQuantity, playerData, setPlayerData, setActiveItem) => {
   console.log(JSON.stringify(playerData))
   let newPlayerData = {...playerData}
   let unitPrice = ItemData[itemName].sellValue
@@ -23,16 +23,23 @@ const sellItem = (itemName, sellQuantity, playerData, setPlayerData) => {
 
   // Update player data
   setPlayerData(newPlayerData)
+  if (newPlayerData.inventory[itemName].quantity == 0) {
+    setActiveItem('')
+  } 
 }
 
-const equipItem = (itemName, playerData, setPlayerData) => {
+const equipItem = (itemName, playerData, setPlayerData, setActiveItem) => {
   // TODO - Hardcode to only equip 1 of the items for now - will go back for equipping things with stack size eg. arrows
   let quantity = 1;
   let newPlayerData = {...playerData}
   let itemData = ItemData[itemName]
   let itemSlot = itemData.equip
   // Reduce inventory quantity
-    newPlayerData.inventory[itemName].quantity -= quantity
+    
+  newPlayerData.inventory[itemName].quantity -= quantity
+  if (newPlayerData.inventory[itemName].quantity == 0) {
+    setActiveItem('')
+  }
 
   // Place in equipped items
   var equippedItem = newPlayerData.equipped[itemSlot]
@@ -44,7 +51,7 @@ const equipItem = (itemName, playerData, setPlayerData) => {
   if ("combatStats" in itemData) {
     for (const [stat, value] of Object.entries(itemData.combatStats)) {
       if (stat == "attackSpeed") {
-        newPlayerData.combatStats[stat] = value
+        newPlayerData.combatStats.attacks[0].speed = value
       } else {
         newPlayerData.combatStats[stat] += value
     }
@@ -58,8 +65,8 @@ const equipItem = (itemName, playerData, setPlayerData) => {
 
 // Item information panel which shows the item, description, sell value, and slider to sell
 // TODO = Acquired and used by section, it's own tab?
-function ItemInfoPanel({itemName, quantity, playerData, setPlayerData}) {
-    const [sellQuantity, setSellQuantity] = useState(0)
+function ItemInfoPanel({itemName, quantity, playerData, setPlayerData, setActiveItem}) {
+    const [sellQuantity, setSellQuantity] = useState(1)
     return (
       <div className="itemInfoPanel">
         <div className="imageDescription">
@@ -75,19 +82,19 @@ function ItemInfoPanel({itemName, quantity, playerData, setPlayerData}) {
           <Slider
             sx = {{width:'80%',}}
             size="small"
-            defaultValue={0}
+            defaultValue={1}
             aria-label="Small"
-            min = {0}
+            min = {1}
             max = {quantity}
             valueLabelDisplay="auto"
             onChange={(e) => measureSlider(e, setSellQuantity)} 
             />
           <div style={{"display":"flex"}}>
-          <Button variant="contained" endIcon={<TollIcon/>} onClick={()=> sellItem(itemName, sellQuantity, playerData, setPlayerData)}>
+          <Button variant="contained" endIcon={<TollIcon/>} onClick={()=> sellItem(itemName, sellQuantity, playerData, setPlayerData, setActiveItem)}>
           Sell
           </Button>
           {"equip" in ItemData[itemName] ?
-          <Button variant="contained" endIcon={<TollIcon/>} sx={{backgroundColor:'orange'}} onClick={()=> equipItem(itemName, playerData, setPlayerData)}> Equip </Button>
+          <Button variant="contained" endIcon={<TollIcon/>} sx={{backgroundColor:'orange'}} onClick={()=> equipItem(itemName, playerData, setPlayerData, setActiveItem)}> Equip </Button>
           : null
           }
           </div>
