@@ -1,7 +1,6 @@
 import { LinearProgress, createTheme } from "@mui/material";
 import { Gavel, Favorite, AutoAwesome, Cyclone, ColorizeSharp } from "@mui/icons-material";
 import { ThemeProvider } from "@mui/material/styles";
-import { useEffect, useState, useRef } from "react";
 import "./Combat.css";
 
 const calculateColor = (percent) => {
@@ -26,49 +25,12 @@ const theme = createTheme({
     },
   });
 
-
-
-function CombatFrame({playerData, name, setFunc}) {
-    console.log("ding")
-    var combatData = playerData.combatStats
+function CombatFrame({combatData, name, attackProg, activeAttack}) {
     var percentHp = combatData.currentHp / combatData.maxHp * 100
     var percentMana = combatData.currentMana / combatData.maxMana * 100
     var percentFury = combatData.currentFury / combatData.maxFury * 100
     var attackSpeed = combatData.attackSpeed
     var healthColor = calculateColor(percentHp)
-
-    const [attackProg, setAttackProg] = useState(0)
-    //console.log(attackProg)
-    const refAttackProg = useRef('')
-    useEffect(() => {
-        // console.log(`old=${refAttackProg.current} new = ${attackProg}`)
-        if (refAttackProg.current > attackProg) {
-            console.log("Attacking")
-            let newComData = {...playerData}
-            playerData.combatStats.currentHp -= 5
-            console.log(Date.now())
-            setFunc(newComData)
-        }
-        refAttackProg.current = attackProg
-        }, [attackProg])
-    // useEffect(() => {
-    //     var tickRate = 200;
-    //     const prog =  (tickRate / attackSpeed) * 100
-    //     const timer = setInterval(() => {
-    //         setAttackProg(prev => (prev + prog)% 100)
-    //         }, tickRate)
-    //     return () => clearInterval(timer)
-    //     }
-    // , [])
-    // const DUMMYCOMBAT_DATA = {
-    //     currentHp: 35,
-    //     maxHp: 50,
-    //     currentMana: 10,
-    //     maxMana: 20,
-    //     currentFury: 100,
-    //     maxFury: 100
-    // }
-    
 
     return (
     <div className="combatFrame">
@@ -141,6 +103,7 @@ function CombatFrame({playerData, name, setFunc}) {
                     <ColorizeSharp color="error" sx={{transform: "scaleY(-1)"}}/>
                     {(combatData.attackSpeed/1000).toFixed(2)} /s
             </div>
+            : null}
         </div>
         <div className="combatStats">
             {name} - Lv {combatData.level || 1}
