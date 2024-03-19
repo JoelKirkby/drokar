@@ -74,7 +74,7 @@ function CombatFrame({playerData, name, setFunc}) {
     <div className="combatFrame">
         <div className="combatPanel">
             <div className="flexContainer">
-                {playerData.combatStats.currentHp <= 0 
+                {combatData.currentHp <= 0 
                 ? <p>You R ded lmoa</p>
                 : <img src={combatData.img} alt="fighter"/>
                 }
