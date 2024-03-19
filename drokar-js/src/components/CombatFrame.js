@@ -152,7 +152,15 @@ function CombatFrame({playerData, name, setFunc}) {
             Ranged Defense: {combatData.rangedArmor}<br></br>
             Magic Defense: {combatData.magicArmor}<br></br>
             <div className= "divider"></div>
-            {/* Attacks: {TODO - show attacks list.} */}
+            <h3>Attacks</h3>
+            {combatData.attacks.map((attack, i) => {
+                return <div key={i}>
+                    {attack.name} - {(combatData.attackChances[i]*100).toFixed(1)} %
+                </div>
+            }
+            
+            )}
+               
         </div>
     </div>
     );
