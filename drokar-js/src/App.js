@@ -95,27 +95,59 @@ function App() {
   const refAttackProg = useRef('')
   const refEnemyAttackProg = useRef('')
   useEffect(() => {
-      // If attack progress is completed, and combat is active, attack the monster
-      if ((refAttackProg.current > attackProg) && activeCombat) {
-          console.log("Attacking")
-          let newPlayerData = {...playerData}
-          let newMonsterData = {...activeMonster}
+    let newPlayerData = {...playerData}
+    let newMonsterData = {...activeMonster}
+    // If attack progress is completed, and combat is active, attack the monster
+    if ((refAttackProg.current > attackProg) && activeCombat) {
+        console.log("Attacking")
+        // console.log(`newPlayerData = ${JSON.stringify(newPlayerData)}`)
+        
+        // Get attack data whether it's a fury attack or not
+        let attackData, attackType
+        if (newPlayerData.combatStats.currentFury == newPlayerData.combatStats.maxFury) {
+          console.log(`Tick`)
+          attackData = newPlayerData.combatStats.furyAttacks.find((obj) => obj.name == newPlayerData.combatStats.selectedAttack)
+          console.log('Tack')
+          newPlayerData.combatStats.currentFury = 0
+        }
+        else {
+          attackData = newPlayerData.combatStats.attacks.find((obj) => obj.name == newPlayerData.combatStats.selectedAttack)
+          newPlayerData.combatStats.currentFury = Math.min(100, newPlayerData.combatStats.currentFury + newPlayerData.combatStats.furyRate)
+        }
+        attackType = attackData.type
+        let damageCalculation = newPlayerData.combatStats[`${attackType}Damage`] + attackData.damage - newMonsterData.combatStats[`${attackType}Armor`] 
+        let calculatedDamage = Math.max(damageCalculation, 0)
+        newMonsterData.combatStats.currentHp -= calculatedDamage
+        
+        
+        newPlayerData = rollAttackType(newPlayerData)
+        // let newAttackData = newPlayerData.combatStats.attacks.find((obj) => obj.name == newPlayerData.combatStats.selectedAttack)
 
-          newMonsterData.currentHp -= Math.max(( playerData.combatStats.damage - newMonsterData.armor ), 0)
-          newPlayerData.combatStats.currentFury += 1
-          // Proof of concept - kickback. Will implement this for magic attacks to delay casting.
-          // setEnemyAttackProg(prev => Math.max(prev-35, 0))
-          if (newMonsterData.currentHp <= 0) {
-            console.log("Monster Dead")
-            setActiveMonster({})
-            clearInterval(activeCombat)
-            setActiveCombat(false)
-          } 
-          setPlayerData(newPlayerData)
-          setActiveMonster(newMonsterData)
-          
-      }
-
+        // TODO - Kickback from attack, heavy weaponry can kick back attack charges
+        // console.log(`newPlayerData = ${JSON.stringify(newPlayerData)}`)
+        // setActiveAttack(newPlayerData.combatStats.selectedAttack)
+        // setEnemyAttackProg(prev => Math.max(prev-35, 0))
+        let death = false
+        if (newMonsterData.combatStats.currentHp <= 0) {
+          console.log("Monster Dead")
+          death = true
+          const [drop, quantity] = rollLootTable(activeMonster.dropRates, activeMonster.drops)
+          if (drop) {
+            console.log(`Loot found! ${drop}`)
+            drop in newPlayerData.inventory 
+            ? newPlayerData.inventory[drop].quantity += 1
+            : newPlayerData.inventory[drop] = {"quantity": 1}
+          }
+          setActiveMonster({})
+          clearInterval(activeCombat)
+          setActiveCombat(false)
+        } 
+        setActiveAttack([newPlayerData.combatStats.selectedAttack, newPlayerData.combatStats.attackSpeed])
+        setPlayerData(newPlayerData)
+        setActiveMonster(newMonsterData)
+        }
+        
+    
       // If enemy attack progress is completed, and combat is active, attack the player
     if ((refEnemyAttackProg.current > enemyAttackProg) && activeCombat) {
         console.log("Enemy Attacking")
