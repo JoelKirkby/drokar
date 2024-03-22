@@ -75,6 +75,19 @@ function roll(probabilities) {
 
   return probabilities.length - 1;
 }
+const rollLootTable = (rates, drops) => {
+  let dropRates = [...rates]
+  let noLootProb = 1 - dropRates.reduce((a, b) => a + b, 0)
+  dropRates.push(noLootProb)
+  let lootRoll = roll(dropRates)
+
+  if (lootRoll === (dropRates.length -1)) {
+    return ['', 0]
+  }
+  else {
+    return [drops[lootRoll], 1]
+  }
+}
   const rollAttackType = (entityData) => {
     let attackProbs = entityData.combatStats.attackChances
     let rolledAttack
