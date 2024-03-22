@@ -191,8 +191,14 @@ function App() {
           <Box className="row2">
             <Events skill={activeSkill}/>
             <div className="combatContainer">
-            <CombatFrame playerData={playerData} setFunc={setPlayerData} name="You"/>
-            {JSON.stringify(activeMonster) !== "{}" && <CombatFrame combatData={activeMonster} name={activeMonster.name}/>}
+            <CombatFrame combatData={playerData.combatStats} name="You" attackProg={attackProg} activeAttack={activeAttack} />
+            {(JSON.stringify(activeMonster) !== "{}" && activeMonster.combatStats.currentHp >= 0) 
+              && <CombatFrame 
+                combatData={activeMonster.combatStats} 
+                name={activeMonster.name} 
+                attackProg={enemyAttackProg}
+                activeAttack={activeEnemyAttack}/>
+            }
             </div>
           </Box>
         </Box>
