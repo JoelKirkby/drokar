@@ -134,16 +134,25 @@ function App() {
 
       }, [attackProg, enemyAttackProg])
 
-  const launchCombat = (activeCombat, setActiveCombat) => {
+  const launchCombat = (activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg) => {
     // Calculate per tick progression based on attackSpeed and tickRate
-    const prog = 100 / (playerData.combatStats.attackSpeed / tickRate)
-    const enemyProg = 100 / (activeMonster.attackSpeed / tickRate)
+    console.log('entering launchCombat function')
+    playerData = rollAttackType(playerData)
+    activeMonster = rollAttackType(activeMonster)
+    let prog = 100 / (playerData.combatStats.attackSpeed / tickRate)
+    let enemyProg = 100 / (activeMonster.combatStats.attackSpeed / tickRate)
     
     if (!activeCombat) {
       const timer = setInterval(() => {
+          prog = 100 / (playerData.combatStats.attackSpeed / tickRate)
+          enemyProg = 100 / (activeMonster.combatStats.attackSpeed / tickRate) 
           setAttackProg(prev => (prev + prog)% 100)
           setEnemyAttackProg(prev => (prev + enemyProg)% 100)
           }, tickRate)
+      setActiveAttack([playerData.combatStats.selectedAttack, playerData.combatStats.attackSpeed])
+      setActiveEnemyAttack([activeMonster.combatStats.selectedAttack, activeMonster.combatStats.attackSpeed])
+      setPlayerData(playerData)
+      setActiveMonster(activeMonster)
       setActiveCombat(timer)
     }
     else {
