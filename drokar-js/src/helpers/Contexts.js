@@ -6,6 +6,10 @@ const DUMMY_INVENTORY = {
         quantity: 69,
         index: 0,
     },
+    "Bronze Axe": {
+        quantity: 1,
+        index: 1,
+    }
 }
 
 const DUMMY_EQUIPMENT = {
@@ -26,6 +30,7 @@ const DUMMY_COMBAT_STATS = {
     currentMana: 10,
     maxMana: 20,
     meleeDamage: 1,
+    furyRate: 1,
     rangedDamage: 0, // 0 for now, will be added later
     magicDamage: 0, // 0 for now, will be added later
     attackSpeed: 2600, //ms
@@ -47,7 +52,7 @@ const DUMMY_COMBAT_STATS = {
             manacost: 0,
         },
     ],
-    attackChances: [0.5, 0.5],
+    attackChances: [0.7, 0.3],
     currentFury: 1,
     furyAttacks : [
         {
@@ -62,7 +67,7 @@ const DUMMY_COMBAT_STATS = {
     ],
     furyAttackChances : [1],
     maxFury: 100,
-    armor: 1,
+    meleeArmor: 1,
     rangedArmor: 2,
     magicArmor: 3,
 }
