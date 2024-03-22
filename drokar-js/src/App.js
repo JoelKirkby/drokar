@@ -201,6 +201,7 @@ function App() {
             }
             </div>
           </Box>
+          <Button onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg)}}>Launch Combat</Button>
         </Box>
     </PlayerDataContext.Provider>
     </Box>
