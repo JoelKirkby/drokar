@@ -20,34 +20,6 @@ import { xpToLevel } from './helpers/gameData';
 import { PlayerDataContext } from './helpers/Contexts';
 
 
-const drawerWidth = 240;
-
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    '& .MuiDrawer-paper': {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      boxSizing: 'border-box',
-      ...(!open && {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
-  }),
-);
-
 const calculateLevels = ((playerData) => {
   var levels = {}
   for (const [skill, xp] of Object.entries(playerData.skills)) {
@@ -55,7 +27,6 @@ const calculateLevels = ((playerData) => {
     let progressToNextLvl = 100 * ((xp - xpToLevel[lvl-1]) / (xpToLevel[lvl] - xpToLevel[lvl-1]))
     levels[skill] = [lvl, progressToNextLvl]
   }
-  console.log(`levels = ${JSON.stringify(levels)}`)
   return levels
   
 })
