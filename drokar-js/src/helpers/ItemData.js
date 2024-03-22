@@ -59,7 +59,7 @@ export const ItemData = {
         image: platehelm,
         equip: 'helmet',
         combatStats: {
-            armor: 3, 
+            meleeArmor: 3, 
             magicArmor: -1, 
             maxHp: 5 
         }
@@ -71,7 +71,7 @@ export const ItemData = {
         image: shield,
         equip: 'offHand',
         combatStats: {
-            armor: 3,
+            meleeArmor: 3,
             rangedArmor: 5, 
             magicArmor: -1, 
             maxHp: 5, 
@@ -86,7 +86,7 @@ export const ItemData = {
         image: plateleg,
         equip: 'leg',
         combatStats: {
-            armor: 5, 
+            meleeArmor: 5, 
             rangedArmor: 7,
             magicArmor: -1, 
             maxHp: 5 
@@ -99,7 +99,7 @@ export const ItemData = {
         image: platemail,
         equip: 'body',
         combatStats: {
-            armor: 8, 
+            meleeArmor: 8, 
             rangedArmor: 12,
             magicArmor: -2, 
             maxHp: 10
