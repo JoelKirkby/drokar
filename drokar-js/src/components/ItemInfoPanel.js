@@ -28,39 +28,46 @@ const sellItem = (itemName, sellQuantity, playerData, setPlayerData, setActiveIt
   } 
 }
 
+const modifyStats = (itemData, newPlayerData, add) => {
+  for (const [stat, value] of Object.entries(itemData.combatStats)) {
+    if (stat == "attackSpeed") {
+      newPlayerData.combatStats.attacks[0].speed = value
+    } else {
+      newPlayerData.combatStats[stat] += value * add
+  }
+  }
+  return newPlayerData
+}
+
 const equipItem = (itemName, playerData, setPlayerData, setActiveItem) => {
   // TODO - Hardcode to only equip 1 of the items for now - will go back for equipping things with stack size eg. arrows
   let quantity = 1;
   let newPlayerData = {...playerData}
   let itemData = ItemData[itemName]
   let itemSlot = itemData.equip
-  // Reduce inventory quantity
-    
+
+  // Reduce inventory quantity, if zero then disable the item info panel
   newPlayerData.inventory[itemName].quantity -= quantity
   if (newPlayerData.inventory[itemName].quantity == 0) {
     setActiveItem('')
   }
 
-  // Place in equipped items
+  // Put equipped item back in inventory, subtract its stats
   var equippedItem = newPlayerData.equipped[itemSlot]
   if (newPlayerData.equipped[itemSlot]) {
-    equippedItem in newPlayerData.inventory ? newPlayerData.inventory[equippedItem] += 1
+    equippedItem in newPlayerData.inventory ? newPlayerData.inventory[equippedItem].quantity += 1
       : newPlayerData.inventory[equippedItem] = {"quantity": 1}
+    // -1 argument to subtract
+    newPlayerData = modifyStats(ItemData[equippedItem], newPlayerData, -1)
   } 
-  console.log(`Before combat update ${JSON.stringify(newPlayerData)}`)
+
+  // Add combat stats from equipped item
   if ("combatStats" in itemData) {
-    for (const [stat, value] of Object.entries(itemData.combatStats)) {
-      if (stat == "attackSpeed") {
-        newPlayerData.combatStats.attacks[0].speed = value
-      } else {
-        newPlayerData.combatStats[stat] += value
-    }
-    }
+    newPlayerData = modifyStats(itemData, newPlayerData, 1)
   }
     newPlayerData.equipped[itemSlot] = itemName
-    console.log(`After combat update ${JSON.stringify(newPlayerData)}`)
+
     setPlayerData(newPlayerData)
-  // Replenish equipped item if something else was equipped
 }
 
 // Item information panel which shows the item, description, sell value, and slider to sell
