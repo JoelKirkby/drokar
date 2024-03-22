@@ -4,17 +4,17 @@ import { useState, useContext } from "react";
 import { PlayerDataContext } from "../helpers/Contexts";
 import "./Combat.css";
 
-const setMonsterData = (selectedMonster, setActiveMonster) => {
+const setMonsterData = (monsterName, setActiveMonster) => {
     // Set current health values to max health
-    let combatStats = {...MonsterData[selectedMonster].combatStats,
-                    name: selectedMonster,
-                    currentHp: MonsterData[selectedMonster].combatStats.maxHp,
-                    currentMana: MonsterData[selectedMonster].combatStats.maxMana,
+    let combatStats = {...MonsterData[monsterName].combatStats,
+                    name: monsterName,
+                    currentHp: MonsterData[monsterName].combatStats.maxHp,
+                    currentMana: MonsterData[monsterName].combatStats.maxMana,
                     currentFury: 0,
                     maxFury: 100,
                     }
 
-    let activeMonster = {...MonsterData[selectedMonster], combatStats: combatStats}
+    let activeMonster = {...MonsterData[monsterName], combatStats: combatStats}
     setActiveMonster(activeMonster)
 }
 
@@ -24,14 +24,14 @@ function CombatTasks() {
     return (
         <div className="combatTasks">
             {Object.keys(MonsterData).map(function(monsterName, i) {
-                return <div className="monsterTask" onClick={(e) => setSelectedMonster(monsterName)}>
+                return <div className="monsterTask" onClick={(e) => setMonsterData(monsterName, setActiveMonster)}>
                     <img src={MonsterData[monsterName].combatStats.img} alt="monster"/>
                     {monsterName} - Level {MonsterData[monsterName].combatStats.level}
                     </div>
             }         
             )}
             {selectedMonster ? <div>Selected Monster: {selectedMonster}</div> : null}
-            <Button variant="contained" color="error" onClick={() => setMonsterData(selectedMonster, setActiveMonster)}> Fight! </Button>
+            {/* <Button variant="contained" color="error" onClick={() => setMonsterData(selectedMonster, setActiveMonster)}> Fight! </Button> */}
         </div>
     )
     }
