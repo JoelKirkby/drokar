@@ -92,6 +92,9 @@ function App() {
   const [attackProg, setAttackProg] = useState(0)
   const [enemyAttackProg, setEnemyAttackProg] = useState(0)
   const [activeCombat, setActiveCombat] = useState(false)
+
+  const [activeAttack, setActiveAttack] = useState([])
+  const [activeEnemyAttack, setActiveEnemyAttack] = useState([])
   const refAttackProg = useRef('')
   const refEnemyAttackProg = useRef('')
   useEffect(() => {
