@@ -75,6 +75,27 @@ function roll(probabilities) {
 
   return probabilities.length - 1;
 }
+  const rollAttackType = (entityData) => {
+    let attackProbs = entityData.combatStats.attackChances
+    let rolledAttack
+    // Roll for fury attack if fury is full
+    if (entityData.combatStats.currentFury >= entityData.combatStats.maxFury) {
+      
+      attackProbs = entityData.combatStats.furyAttackChances
+      rolledAttack = entityData.combatStats.furyAttacks[roll(attackProbs)]
+      console.log("FURY ATTACK")
+      console.log('rolledAttack.name = ' + rolledAttack.name)
+    }
+    else {rolledAttack = entityData.combatStats.attacks[roll(attackProbs)]
+    }
+    entityData.combatStats.selectedAttack = rolledAttack.name
+    entityData.combatStats.attackSpeed = rolledAttack.speed
+    
+    return entityData
+  }
+
+
+
 function App() {
   // Declare active states for the app
   const [activeSkill, setActiveSkill] = useState("Prospecting")
