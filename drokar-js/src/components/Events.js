@@ -8,8 +8,7 @@ function Events(props) {
     let skill = activeTask.skill
     return (
       <div className="Events">
-        Events
-        <div>{activeTask.name}</div>
+        <div>{activeTask.name} - {(activeTask.duration/1000).toFixed(2)}s</div>
 
         {JSON.stringify(activeTask) === "{}"
           ? null
