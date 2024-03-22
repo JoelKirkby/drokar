@@ -48,7 +48,9 @@ export const ItemData = {
             description: "A crude axe fashioned from Bronze that can be used to fight.",
             image: bronzeAxe,
             equip: 'weapon',
-            combatStats: {damage: 5, attackSpeed: 3}
+            combatStats: {
+                meleeDamage: 5, 
+                attackSpeed: 3000}
         },
     'Bronze Helmet':
     {
@@ -56,7 +58,11 @@ export const ItemData = {
         description: "A crude helmet fashioned from Bronze that can be used to fight.",
         image: platehelm,
         equip: 'helmet',
-        combatStats: {armor: 3, magicArmor: -1, maxHealth: 5 }
+        combatStats: {
+            armor: 3, 
+            magicArmor: -1, 
+            maxHp: 5 
+        }
     },
     'Bronze Buckler':
     {
@@ -64,7 +70,14 @@ export const ItemData = {
         description: "A crude shield from Bronze that can be used for protection.",
         image: shield,
         equip: 'offHand',
-        combatStats: {armor: 3, magicArmor: -1, health: 5, blockChance: 15, blockAmount: 2}
+        combatStats: {
+            armor: 3,
+            rangedArmor: 5, 
+            magicArmor: -1, 
+            maxHp: 5, 
+            blockChance: 15, 
+            blockAmount: 2
+        }
     },
     'Bronze Leggings':
     {
@@ -72,7 +85,12 @@ export const ItemData = {
         description: "Crude plate skirt fashioned from Bronze that can be used to fight.",
         image: plateleg,
         equip: 'leg',
-        combatStats: {armor: 5, magicArmor: -1, maxHealth: 5 }
+        combatStats: {
+            armor: 5, 
+            rangedArmor: 7,
+            magicArmor: -1, 
+            maxHp: 5 
+        }
     },
     'Bronze Platemail':
     {
@@ -80,6 +98,11 @@ export const ItemData = {
         description: "Crude platemail fashioned from Bronze that can be used to fight.",
         image: platemail,
         equip: 'body',
-        combatStats: {armor: 8, magicArmor: -1, maxHealth: 10}
+        combatStats: {
+            armor: 8, 
+            rangedArmor: 12,
+            magicArmor: -2, 
+            maxHp: 10
+        }
     },
 }

@@ -6,6 +6,10 @@ const DUMMY_INVENTORY = {
         quantity: 69,
         index: 0,
     },
+    "Bronze Axe": {
+        quantity: 1,
+        index: 1,
+    }
 }
 
 const DUMMY_EQUIPMENT = {
@@ -22,16 +26,50 @@ const DUMMY_EQUIPMENT = {
 const DUMMY_COMBAT_STATS = {
     maxHp: 50,
     img: hero,
-    currentHp : 20,
+    currentHp : 45,
     currentMana: 10,
     maxMana: 20,
-    damage: 1,
-    attackSpeed: 2000,
+    meleeDamage: 1,
+    furyRate: 1,
+    rangedDamage: 0, // 0 for now, will be added later
+    magicDamage: 0, // 0 for now, will be added later
+    attackSpeed: 2600, //ms
+    attacks: [
+        {
+            name: "Attack",
+            accuracy: 0.8,
+            speed: 3500,
+            damage: 0,
+            type: "melee",
+            manacost: 0,
+        },
+        {
+            name: "Vicious Strike",
+            accuracy: 0.9,
+            speed: 1500,
+            damage: 4,
+            type: "melee",
+            manacost: 0,
+        },
+    ],
+    attackChances: [0.7, 0.3],
     currentFury: 1,
+    furyAttacks : [
+        {
+        name: "Drokar's Might",
+        accuracy: 1,
+        speed: 2500,
+        damage: 20,
+        type: "melee",
+        damageMultiplier: 1.5,
+        manaCost: 0
+        }
+    ],
+    furyAttackChances : [1],
     maxFury: 100,
-    defenses: {melee: 1,
-        missile: 2,
-        magic: 3},
+    meleeArmor: 1,
+    rangedArmor: 2,
+    magicArmor: 3,
 }
 
 const playerInfo = {
@@ -42,7 +80,7 @@ const playerInfo = {
     inventory: DUMMY_INVENTORY,
     gold: 0,
     equipped: DUMMY_EQUIPMENT,
-    combatStats : DUMMY_COMBAT_STATS
+    combatStats: DUMMY_COMBAT_STATS
 };
 
 export const PlayerDataContext = createContext(playerInfo)

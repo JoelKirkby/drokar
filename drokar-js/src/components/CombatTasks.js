@@ -2,32 +2,31 @@ import { Button } from "@mui/material";
 import { MonsterData } from "../helpers/MonsterData";
 import { useState, useContext } from "react";
 import { PlayerDataContext } from "../helpers/Contexts";
+import "./Combat.css";
 
 const setMonsterData = (selectedMonster, setActiveMonster) => {
     // Set current health values to max health
-    let combatObject = {...MonsterData[selectedMonster],
+    let combatStats = {...MonsterData[selectedMonster].combatStats,
                     name: selectedMonster,
-                    currentHp: MonsterData[selectedMonster].maxHp,
-                    currentMana: MonsterData[selectedMonster].maxMana,
+                    currentHp: MonsterData[selectedMonster].combatStats.maxHp,
+                    currentMana: MonsterData[selectedMonster].combatStats.maxMana,
                     currentFury: 0,
                     maxFury: 100,
                     }
-    
-    console.log(`combatObject = ${JSON.stringify(combatObject)}`)
-    setActiveMonster(combatObject)
+
+    let activeMonster = {...MonsterData[selectedMonster], combatStats: combatStats}
+    setActiveMonster(activeMonster)
 }
 
 function CombatTasks() { 
     const [selectedMonster, setSelectedMonster] = useState('')
-    console.log(`selectedMonster = ${selectedMonster}`)
     const {activeMonster, setActiveMonster} = useContext(PlayerDataContext)
-    console.log(`activeMonster = ${activeMonster}`)
     return (
         <div className="combatTasks">
             {Object.keys(MonsterData).map(function(monsterName, i) {
                 return <div className="monsterTask" onClick={(e) => setSelectedMonster(monsterName)}>
-                    <img src={MonsterData[monsterName].img} alt="monster"/>
-                    {monsterName} - Level {MonsterData[monsterName].level}
+                    <img src={MonsterData[monsterName].combatStats.img} alt="monster"/>
+                    {monsterName} - Level {MonsterData[monsterName].combatStats.level}
                     </div>
             }         
             )}

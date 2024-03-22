@@ -1,4 +1,5 @@
 import '../App.css'
+import './Inventory.css'
 import InventoryItem from './InventoryItem';
 import ItemInfoPanel from './ItemInfoPanel';
 import gold from '../helpers/images/gold.svg';
@@ -41,7 +42,8 @@ function Inventory() {
               itemName={activeItem} 
               quantity={playerData['inventory'][activeItem].quantity}
               playerData={playerData}
-              setPlayerData={setPlayerData} />
+              setPlayerData={setPlayerData}
+              setActiveItem = {setActiveItem} />
             : null
             }   
             <div className="inventoryGrid">

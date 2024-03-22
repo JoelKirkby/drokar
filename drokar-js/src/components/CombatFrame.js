@@ -1,6 +1,7 @@
 import { LinearProgress, createTheme } from "@mui/material";
 import { Gavel, Favorite, AutoAwesome, Cyclone, ColorizeSharp } from "@mui/icons-material";
 import { ThemeProvider } from "@mui/material/styles";
+import "./Combat.css";
 
 const calculateColor = (percent) => {
     //value from 0 to 100
@@ -24,29 +25,22 @@ const theme = createTheme({
     },
   });
 
-
-function CombatFrame({combatData, name}) {
-
-    // const DUMMYCOMBAT_DATA = {
-    //     currentHp: 35,
-    //     maxHp: 50,
-    //     currentMana: 10,
-    //     maxMana: 20,
-    //     currentFury: 100,
-    //     maxFury: 100
-    // }
-    console.log(`name = ${name} ${JSON.stringify(combatData)}`)
-
-    
+function CombatFrame({combatData, name, attackProg, activeAttack}) {
     var percentHp = combatData.currentHp / combatData.maxHp * 100
     var percentMana = combatData.currentMana / combatData.maxMana * 100
     var percentFury = combatData.currentFury / combatData.maxFury * 100
+    var attackSpeed = combatData.attackSpeed
     var healthColor = calculateColor(percentHp)
+
     return (
     <div className="combatFrame">
         <div className="combatPanel">
             <div className="flexContainer">
-                <img src={combatData.img} alt="fighter"/>
+                {combatData.currentHp <= 0 
+                ? <p>You R ded lmoa</p>
+                : <img src={combatData.img} alt="fighter"/>
+                }
+                
             </div>
             <div className="combatBarIcon">
             
@@ -83,7 +77,7 @@ function CombatFrame({combatData, name}) {
             <div className="combatBarIcon">
                 <LinearProgress 
                     value={percentFury} 
-                    variant={percentFury === 100 ? "indeterminate" : "determinate"} /* Animate when full */
+                    variant={percentFury >= 100 ? "indeterminate" : "determinate"}  /* Animate when full */
                     color="warning"
                     sx={{
                         width:"75%",
@@ -92,31 +86,44 @@ function CombatFrame({combatData, name}) {
                 <Cyclone color="warning"/>
                 {combatData.currentFury}/{combatData.maxFury} 
             </div>
-
-            <div className="combatBarIcon">
-                <LinearProgress 
-                    value={percentFury} 
-                    variant={percentFury === 100 ? "indeterminate" : "determinate"} /* Animate when full */
-                    color="error"
-                    sx={{
-                        width:"75%",
-                        margin: "0 5px",
-                        }} />
-                <ColorizeSharp color="error" sx={{transform: "scaleY(-1)"}}/>
-                {(combatData.attackSpeed/1000).toFixed(2)} /s
+            {activeAttack.length > 0  ? <p className="attackName">{activeAttack[0]} - {(activeAttack[1] / 1000).toFixed(2)}s</p> : null}
+            {activeAttack.length > 0  ?
+                <div className="combatBarIcon">
+                    <LinearProgress 
+                        value={attackProg} 
+                        variant={"determinate"} /* Animate when full */
+                        color="error"
+                        sx={{
+                            width:"75%",
+                            margin: "0 5px",
+                            "& .MuiLinearProgress-bar": {
+                                transition: "transform .1s linear"
+                            }
+                            }} />
+                    <ColorizeSharp color="error" sx={{transform: "scaleY(-1)"}}/>
+                    {(combatData.attackSpeed/1000).toFixed(2)} /s
             </div>
+            : null}
         </div>
         <div className="combatStats">
             {name} - Lv {combatData.level || 1}
             <div className= "divider"></div>
-            Damage: {combatData.damage} <br></br>
+            Damage: {combatData.meleeDamage} <br></br>
             Attack speed : {combatData.attackSpeed/1000}s<br></br>
             <div className= "divider"></div>
-            Melee Defense: {combatData.defenses.melee}<br></br>
-            Ranged Defense: {combatData.defenses.missile}<br></br>
-            Magic Defense: {combatData.defenses.magic}<br></br>
+            Melee Defense: {combatData.armor}<br></br>
+            Ranged Defense: {combatData.rangedArmor}<br></br>
+            Magic Defense: {combatData.magicArmor}<br></br>
             <div className= "divider"></div>
-            {/* Attacks: {TODO - show attacks list.} */}
+            <h3>Attacks</h3>
+            {combatData.attacks.map((attack, i) => {
+                return <div key={i}>
+                    {attack.name} - {(combatData.attackChances[i]*100).toFixed(1)} %
+                </div>
+            }
+            
+            )}
+               
         </div>
     </div>
     );
