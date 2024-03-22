@@ -117,16 +117,44 @@ function App() {
       }
 
       // If enemy attack progress is completed, and combat is active, attack the player
-      if ((refEnemyAttackProg.current > enemyAttackProg) && activeCombat) {
-          console.log("Enemy Attacking")
-          let newPlayerData = {...playerData}
-          let newMonsterData = {...activeMonster}
-          newPlayerData.combatStats.currentHp -= Math.max((activeMonster.damage - newPlayerData.combatStats.armor), 0)
-          newMonsterData.currentFury +=3
-          console.log(Date.now())
-          setActiveMonster(newMonsterData)
-          setPlayerData(newPlayerData)
-      }
+    if ((refEnemyAttackProg.current > enemyAttackProg) && activeCombat) {
+        console.log("Enemy Attacking")
+        let newPlayerData = {...playerData}
+        let newMonsterData = {...activeMonster}
+
+        
+        // Get attack data whether it's a fury attack or not
+        let attackData, attackType
+        if (newMonsterData.combatStats.currentFury == newMonsterData.combatStats.maxFury) {
+          attackData = newMonsterData.combatStats.furyAttacks.find((obj) => obj.name == newMonsterData.combatStats.selectedAttack)
+          newMonsterData.combatStats.currentFury = 0
+          
+        }
+        else {
+          attackData = newMonsterData.combatStats.attacks.find((obj) => obj.name == newMonsterData.combatStats.selectedAttack)
+          newMonsterData.combatStats.currentFury = Math.min(100, newMonsterData.combatStats.currentFury + newMonsterData.combatStats.furyRate)
+        }
+        attackType = attackData.type
+
+        let damageCalculation = newMonsterData.combatStats[`${attackType}Damage`] + attackData.damage - newPlayerData.combatStats[`${attackType}Armor`]
+        let calculatedDamage = Math.max(damageCalculation, 0)
+      
+        newPlayerData.combatStats.currentHp -= Math.max(calculatedDamage, 0)
+
+        newMonsterData = rollAttackType(newMonsterData)
+
+        if (newPlayerData.combatStats.currentHp <= 0) {
+          console.log("Player Dead")
+
+          setActiveMonster({})
+          clearInterval(activeCombat)
+          setActiveCombat(false)
+        } 
+
+        setActiveEnemyAttack([newMonsterData.combatStats.selectedAttack, newMonsterData.combatStats.attackSpeed])
+        setActiveMonster(newMonsterData)
+        setPlayerData(newPlayerData)
+    }
       
       // Cache previous attack progress values, if the new value is lower then the attack charge has been completed
       refAttackProg.current = attackProg
