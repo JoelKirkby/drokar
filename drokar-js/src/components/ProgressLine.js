@@ -18,7 +18,6 @@ const ProgressLine = ({
   // Starting values needed for the animation
   // Mapped by "visualParts" so it can work with multiple values dynamically
   // It's an array of percentage widths
-  console.log("ProgressLine entered")
   const [widths, setWidths] = useState(
     visualParts.map(() => {
       return thewidth;

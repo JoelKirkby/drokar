@@ -97,3 +97,4 @@ export const MetallurgyTasks = [
         skill: "Metallurgy",
     },
 ]
+

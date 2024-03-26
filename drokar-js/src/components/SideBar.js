@@ -46,4 +46,4 @@ function SideBar({playerLevels, setActiveSkill}) {
     );
   }
   
-  export default SideBar;
+export default SideBar;
