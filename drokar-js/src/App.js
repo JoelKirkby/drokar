@@ -2,22 +2,25 @@
 import './App.css';
 
 // import libraries and components
-import { styled } from '@mui/material/styles'
-import {Box } from '@mui/material';
+
+import {Box, Button} from '@mui/material';
 import { useState, useContext, useMemo } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import MuiDrawer from '@mui/material/Drawer';
+
+import {useRef, useEffect} from 'react';
 
 // My components
 import Tasks from  './components/Tasks';
 import Inventory from './components/Inventory';
 import Events from './components/Events';
 import SideBar from './components/SideBar';
+import Drawer from './components/Drawer';
 import CombatFrame from './components/CombatFrame';
 
 // My data
 import { xpToLevel } from './helpers/gameData';
 import { PlayerDataContext } from './helpers/Contexts';
+import { MonsterData } from './helpers/MonsterData';
 
 
 const calculateLevels = ((playerData) => {
@@ -43,9 +46,9 @@ function roll(probabilities) {
       return i;
     }
   }
-
   return probabilities.length - 1;
 }
+
 const rollLootTable = (rates, drops) => {
   let dropRates = [...rates]
   let noLootProb = 1 - dropRates.reduce((a, b) => a + b, 0)
@@ -59,6 +62,7 @@ const rollLootTable = (rates, drops) => {
     return [drops[lootRoll], 1]
   }
 }
+
   const rollAttackType = (entityData) => {
     let attackProbs = entityData.combatStats.attackChances
     let rolledAttack
@@ -79,7 +83,6 @@ const rollLootTable = (rates, drops) => {
   }
 
 
-
 function App() {
   // Declare active states for the app
   const [activeSkill, setActiveSkill] = useState("Prospecting")
@@ -97,6 +100,40 @@ function App() {
   const [activeEnemyAttack, setActiveEnemyAttack] = useState([])
   const refAttackProg = useRef('')
   const refEnemyAttackProg = useRef('')
+
+  const respawnMonster = (selectedMonster, setActiveMonster) => {
+    // Set current health values to max health
+    let combatStats = {...MonsterData[selectedMonster].combatStats,
+                    name: selectedMonster,
+                    currentHp: MonsterData[selectedMonster].combatStats.maxHp,
+                    currentMana: MonsterData[selectedMonster].combatStats.maxMana,
+                    currentFury: 0,
+                    maxFury: 100,
+                    }
+
+    let activeMonster = {...MonsterData[selectedMonster], combatStats: combatStats}
+    setActiveMonster(activeMonster)
+    launchCombat(false, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg)
+}
+
+  const UseInterval = (callback, tickRate) => {
+    const savedCallback = useRef();
+  
+    useEffect(() => {
+      savedCallback.current = callback;
+    });
+  
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (tickRate !== null) {
+      let id = setInterval(tick, tickRate);
+      return () => clearInterval(id);
+      }
+    }, [tickRate]);
+  }
+
   useEffect(() => {
     let newPlayerData = {...playerData}
     let newMonsterData = {...activeMonster}
@@ -142,6 +179,7 @@ function App() {
             : newPlayerData.inventory[drop] = {"quantity": 1}
           }
           setActiveMonster({})
+          setTimeout(() => {respawnMonster(newMonsterData.combatStats.name, setActiveMonster)}, 2000)
           clearInterval(activeCombat)
           setActiveCombat(false)
         } 
@@ -151,7 +189,7 @@ function App() {
         }
         
     
-      // If enemy attack progress is completed, and combat is active, attack the player
+    // If enemy attack progress is completed, and combat is active, attack the player
     if ((refEnemyAttackProg.current > enemyAttackProg) && activeCombat) {
         console.log("Enemy Attacking")
         let newPlayerData = {...playerData}
@@ -190,13 +228,13 @@ function App() {
         setActiveMonster(newMonsterData)
         setPlayerData(newPlayerData)
     }
-      
+
       // Cache previous attack progress values, if the new value is lower then the attack charge has been completed
       refAttackProg.current = attackProg
       refEnemyAttackProg.current = enemyAttackProg
 
       }, [attackProg, enemyAttackProg])
-
+    
   const launchCombat = (activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg) => {
     // Calculate per tick progression based on attackSpeed and tickRate
     console.log('entering launchCombat function')
@@ -226,12 +264,12 @@ function App() {
       setActiveCombat(false)
     }
     }
-  console.log(`Checking activeMonster`)
+
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster}}>
+      <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeCombat, setActiveCombat}}>
         <Drawer variant="permanent" open={true} sx={{ position: 'relative' }}>
           <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
         </Drawer>
@@ -264,7 +302,7 @@ function App() {
             }
             </div>
           </Box>
-          <Button onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg)}}>Launch Combat</Button>
+          <Button variant="contained" color="error" onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg)}}>Start/Stop Combat</Button>
         </Box>
     </PlayerDataContext.Provider>
     </Box>
