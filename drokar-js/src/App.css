@@ -27,9 +27,13 @@
   height:400px;
 }
 
-.Tasks, .Inventory {
-  height: 100%;
+.Inventory, .grid-container {
   width: 50%;
+}
+
+.Tasks{
+  height: 100%;
+  width: 100%;
   border: 1px solid grey;
 }
 
@@ -42,5 +46,4 @@
   display: flex;
   flex-direction: column;
 }
-
 
