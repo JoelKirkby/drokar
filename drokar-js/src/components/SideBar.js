@@ -6,8 +6,8 @@ function SideBar({playerLevels, setActiveSkill}) {
         'Prospecting': <Landscape />, 
         'Metallurgy': <Gavel />, 
         'Combat': <ColorizeSharp/>, 
-        'Bank (TBD)': <Castle />, 
-        'Job Tree (TBD)': <Hub />
+        'Arsenal': <Castle />, 
+        'Skills': <Hub />
     }
     
     return ( 
@@ -31,7 +31,7 @@ function SideBar({playerLevels, setActiveSkill}) {
               </List>
               <Divider />
               <List>
-                {['Combat', 'Bank (TBD)', 'Job Tree (TBD)'].map((text, index) => (
+                {['Combat', 'Arsenal', 'Skills'].map((text, index) => (
                   <ListItem key={text} disablePadding>
                      <ListItemButton onClick={() => setActiveSkill(text)}>
                       <ListItemIcon>
