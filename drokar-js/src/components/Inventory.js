@@ -60,7 +60,7 @@ function Inventory() {
             </div>
             
         </div>
-        {showEquipment ? <Equipment playerData={playerData} setPlayerData={setPlayerData}/> : null}
+        {/* {showEquipment ? <Equipment playerData={playerData} setPlayerData={setPlayerData}/> : null} */}
       </div>
     );
   }
