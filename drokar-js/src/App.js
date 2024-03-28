@@ -286,8 +286,8 @@ function App() {
             }}
           >
           <Box className='row1'>
+            {/* TODO - set the activeTask to bank and skill tree and link to those components . Eventually should clean up and do the routing here rather than in Tasks.js */}
             <Tasks skill={activeSkill}/>
-            <Inventory/>
           </Box>
           <Box className="row2">
             <Events skill={activeSkill}/>
