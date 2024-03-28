@@ -73,6 +73,7 @@ const DUMMY_COMBAT_STATS = {
 }
 
 const playerInfo = {
+    name: "Player",
     skills: {
         Prospecting: 0,
         Metallurgy: 0,
