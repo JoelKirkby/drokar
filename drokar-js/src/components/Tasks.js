@@ -6,12 +6,14 @@ import { PlayerDataContext } from '../helpers/Contexts';
 import { ItemData } from '../helpers/ItemData';
 import ProgressLine from './ProgressLine';
 import CombatTasks from './CombatTasks';
+import AbilityWindow from './AbilityWindow';
+import ItemWindow from './ItemWindow';
 
 const tasks = {
   Prospecting: ProspectingTasks,
   Metallurgy: MetallurgyTasks,
   }
-
+  
 
 
 const runTask = (load_task, skill, playerData, setPlayerData) => {
@@ -42,7 +44,7 @@ const runTask = (load_task, skill, playerData, setPlayerData) => {
 
 const Tasks = (props) => {
   const {playerData, setPlayerData, activeTask, setActiveTask, playerLevels} = useContext(PlayerDataContext)
-  const irregularTasks = {'Combat': <CombatTasks/>}
+  const irregularTasks = {'Combat': <CombatTasks/>, 'Arsenal': <ItemWindow/>, 'Skills':<AbilityWindow/>}
   const launchTask = (task, skill, playerData, setPlayerData) => {
     clearInterval(activeTask.taskId)
     var newTask;
@@ -65,7 +67,7 @@ const Tasks = (props) => {
   return (
     <Box className="Tasks">
       {/* If irregular task, render special window. Otherwise list tasks out in a basic fashion */}
-      {skill in irregularTasks ?  <CombatTasks/> 
+      {skill in irregularTasks ?  irregularTasks[skill]
           : tasks[skill].map((task, key) => 
           {
           return playerLevels[skill][0] >= task.levelRequirement ? 
