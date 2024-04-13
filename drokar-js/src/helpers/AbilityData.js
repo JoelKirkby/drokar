@@ -1,3 +1,8 @@
+import spell_tired from '../helpers/images/abilities/spell_tired.svg';
+import spell_green from '../helpers/images/abilities/spell_green.svg';
+
+
+
 export const ABILITIES = {
     'Acolyte':
     [
@@ -5,7 +10,7 @@ export const ABILITIES = {
             name: 'Energy Drain',
             description: 'Chance to mana leech 25% of damage dealt', //On mouseover will print description
             abilityType: 'passive', //Passive, proc, or attack
-            img: null,
+            img: spell_tired,
             chance: 0.25, //if proc or attack
             applyStatusChance: 0.25,
             applyStatus: 'manaDrain',
@@ -14,7 +19,7 @@ export const ABILITIES = {
             name: "It's greeeeeen!",
             description: 'A green spell of an origin of effect unknown to you, but it does 16 damage', //On mouseover will print description
             abilityType: 'attack', //Passive, proc, or attack
-            img: null, //image
+            img: spell_green, //image
             attackData: {
                 name: "It's greeeeeen!",
                 accuracy: 0.8,
