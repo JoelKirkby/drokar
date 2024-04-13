@@ -81,7 +81,8 @@ const playerInfo = {
     inventory: DUMMY_INVENTORY,
     gold: 0,
     equipped: DUMMY_EQUIPMENT,
-    combatStats: DUMMY_COMBAT_STATS
+    combatStats: DUMMY_COMBAT_STATS,
+    activeVocation: "Acolyte",
 };
 
 export const PlayerDataContext = createContext(playerInfo)

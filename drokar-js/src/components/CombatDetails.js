@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { PlayerDataContext } from '../helpers/Contexts';
 function CombatDetails(props) {
     const {playerData, setPlayerData} = useContext(PlayerDataContext)
     let combatData = playerData.combatStats

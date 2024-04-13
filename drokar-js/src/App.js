@@ -11,7 +11,6 @@ import {useRef, useEffect} from 'react';
 
 // My components
 import Tasks from  './components/Tasks';
-import Inventory from './components/Inventory';
 import Events from './components/Events';
 import SideBar from './components/SideBar';
 import Drawer from './components/Drawer';
@@ -95,7 +94,7 @@ function App() {
   const [attackProg, setAttackProg] = useState(0)
   const [enemyAttackProg, setEnemyAttackProg] = useState(0)
   const [activeCombat, setActiveCombat] = useState(false)
-
+  const [activeVocation, setActiveVocation] = useState('Acolyte')
   const [activeAttack, setActiveAttack] = useState([])
   const [activeEnemyAttack, setActiveEnemyAttack] = useState([])
   const refAttackProg = useRef('')
@@ -269,7 +268,7 @@ function App() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeCombat, setActiveCombat}}>
+      <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeCombat, setActiveCombat, activeVocation, setActiveVocation}}>
         <Drawer variant="permanent" open={true} sx={{ position: 'relative' }}>
           <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
         </Drawer>
