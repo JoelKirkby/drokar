@@ -1,12 +1,14 @@
-import pickaxe from  './images/pickaxe.svg'
-import tin from './images/greenstone.svg'
-import bar from './images/bar.svg'
-import copper from './images/stone.svg'
-import bronzeAxe from './images/bronzeAxe.svg'
-import platemail from './images/platemail.svg'
-import plateleg from './images/plateleg.svg'
-import platehelm from './images/helmet.svg'
-import shield from './images/shield.svg'
+import pickaxe from  './images/items/pickaxe.svg'
+import tin from './images/items/greenstone.svg'
+import copper from './images/items/stone.svg'
+
+import bar from './images/items/bar.svg'
+import bronzeAxe from './images/weapons/bronzeAxe.svg'
+
+import platemail from './images/armor/platemail.svg'
+import plateleg from './images/armor/plateleg.svg'
+import platehelm from './images/armor/helmet.svg'
+import shield from './images/armor/shield.svg'
 
 export const ItemData = {
     // Prospecting items

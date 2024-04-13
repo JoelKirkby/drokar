@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import hero from './images/hero.svg'
+import hero from './images/ui/hero.svg'
 
 const DUMMY_INVENTORY = {
     "Copper Ore": {
@@ -30,7 +30,7 @@ const DUMMY_COMBAT_STATS = {
     currentMana: 10,
     maxMana: 20,
     meleeDamage: 1,
-    furyRate: 1,
+    furyRate: 15,
     rangedDamage: 0, // 0 for now, will be added later
     magicDamage: 0, // 0 for now, will be added later
     attackSpeed: 2600, //ms

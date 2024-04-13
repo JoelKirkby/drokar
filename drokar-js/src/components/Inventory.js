@@ -2,7 +2,7 @@ import '../App.css'
 import './Inventory.css'
 import InventoryItem from './InventoryItem';
 import ItemInfoPanel from './ItemInfoPanel';
-import gold from '../helpers/images/gold.svg';
+import gold from '../helpers/images/ui/gold.svg';
 import Equipment from './Equipment';
 import { PlayerDataContext } from '../helpers/Contexts';
 import { useContext, useState} from 'react';

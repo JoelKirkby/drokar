@@ -1,5 +1,5 @@
-import goblin from './images/goblin.svg';
-import goblinWizard from './images/goblinWizard.svg';
+import goblin from './images/monsters/goblin.svg';
+import goblinWizard from './images/monsters/goblinWizard.svg';
 
 export const MonsterData = {
     'Goblin':{
@@ -39,7 +39,6 @@ export const MonsterData = {
             maxHp: 40,
             maxMana: 10,
             furyRate: 15,
-            // Keeping it simple with just damage and speed, will allow for multiple attacks and types of attacks later.
             meleeDamage: 2,
             magicDamage: 5,
             attackSpeed: 2600, //ms
