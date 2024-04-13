@@ -2,25 +2,24 @@
 import '../App.css'
 import { PlayerDataContext } from '../helpers/Contexts';
 import { useContext } from 'react';
-import Inventory from './Inventory';
-import ItemInfoPanel from './ItemInfoPanel';
+import AbilityRow from './AbilityRow';
 import { ABILITIES } from '../helpers/AbilityData';
 import { useState } from 'react';
-import AbilityRow from './AbilityRow';
 
-import './AbilityWindow.css'
+
+import './AbilityWindow.css';
 
 function AbilityWindow(props) {
-    const {activeTask, setActivetask, playerData} = useContext(PlayerDataContext)
-    const [activeVocation, setActiveVocation] = useState('')
+    const {activeTask, setActivetask, playerData, activeVocation, setActiveVocation} = useContext(PlayerDataContext)
+    console.log(`playerData.activeVocation: ${playerData.activeVocation}`)
     return (
         <div className="flexContainer">
             <div className="vocationList">
               vocationList
-              {Object.keys(ABILITIES).map(function(name, i) {
-                return <div className="vocationBox" onClick={(e) => setActiveVocation(name)}>
-                    <img src={ABILITIES.name.img} alt={`${name} icon`}/>
-                    {name} - Level {playerData.skills[name]}
+              {Object.keys(ABILITIES).map(function(ability, i) {
+                return <div className="vocationBox" onClick={(e) => setActiveVocation(ability.name)}>
+                    <img src={ability.img} alt={`${ability.name} icon`}/>
+                    {ability.name} - Level {playerData.skills[ability.name]}
                     </div>
                 })}    
             </div>
@@ -31,7 +30,7 @@ function AbilityWindow(props) {
               </div>
               <div className="availableSkills">
                 {activeVocation 
-                ? <AbilityRow data={ABILITIES[activeVocation]}/>
+                ? <AbilityRow data={activeVocation}/>
                 : null}
                 Available skills
               </div>
