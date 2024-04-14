@@ -15,8 +15,13 @@ function AbilityWindow(props) {
     return (
         <div className="flexContainer">
             <div className="vocationList">
-              vocationList
-              {Object.keys(ABILITIES).map(function(ability, i) {
+              Acolyte abilities
+              <AbilityRow vocation="Acolyte"/>
+              Ruffian abilities
+              <AbilityRow vocation="Ruffian"/>
+              Squire abilities
+              <AbilityRow vocation="Squire"/>
+            </div>
                 return <div className="vocationBox" onClick={(e) => setActiveVocation(ability.name)}>
                     <img src={ability.img} alt={`${ability.name} icon`}/>
                     {ability.name} - Level {playerData.skills[ability.name]}
