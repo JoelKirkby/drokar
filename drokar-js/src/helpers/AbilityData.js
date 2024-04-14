@@ -22,17 +22,8 @@ export const ABILITIES = {
     'Acolyte':
     [
         {
-            name: 'Energy Drain',
-            description: 'Chance to mana leech 25% of damage dealt', //On mouseover will print description
-            abilityType: 'passive', //Passive, proc, or attack
-            img: spell_tired,
-            chance: 0.25, //if proc or attack
-            applyStatusChance: 0.25,
-            applyStatus: 'manaDrain',
-        },
-        {
             name: "It's greeeeeen!",
-            description: 'A green spell of an origin of effect unknown to you, but it does 16 damage', //On mouseover will print description
+            description: 'A green spell of an unknown origin to you, but it deals 16 damage', //On mouseover will print description
             abilityType: 'spell', //Passive, proc, or attack
             img: spell_green, //image
             attackData: {
