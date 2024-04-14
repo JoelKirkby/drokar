@@ -1,3 +1,69 @@
 .vocationList, .skillSelection {
-    width: 50%, 
+    width: 50%;
+}
+
+.abilityRowContainer {
+    display:flex;
+    flex-direction: row;
+    width: 70%;
+    margin: 0 auto;
+    gap: 5px;
+
+}
+
+.classDescription {
+    padding: 0;
+    margin: 0;
+    font-style: italic;
+    font-size: 0.8em;
+}
+
+.classWindow {
+    border: 3px solid #000000;
+    background-color: #36454F;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.vocationXp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.vocationProgressBar {
+    width: 60%;
+    margin: 0 -15px 0 0px;
+}
+
+.ability {
+    height: 80px;
+    width: 80px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lvlText {
+    margin: 0 20px;
+}
+
+.active {
+    border: 4px solid ma;
+}
+
+.passive {
+    border: 3px solid rgba(219, 146, 101, 0.2);
+    border-radius: 3px;
+}
+
+.textWrapper {
+    text-align: center;
+}
+
+.abilityImg {
+    max-height: 68px ;
 }
