@@ -1,13 +1,9 @@
 
 import '../App.css'
-import { PlayerDataContext } from '../helpers/Contexts';
-import { useContext } from 'react';
-import AbilityRow from './AbilityRow';
-import { ABILITIES } from '../helpers/AbilityData';
-import { useState } from 'react';
+import './AbilityWindow.css'
+import AbilityClassWindow from './AbilityClassWindow';
+import AbilityEquippedWindow from './AbilityEquippedWindow';
 
-
-import './AbilityWindow.css';
 
 function AbilityWindow(props) {
     const {activeTask, setActivetask, playerData, activeVocation, setActiveVocation} = useContext(PlayerDataContext)
