@@ -1,6 +1,14 @@
 import spell_tired from '../helpers/images/abilities/spell_tired.svg';
 import spell_green from '../helpers/images/abilities/spell_green.svg';
+import spell_manaLeech from '../helpers/images/abilities/spell_manaLeech.svg';
 
+import emptyPockets from '../helpers/images/abilities/spell_emptyPockets.svg';
+import pilfer from '../helpers/images/abilities/spell_pilfer.svg';
+import throatJab from '../helpers/images/abilities/spell_throatJab.svg';
+
+import fortitude from '../helpers/images/abilities/spell_fortitude.svg';
+import viciousStrike from '../helpers/images/abilities/spell_v.svg';
+import armorTackle from '../helpers/images/abilities/spell_armorTackle.svg';
 
 
 export const ABILITIES = {
