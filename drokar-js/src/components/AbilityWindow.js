@@ -3,6 +3,7 @@ import '../App.css'
 import './AbilityWindow.css'
 import AbilityClassWindow from './AbilityClassWindow';
 import AbilityEquippedWindow from './AbilityEquippedWindow';
+import { ABILITIES } from "../helpers/AbilityData";
 
 
 function AbilityWindow(props) {
@@ -13,8 +14,7 @@ function AbilityWindow(props) {
                 Object.keys(ABILITIES).map((vocation) => 
                 {
                   return <AbilityClassWindow vocation={vocation}/>
-                }
-                )
+                })
               }
       
             </div>
