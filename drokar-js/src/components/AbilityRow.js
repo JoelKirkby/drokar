@@ -1,10 +1,12 @@
 
+import './AbilityWindow.css';
+import '../App.css'
 import { ABILITIES } from "../helpers/AbilityData";
 import { useContext } from "react";
 import { PlayerDataContext } from "../helpers/Contexts";
+import Tooltip from '@mui/material/Tooltip';
 
-function AbilityRow({data}) {
-    const {playerData, setPlayerData, setActiveVocation} = useContext(PlayerDataContext)
+function AbilityRow({abilityList}) {
     
     // TODO 
     // Return a div containing 2 abilities and passive effect for vocation. Grey out the ones that aren't available.
@@ -42,6 +44,7 @@ function AbilityRow({data}) {
         </div>
     </div>
     )
+
 }
 
 export default AbilityRow
