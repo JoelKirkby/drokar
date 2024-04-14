@@ -77,6 +77,9 @@ const playerInfo = {
     skills: {
         Prospecting: 0,
         Metallurgy: 0,
+        Acolyte: 50,
+        Ruffian: 650, 
+        Warden: 3,
     },
     inventory: DUMMY_INVENTORY,
     gold: 0,
