@@ -4,9 +4,12 @@ import './AbilityWindow.css'
 import AbilityClassWindow from './AbilityClassWindow';
 import AbilityEquippedWindow from './AbilityEquippedWindow';
 import { ABILITIES } from "../helpers/AbilityData";
+import { PlayerDataContext } from '../helpers/Contexts';
+import { useContext } from 'react';
 
 
 function AbilityWindow(props) {
+    const {playerData, setPlayerData, activeVocation, setActiveVocation} = useContext(PlayerDataContext)
     return (
         <div className="flexContainer">
             <div className="vocationList">
@@ -19,7 +22,7 @@ function AbilityWindow(props) {
       
             </div>
 
-            <AbilityEquippedWindow/>
+            <AbilityEquippedWindow playerData={playerData}/>
 
 
          </div>
