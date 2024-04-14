@@ -10,6 +10,13 @@ import fortitude from '../helpers/images/abilities/spell_fortitude.svg';
 import viciousStrike from '../helpers/images/abilities/spell_v.svg';
 import armorTackle from '../helpers/images/abilities/spell_armorTackle.svg';
 
+// ABILITIES
+// abilityTypes = passive, spell, or attack
+// spell = costs mana, will always cast when sufficient mana
+// passive = always active
+// proc = chance to proc on hit
+// TBD - attack. Replaces default attack
+
 
 export const ABILITIES = {
     'Acolyte':
@@ -26,7 +33,7 @@ export const ABILITIES = {
         {
             name: "It's greeeeeen!",
             description: 'A green spell of an origin of effect unknown to you, but it does 16 damage', //On mouseover will print description
-            abilityType: 'attack', //Passive, proc, or attack
+            abilityType: 'spell', //Passive, proc, or attack
             img: spell_green, //image
             attackData: {
                 name: "It's greeeeeen!",
@@ -41,12 +48,43 @@ export const ABILITIES = {
             attackType: 'magic',
             applyStatusChance: 0.1,
             applyStatus: 'confuse',
-        }
+        },
+        {
+            name: 'Mana Leech',
+            description: 'Chance to mana leech 25% of damage dealt', //On mouseover will print description
+            abilityType: 'passive', //Passive, proc, or attack
+            img: spell_manaLeech,
+            chance: 0.25, //if proc or attack
+            applyStatusChance: 0.25,
+            applyStatus: 'manaDrain',
+        },
+        {
+            name: 'Energy Drain',
+            description: 'Enemies are slowed on hit for 2 seconds', //On mouseover will print description
+            abilityType: 'passive', //Passive, proc, or attack
+            img: spell_tired,
+            chance: 0.25, //if proc or attack
+            applyStatusChance: 1,
+            applyStatus: 'slow',
+        },
     ],
     'Ruffian':
     [
         {
+            name: "Throat Jab",
+            img: throatJab,
+            description: "Attacks kickback your enemy's attack progress by 0.3 seconds", //On mouseover will print description
+            abilityType: 'proc', //Passive, proc, or attack
+            // chance: //if proc or attack
+            damage: 0,
+            healing: 0, 
+            applyStatusChance: 0.15,
+            applyStatus: 'kickAttack',
+            applyStatusAmount: 5, 
+        },
+        {
             name: "Pilfer",
+            img: pilfer,
             description: "Chance to loot gold on hit", //On mouseover will print description
             abilityType: 'passive', //Passive, proc, or attack
             // chance: //if proc or attack
@@ -58,9 +96,9 @@ export const ABILITIES = {
         },
         {
             name: 'Empty Pockets',
+            img: emptyPockets,
             description: 'Reduces enemy ranged and melee defenses based on gold stolen', //On mouseover will print description
             abilityType: 'passive',
-            img: null, //Passive, proc, or attack
             // chance: //if proc or attack
             damage: 0,
             healing: 0,
@@ -69,26 +107,35 @@ export const ABILITIES = {
             applyStatusAmount: 'goldDrain'
         },
     ],
-    'Squire':
+    'Warden':
     [
         {
             name: "Vicious Strike",
-            description: "Chance to attack for 40% more damage",
-            img: null,  //On mouseover will print description
+            img: viciousStrike, 
+            description: "Chance to attack for 40% more damage", //On mouseover will print description
             abilityType: 'proc', //Passive, proc, or attack
+            procChance: 0.25,
             // chance: //if proc or attack
-            damage: 0,
+            addedDamage: 0,
             damageMultiplier: 1.4,
             healing: 0, 
         },
         {
-            name: 'Empty Pockets',
-            description: 'Reduces enemy ranged and melee defenses based on gold stolen',
-            img: null,  //On mouseover will print description
+            name: 'Armor Tackle',
+            description: 'Add 40% of your melee Armor to your attack damage',
+            img: armorTackle,  //On mouseover will print description
             abilityType: 'passive', //Passive, proc, or attack
-            // chance: //if proc or attack
+            damageMultiplier: 0.4,
+            mulitplierValue: ['self', 'meleeArmor'],
+        },
+        {
+            name: 'Fortitude',
+            description: '25% damage reduction from all sources',
+            img: fortitude,  //On mouseover will print description
+            abilityType: 'passive', //Passive, proc, or attack
             damage: 0,
             healing: 0,
+            damageReduction: 0.25,
             applyStatusChance: 1,
             applyStatus: 'armorShred', 
             applyStatusAmount: 'goldDrain'
