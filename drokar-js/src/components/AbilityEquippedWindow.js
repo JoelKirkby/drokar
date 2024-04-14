@@ -2,7 +2,7 @@
 import '../App.css'
 import './AbilityWindow.css';
 
-function AbilityEquippedWindow() {
+function AbilityEquippedWindow({playerData}) {
     return (
         <div className="skillSelection">
           skillSelection
