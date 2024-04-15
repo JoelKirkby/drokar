@@ -6,6 +6,9 @@ import './App.css';
 import {Box, Button} from '@mui/material';
 import { useState, useContext, useMemo } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
+import { useLayoutEffect } from 'react'
+
+
 
 import {useRef, useEffect} from 'react';
 
@@ -20,6 +23,7 @@ import CombatFrame from './components/CombatFrame';
 import { xpToLevel } from './helpers/gameData';
 import { PlayerDataContext } from './helpers/Contexts';
 import { MonsterData } from './helpers/MonsterData';
+
 
 
 const calculateLevels = ((playerData) => {
@@ -83,6 +87,9 @@ const rollLootTable = (rates, drops) => {
 
 
 function App() {
+  useLayoutEffect(() => {
+    document.body.style.backgroundColor = "#14232D"
+  });
   // Declare active states for the app
   const [activeSkill, setActiveSkill] = useState("Prospecting")
   const loadPlayerData = useContext(PlayerDataContext)
@@ -94,7 +101,7 @@ function App() {
   const [attackProg, setAttackProg] = useState(0)
   const [enemyAttackProg, setEnemyAttackProg] = useState(0)
   const [activeCombat, setActiveCombat] = useState(false)
-  const [activeVocation, setActiveVocation] = useState('Acolyte')
+  const [activeVocation, setActiveVocation] = useState('')
   const [activeAttack, setActiveAttack] = useState([])
   const [activeEnemyAttack, setActiveEnemyAttack] = useState([])
   const refAttackProg = useRef('')
@@ -266,7 +273,7 @@ function App() {
 
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex'}}>
       <CssBaseline />
       <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeCombat, setActiveCombat, activeVocation, setActiveVocation}}>
         <Drawer variant="permanent" open={true} sx={{ position: 'relative' }}>
