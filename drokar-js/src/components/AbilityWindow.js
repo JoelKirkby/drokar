@@ -11,7 +11,7 @@ import { useContext } from 'react';
 function AbilityWindow(props) {
     const {playerData, setPlayerData, activeVocation, setActiveVocation} = useContext(PlayerDataContext)
     return (
-        <div className="flexContainer">
+        <div className="abilityFlexContainer">
             <div className="vocationList">
               {
                 Object.keys(ABILITIES).map((vocation) => 
@@ -21,10 +21,9 @@ function AbilityWindow(props) {
               }
       
             </div>
-
-            <AbilityEquippedWindow playerData={playerData}/>
-
-
+          <div className="equippedContainer">
+              {activeVocation ? <AbilityEquippedWindow playerData={playerData}/> : <p>No equipped Vocation</p>}
+          </div>
          </div>
     );
   }
