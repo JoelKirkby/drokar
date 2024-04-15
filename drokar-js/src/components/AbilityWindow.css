@@ -1,5 +1,16 @@
-.vocationList, .skillSelection {
+.abilityFlexContainer {
+    display: flex;
+    /* align-items: center;
+    justify-content: center; */
+}
+
+.vocationList, .equippedContainer {
     width: 50%;
+    height: 100%; 
+}
+
+.equippedWindow {
+    width: 100%;
 }
 
 .abilityRowContainer {
@@ -18,7 +29,7 @@
     font-size: 0.8em;
 }
 
-.classWindow {
+.classWindow, .equippedWindow {
     border: 3px solid #000000;
     background-color: #36454F;
     color: white;
@@ -42,7 +53,7 @@
     height: 80px;
     width: 80px;
     text-align: center;
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
 }
@@ -66,4 +77,8 @@
 
 .abilityImg {
     max-height: 68px ;
+}
+
+.width70 {
+    width: 70%;
 }
