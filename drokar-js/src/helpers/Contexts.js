@@ -73,7 +73,7 @@ const DUMMY_COMBAT_STATS = {
 }
 
 const playerInfo = {
-    name: "Player",
+    name: "Kitadel",
     skills: {
         Prospecting: 0,
         Metallurgy: 0,
@@ -85,7 +85,9 @@ const playerInfo = {
     gold: 0,
     equipped: DUMMY_EQUIPMENT,
     combatStats: DUMMY_COMBAT_STATS,
-    activeVocation: "Acolyte",
+    activeVocation: "",
+    flexAbility0: [],
+    flexAbility1: [],
 };
 
 export const PlayerDataContext = createContext(playerInfo)
