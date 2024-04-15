@@ -13,18 +13,36 @@
   justify-content: center;
 }
 
+.spaceAround {
+  justify-content: space-around;
+}
+
 .flexContainerNoCenter {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+.MuiListItemButton-root {
+  background-color: black;
+}
+
+/* lighter background = #36454F
+base background = #14232D */
 
 .row1 {
   display: flex;
+  background-color: #36454F;
+  color: white;
   flex-direction: row;
   grid-template-columns: 50%, 50%;
-  border: 5px solid black;
+  border: 2px solid black;
+  border-radius: 2px;
   height:400px;
+}
+
+.row2 {
+  background-color: #36454F;
+  color: white;
 }
 
 .Inventory, .grid-container {
