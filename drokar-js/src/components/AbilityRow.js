@@ -25,26 +25,25 @@ function AbilityRow({abilityList}) {
 
         <div className="ability blank"></div>
         <div className="textWrapper">
-        <a className='lvlText'>Lvl 1</a>    
-        <a className='lvlText'>Lvl 10</a>
-        <div className='flexContainer'>
-            <div className="ability passive">
-                <Tooltip title={abilityList[1].description}>
-                    <img src={abilityList[1].img} className="abilityImg" alt={`${abilityList[1].name} icon`}/>
-                </Tooltip>
+            <a className='lvlText'>Lvl 1</a>    
+            <a className='lvlText'>Lvl 10</a>
+            <div className='flexContainer'>
+                <div className="ability passive">
+                    <Tooltip title={abilityList[1].description}>
+                        <img src={abilityList[1].img} className="abilityImg" alt={`${abilityList[1].name} icon`}/>
+                    </Tooltip>
+                </div>
+                <div className="ability passive">
+                    <Tooltip title={abilityList[2].description}>
+                        <img src={abilityList[2].img} className="abilityImg" alt={`${abilityList[2].name} icon`}/>
+                    </Tooltip>
+                </div>
+            
             </div>
-            <div className="ability passive">
-                <Tooltip title={abilityList[2].description}>
-                    <img src={abilityList[2].img} className="abilityImg" alt={`${abilityList[2].name} icon`}/>
-                </Tooltip>
-            </div>
-          
-        </div>
-        Passive
+            Passives
         </div>
     </div>
     )
-
 }
 
 export default AbilityRow
