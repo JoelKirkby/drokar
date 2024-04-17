@@ -11,7 +11,7 @@ function SideBar({playerLevels, setActiveSkill}) {
     }
     
     return ( 
-            <Box sx={{ width: 250 }} role="presentation">
+            <Box sx={{ width: '15%' }} role="presentation">
               <List>
                 {['Prospecting', 'Metallurgy'].map((text, index) => (
                   <Box>
