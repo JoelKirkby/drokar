@@ -2,6 +2,7 @@ import { ItemData } from "../helpers/ItemData";
 import InventoryItem from "./InventoryItem";
 import { Slider, Button } from "@mui/material";
 import TollIcon from '@mui/icons-material/Toll';
+import { Security } from "@mui/icons-material";
 import { PlayerDataContext } from "../helpers/Contexts";
 import { useContext } from "react";
 import './ItemInfoPanel.css'
@@ -114,7 +115,7 @@ function ItemInfoPanel({itemName, quantity, playerData, setPlayerData, setActive
           Sell
           </Button>
           {"equip" in ItemData[itemName] ?
-          <Button variant="contained" endIcon={<TollIcon/>} sx={{backgroundColor:'orange'}} onClick={()=> equipItem(itemName, playerData, setPlayerData, setActiveItem)}> Equip </Button>
+          <Button variant="contained" endIcon={<Security/>} sx={{backgroundColor:'orange'}} onClick={()=> equipItem(itemName, playerData, setPlayerData, setActiveItem)}> Equip </Button>
           : null
           }
           </div>
