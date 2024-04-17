@@ -15,6 +15,18 @@
     width: 100%;
 }
 
+.fightButtons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+    width: 40%;
+}
+
+
+.combatStatList > p {
+    margin: 0 auto;
+}
 .monsterTask {
     display: flex;
     flex-direction: row;

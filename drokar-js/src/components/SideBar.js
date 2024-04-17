@@ -31,7 +31,7 @@ function SideBar({playerLevels, setActiveSkill}) {
               </List>
               <Divider />
               <List>
-                {['Combat', 'Bank (TBD)', 'Job Tree (TBD)'].map((text, index) => (
+                {['Combat'].map((text, index) => (
                   <ListItem key={text} disablePadding>
                      <ListItemButton onClick={() => setActiveSkill(text)}>
                       <ListItemIcon>

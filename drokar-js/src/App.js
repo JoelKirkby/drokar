@@ -93,6 +93,7 @@ function App() {
   const [attackProg, setAttackProg] = useState(0)
   const [enemyAttackProg, setEnemyAttackProg] = useState(0)
   const [activeCombat, setActiveCombat] = useState(false)
+  const [sellQuantity, setSellQuantity] = useState(1)
 
   const [activeAttack, setActiveAttack] = useState([])
   const [activeEnemyAttack, setActiveEnemyAttack] = useState([])
@@ -203,6 +204,12 @@ function App() {
     console.log('entering launchCombat function')
     playerData = rollAttackType(playerData)
     activeMonster = rollAttackType(activeMonster)
+    
+    setAttackProg(0)
+    setEnemyAttackProg(0)
+    refAttackProg.current = 0
+    refEnemyAttackProg.current = 0
+
     let prog = 100 / (playerData.combatStats.attackSpeed / tickRate)
     let enemyProg = 100 / (activeMonster.combatStats.attackSpeed / tickRate)
     
@@ -230,12 +237,10 @@ function App() {
   console.log(`Checking activeMonster`)
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{display: 'flex'}}>
       <CssBaseline />
-      <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster}}>
-        <Drawer variant="permanent" open={true} sx={{ position: 'relative' }}>
-          <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
-        </Drawer>
+      <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, activeCombat, setActiveCombat, sellQuantity, setSellQuantity}}>
+      <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
         <Box
             component="main"
             sx={{
@@ -265,7 +270,9 @@ function App() {
             }
             </div>
           </Box>
-          <Button onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg)}}>Launch Combat</Button>
+          <div className='flexContainer smallMargin'>
+            <Button variant="contained" color="error" onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg)}}>Fight!</Button>
+          </div>
         </Box>
     </PlayerDataContext.Provider>
     </Box>

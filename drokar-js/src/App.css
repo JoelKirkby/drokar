@@ -13,6 +13,15 @@
   justify-content: center;
 }
 
+.infoPanel {  
+  margin: 0 auto;
+}
+
+.smallMargin {
+  margin: 5px;
+}
+
+
 .flexContainerNoCenter {
   display: flex;
   align-items: center;
@@ -23,7 +32,8 @@
   display: flex;
   flex-direction: row;
   grid-template-columns: 50%, 50%;
-  border: 5px solid black;
+  border: 2px solid darkslategray;
+  border-radius: 2px;
   height:400px;
 }
 
@@ -31,6 +41,7 @@
   height: 100%;
   width: 50%;
   border: 1px solid grey;
+  z-index: 10;
 }
 
 
@@ -41,6 +52,7 @@
 .Events {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  border: 2px solid darkslategray;
+  padding: 8px;
 }
-
-
