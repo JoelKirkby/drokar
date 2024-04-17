@@ -2,7 +2,8 @@ import { ItemData } from "../helpers/ItemData";
 import InventoryItem from "./InventoryItem";
 import { Slider, Button } from "@mui/material";
 import TollIcon from '@mui/icons-material/Toll';
-import { useState } from "react";
+import { PlayerDataContext } from "../helpers/Contexts";
+import { useContext } from "react";
 import './ItemInfoPanel.css'
 
 const measureSlider = (event, setSellQuantity) => {
@@ -85,7 +86,7 @@ const equipItem = (itemName, playerData, setPlayerData, setActiveItem) => {
 // Item information panel which shows the item, description, sell value, and slider to sell
 // TODO = Acquired and used by section, it's own tab?
 function ItemInfoPanel({itemName, quantity, playerData, setPlayerData, setActiveItem}) {
-    const [sellQuantity, setSellQuantity] = useState(1)
+  const {sellQuantity, setSellQuantity} = useContext(PlayerDataContext)
     return (
       <div className="itemInfoPanel">
         <div className="imageDescription">
