@@ -263,7 +263,9 @@ function App() {
             }
             </div>
           </Box>
-          <Button onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg)}}>Launch Combat</Button>
+          <div className='flexContainer smallMargin'>
+            <Button variant="contained" color="error" onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg)}}>Fight!</Button>
+          </div>
         </Box>
     </PlayerDataContext.Provider>
     </Box>
