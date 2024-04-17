@@ -8,9 +8,10 @@ import { PlayerDataContext } from '../helpers/Contexts';
 import { useContext, useState} from 'react';
 import { Button } from '@mui/material';
 
-const toggleActiveItem = (itemName, activeItem, setActiveItem) => {
+const toggleActiveItem = (itemName, activeItem, setActiveItem, setSellQuantity) => {
     if (activeItem != itemName) {
       setActiveItem(itemName)
+      setSellQuantity(1)
     }
     else {setActiveItem('')}
   }
@@ -20,7 +21,7 @@ const toggleEquipment = (showEquipment, setShowEquipment) => {
     }
 
 function Inventory() {
-    const {playerData, setPlayerData} = useContext(PlayerDataContext)
+    const {playerData, setPlayerData, setSellQuantity} = useContext(PlayerDataContext)
     const [activeItem, setActiveItem] = useState('')
     const [showEquipment, setShowEquipment] = useState(false)
     const [activeMonster, setActiveMonster] = useState({})
@@ -33,7 +34,7 @@ function Inventory() {
               <img src={gold}></img>{playerData.gold} gold
           </div>
           <div className="inventoryActionButtons">
-              <Button sx={{fontSize: "10px", fontWeight: "bold"}} variant="contained" className="sellButton" onClick={(e) => setShowEquipment(!showEquipment)}> Toggle Equipment </Button>
+              <Button sx={{fontSize: "10px", fontWeight: "bold"}} variant="contained" className="sellButton" onClick={(e) => setShowEquipment(!showEquipment)}> Show Equipped Items </Button>
           </div>
         </div>
         <div className="itemZone">
@@ -49,7 +50,7 @@ function Inventory() {
             <div className="inventoryGrid">
                 {Object.keys(inventory_items).map(function(itemName, i) {
                     return inventory_items[itemName].quantity > 0 
-                    ?  <div onClick={() => toggleActiveItem(itemName, activeItem, setActiveItem)}>
+                    ?  <div onClick={() => toggleActiveItem(itemName, activeItem, setActiveItem, setSellQuantity)}>
                         <InventoryItem  
                         itemName={itemName} 
                         quantity={inventory_items[itemName].quantity} />
