@@ -93,6 +93,7 @@ function App() {
   const [attackProg, setAttackProg] = useState(0)
   const [enemyAttackProg, setEnemyAttackProg] = useState(0)
   const [activeCombat, setActiveCombat] = useState(false)
+  const [sellQuantity, setSellQuantity] = useState(1)
 
   const [activeAttack, setActiveAttack] = useState([])
   const [activeEnemyAttack, setActiveEnemyAttack] = useState([])
@@ -232,7 +233,7 @@ function App() {
   return (
     <Box sx={{display: 'flex'}}>
       <CssBaseline />
-      <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster}}>
+      <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, activeCombat, setActiveCombat, sellQuantity, setSellQuantity}}>
       <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
         <Box
             component="main"
