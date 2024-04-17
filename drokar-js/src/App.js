@@ -230,12 +230,10 @@ function App() {
   console.log(`Checking activeMonster`)
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{display: 'flex'}}>
       <CssBaseline />
       <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster}}>
-        <Drawer variant="permanent" open={true} sx={{ position: 'relative' }}>
-          <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
-        </Drawer>
+      <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
         <Box
             component="main"
             sx={{
