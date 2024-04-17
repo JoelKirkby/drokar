@@ -10,6 +10,18 @@ const measureSlider = (event, setSellQuantity) => {
   setSellQuantity(event.target.value)
 }
 
+const statNames = {
+  'meleeDamage': 'Melee Damage', 
+  'armor': 'Melee Armor', 
+  'rangedArmor': 'Ballistic Armor',
+  'magicArmor': 'Magic Armor',
+  'attackSpeed': 'Attack Speed', 
+  'maxHp': 'Max HP', 
+  'maxMana': 'Max Mana', 
+  'maxFury': 'Max Fury',
+  'blockChance': 'Block Chance',
+  'blockAmount':'Block Amount'}
+
 const sellItem = (itemName, sellQuantity, playerData, setPlayerData, setActiveItem) => {
   console.log(JSON.stringify(playerData))
   let newPlayerData = {...playerData}
@@ -105,8 +117,20 @@ function ItemInfoPanel({itemName, quantity, playerData, setPlayerData, setActive
           : null
           }
           </div>
-          <br></br>
-          Sell {sellQuantity} for {ItemData[itemName].sellValue * sellQuantity} gp?
+          {"equip" in ItemData[itemName] 
+            ? <div className='combatStatList'>
+                <p><b>Bonuses when equipped:</b></p>
+                  {Object.entries(ItemData[itemName].combatStats).map(([stat, value]) => {
+                    if (stat == "attackSpeed") {
+                      value = (value / 1000).toFixed(2).toString() + " /s"
+                    }
+                    else if (value >0) 
+                      {value = `+${value.toString()}`} 
+                    return <p className="combatText">{statNames[stat]}: {value}</p>
+                  })}
+              </div>
+            : null
+          }
         </div>
       </div>
     );
