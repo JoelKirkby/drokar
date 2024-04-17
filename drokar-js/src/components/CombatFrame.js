@@ -111,7 +111,7 @@ function CombatFrame({combatData, name, attackProg, activeAttack}) {
             Damage: {combatData.meleeDamage} <br></br>
             Attack speed : {combatData.attackSpeed/1000}s<br></br>
             <div className= "divider"></div>
-            Melee Defense: {combatData.armor}<br></br>
+            Melee Defense: {combatData.meleeArmor}<br></br>
             Ranged Defense: {combatData.rangedArmor}<br></br>
             Magic Defense: {combatData.magicArmor}<br></br>
             <div className= "divider"></div>
