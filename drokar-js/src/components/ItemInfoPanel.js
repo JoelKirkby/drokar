@@ -99,18 +99,20 @@ function ItemInfoPanel({itemName, quantity, playerData, setPlayerData, setActive
             <p className="itemDescription">{ItemData[itemName].description}</p>
           </div>
           </div>
-        <div>Sells for {ItemData[itemName].sellValue}gp each
+        <div className="sellContainer">Sells for {ItemData[itemName].sellValue}gp each
           <Slider
             sx = {{width:'80%',}}
             size="small"
             defaultValue={1}
+            value={sellQuantity}
             aria-label="Small"
             min = {1}
-            max = {quantity}
+            max = {playerData.inventory[itemName].quantity}
             valueLabelDisplay="auto"
             onChange={(e) => measureSlider(e, setSellQuantity)} 
             />
-          <div style={{"display":"flex"}}>
+          <p className='marginAuto'>Sell {sellQuantity} for {ItemData[itemName].sellValue * sellQuantity} gp?</p>
+          <div style={{"display":"flex", 'gap': '6px'}}>
           <Button variant="contained" endIcon={<TollIcon/>} onClick={()=> sellItem(itemName, sellQuantity, playerData, setPlayerData, setActiveItem)}>
           Sell
           </Button>
