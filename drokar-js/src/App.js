@@ -204,6 +204,12 @@ function App() {
     console.log('entering launchCombat function')
     playerData = rollAttackType(playerData)
     activeMonster = rollAttackType(activeMonster)
+    
+    setAttackProg(0)
+    setEnemyAttackProg(0)
+    refAttackProg.current = 0
+    refEnemyAttackProg.current = 0
+
     let prog = 100 / (playerData.combatStats.attackSpeed / tickRate)
     let enemyProg = 100 / (activeMonster.combatStats.attackSpeed / tickRate)
     
