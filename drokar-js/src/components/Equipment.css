@@ -53,6 +53,17 @@ background-color: #5D3413;
 background-size: 30px 30px;
 padding: 10px;
 width:100%;
+z-index: 10;
+}
+
+.equipmentTip {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Calibri';
+    position: absolute;
+    bottom: 0;
+    right: 6%;
 }
 
 .grid-container > div {
