@@ -53,7 +53,7 @@ function Equipment({playerData, setPlayerData}) {
         {EquipSlot("offHand", playerData, setPlayerData)}
         <div className="blank3 blank"></div>
         {EquipSlot("leg", playerData, setPlayerData)}
-        <div className="blank4 blank"></div>
+        <div className="blank4 blank"><a className='equipmentTip'>Double click slot <br/> to  unequip item </a> </div>
         {EquipSlot("feet", playerData, setPlayerData)}
       </div>
     );
