@@ -9,7 +9,7 @@ function Events(props) {
     return (
       <div className="Events">
         {JSON.stringify(activeTask) === "{}"
-          ? <div className="testo"><p className="infoPanel">Click on Prospecting or Metallurgy to start a task or start fighting from the Combat window.
+          ? <div className="testo"><p className="infoPanel">Click on Prospecting or Metallurgy to start a task or start fighting from the Combat window. You cannot work on tasks while in combat.
           <br/> Mine ores with Prospecting, smelt them with Metallurgy, smith bars into weapons and armor and fight the goblins! 
           <br/> You will unlock more tasks as you level up your skills.  </p></div>
           :  <div>
