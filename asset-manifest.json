@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/drokar/static/css/main.7858802d.css",
-    "main.js": "/drokar/static/js/main.a0cf70c7.js",
+    "main.js": "/drokar/static/js/main.d6375e15.js",
     "static/js/453.80d87281.chunk.js": "/drokar/static/js/453.80d87281.chunk.js",
     "static/media/goblinWizard.svg": "/drokar/static/media/goblinWizard.465ed564359a84b671d2600797024773.svg",
     "static/media/goblin.svg": "/drokar/static/media/goblin.a6a5176baeef5b3aa2f03255813507f4.svg",
@@ -18,11 +18,11 @@
     "index.html": "/drokar/index.html",
     "static/media/helmet.svg": "/drokar/static/media/helmet.0b4b56bd13acdcf9d941bbae1c3498a3.svg",
     "main.7858802d.css.map": "/drokar/static/css/main.7858802d.css.map",
-    "main.a0cf70c7.js.map": "/drokar/static/js/main.a0cf70c7.js.map",
+    "main.d6375e15.js.map": "/drokar/static/js/main.d6375e15.js.map",
     "453.80d87281.chunk.js.map": "/drokar/static/js/453.80d87281.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7858802d.css",
-    "static/js/main.a0cf70c7.js"
+    "static/js/main.d6375e15.js"
   ]
 }
