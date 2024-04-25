@@ -41,7 +41,7 @@ const runTask = (load_task, skill, playerData, setPlayerData) => {
 };
 
 const Tasks = (props) => {
-  const {playerData, setPlayerData, activeTask, setActiveTask, playerLevels} = useContext(PlayerDataContext)
+  const {playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeCombat} = useContext(PlayerDataContext)
   const irregularTasks = {'Combat': <CombatTasks/>}
   const launchTask = (task, skill, playerData, setPlayerData) => {
     clearInterval(activeTask.taskId)
@@ -49,7 +49,7 @@ const Tasks = (props) => {
 
     var load_task = tasks[skill].find((obj) => obj.name == task.name)
 
-    if (activeTask.name != task.name) {
+    if (activeTask.name != task.name && activeCombat == false) {
       var intervalId = setInterval(runTask, task.duration, load_task, skill, playerData, setPlayerData)
       newTask = {...task,
       taskId: intervalId}

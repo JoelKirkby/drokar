@@ -199,20 +199,29 @@ function App() {
 
       }, [attackProg, enemyAttackProg])
 
-  const launchCombat = (activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg) => {
+  const launchCombat = (activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeTask, setActiveTask) => {
     // Calculate per tick progression based on attackSpeed and tickRate
-    console.log('entering launchCombat function')
+
+    // Clear running Prospecting or Metallurgy task if it exists
+    clearInterval(activeTask.taskId)
+    setActiveTask({})
+
+    // Roll the type of attack to be made
     playerData = rollAttackType(playerData)
     activeMonster = rollAttackType(activeMonster)
     
+    // Reset attack progress
     setAttackProg(0)
     setEnemyAttackProg(0)
     refAttackProg.current = 0
     refEnemyAttackProg.current = 0
 
+    // Calculate attack progression per tick
     let prog = 100 / (playerData.combatStats.attackSpeed / tickRate)
     let enemyProg = 100 / (activeMonster.combatStats.attackSpeed / tickRate)
     
+
+    // If combat is not active, start the combat loop and set states
     if (!activeCombat) {
       const timer = setInterval(() => {
           prog = 100 / (playerData.combatStats.attackSpeed / tickRate)
@@ -234,7 +243,6 @@ function App() {
       setActiveCombat(false)
     }
     }
-  console.log(`Checking activeMonster`)
 
   return (
     <Box sx={{display: 'flex'}}>
@@ -271,7 +279,7 @@ function App() {
             </div>
           </Box>
           <div className='flexContainer smallMargin'>
-            <Button variant="contained" color="error" onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg)}}>Fight!</Button>
+            <Button variant="contained" color="error" onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg, activeTask, setActiveTask)}}>Fight!</Button>
           </div>
         </Box>
     </PlayerDataContext.Provider>

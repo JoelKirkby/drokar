@@ -14,7 +14,10 @@ const setMonsterData = (selectedMonster, setActiveMonster) => {
                     maxFury: 100,
                     }
 
-    let activeMonster = {...MonsterData[selectedMonster], combatStats: combatStats}
+    let activeMonster = {...MonsterData[selectedMonster], 
+            combatStats: combatStats,
+            name: selectedMonster
+        }
     setActiveMonster(activeMonster)
 }
 
