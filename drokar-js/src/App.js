@@ -199,9 +199,11 @@ function App() {
 
       }, [attackProg, enemyAttackProg])
 
-  const launchCombat = (activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg) => {
+  const launchCombat = (activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeTask, setActiveTask) => {
     // Calculate per tick progression based on attackSpeed and tickRate
-    console.log('entering launchCombat function')
+    // Clear running Prospecting or Metallurgy task if it exists
+    clearInterval(activeTask.taskId)
+    setActiveTask({})
     playerData = rollAttackType(playerData)
     activeMonster = rollAttackType(activeMonster)
     
@@ -271,7 +273,7 @@ function App() {
             </div>
           </Box>
           <div className='flexContainer smallMargin'>
-            <Button variant="contained" color="error" onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg)}}>Fight!</Button>
+            <Button variant="contained" color="error" onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg, activeTask, setActiveTask)}}>Fight!</Button>
           </div>
         </Box>
     </PlayerDataContext.Provider>
