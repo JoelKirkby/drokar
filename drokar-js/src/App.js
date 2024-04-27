@@ -17,7 +17,6 @@ import SideBar from './components/SideBar';
 import CombatFrame from './components/CombatFrame';
 
 // My data
-import { xpToLevel } from './helpers/gameData';
 import { PlayerDataContext } from './helpers/Contexts';
 
 
