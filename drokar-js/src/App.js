@@ -4,10 +4,13 @@ import './App.css';
 // import libraries and components
 import useSound from 'use-sound';
 import whereIsHome from './helpers/sounds/Where_Is_Home.mp3';
+import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
+import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
+
 import { Box } from '@mui/material';
 import { useState, useContext, useMemo, useRef, useEffect} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Button } from '@mui/material';
+import { Button, IconButton, Slider, Stack } from '@mui/material';
 
 // My components
 import Tasks from  './components/Tasks';
