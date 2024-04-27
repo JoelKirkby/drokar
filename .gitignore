@@ -41,7 +41,6 @@ MANIFEST
 *.mat
 *.png
 *.exe
-*.mp3 
 *.jpg
 *.pdf
 !testdata/*
