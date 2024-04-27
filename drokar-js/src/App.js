@@ -21,17 +21,26 @@ import {calculateLevels, rollLootTable, rollAttackType} from './functions/calcs.
 import { PlayerDataContext } from './helpers/Contexts';
 
 function App() {
+  // Game constants
+ const TICKRATE = 40;
 
-const calculateLevels = ((playerData) => {
-  var levels = {}
-  for (const [skill, xp] of Object.entries(playerData.skills)) {
-    let lvl = xpToLevel.findIndex((num) => num > xp)
-    let progressToNextLvl = 100 * ((xp - xpToLevel[lvl-1]) / (xpToLevel[lvl] - xpToLevel[lvl-1]))
-    levels[skill] = [lvl, progressToNextLvl]
-  }
-  return levels
-  
-})
+  // Game state hooks
+  const [activeSkill, setActiveSkill] = useState("Prospecting") // active skill page player is viewing
+  const loadPlayerData = useContext(PlayerDataContext) // Load player data from context
+  const [playerData, setPlayerData] = useState(loadPlayerData) // Set player data as a state hook
+  let playerLevels = useMemo(() => calculateLevels(playerData), [playerData]) // Calculate player levels based on player data
+  const [activeTask, setActiveTask] = useState({}) // Active task the player is performing, eg. Combat or Prospecting
+  const [activeMonster, setActiveMonster] = useState({}) // Monster that is loaded into the combat frame next to player frame
+
+  // Combat related hooks
+  const [activeCombat, setActiveCombat] = useState(false) // Boolean true if combat is running
+  const [sellQuantity, setSellQuantity] = useState(1) // Quantity of items to sell in equipment window
+  const [activeAttack, setActiveAttack] = useState([]) // Player's active attack
+  const [activeEnemyAttack, setActiveEnemyAttack] = useState([]) // Enemy's active attack
+  const [attackProg, setAttackProg] = useState(0) // Attack progress for player
+  const [enemyAttackProg, setEnemyAttackProg] = useState(0) // Attack progress for enemy
+  const refAttackProg = useRef('') // Player previous attack progress to determine completed attack
+  const refEnemyAttackProg = useRef('') // Enemy previous attack progress to determine completed attack
 
 function roll(probabilities) {
   // Roll an outcome based on input probabilities O[n]
