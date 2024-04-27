@@ -2,10 +2,15 @@
 import './App.css';
 
 // import libraries and components
+import useSound from 'use-sound';
+import whereIsHome from './helpers/sounds/Where_Is_Home.mp3';
+import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
+import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
+
 import { Box } from '@mui/material';
 import { useState, useContext, useMemo, useRef, useEffect} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Button } from '@mui/material';
+import { Button, IconButton, Slider, Stack } from '@mui/material';
 
 // My components
 import Tasks from  './components/Tasks';
@@ -18,6 +23,10 @@ import {calculateLevels, rollLootTable, rollAttackType} from './functions/calcs.
 // My data
 import { PlayerDataContext } from './helpers/Contexts';
 
+const adjustSlider = (event, setFunc) => {
+  let percent = event.target.value
+  setFunc(percent)
+}
 function App() {
   // Game constants
  const TICKRATE = 40;
@@ -40,6 +49,18 @@ function App() {
   const refAttackProg = useRef('') // Player previous attack progress to determine completed attack
   const refEnemyAttackProg = useRef('') // Enemy previous attack progress to determine completed attack
 
+  const [musicVolume, setMusicVolume] = useState(50)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [playMusic, {pause, duration}] = useSound(whereIsHome, {volume: musicVolume/100, loop: true, interrupt:false})
+
+  const togglePlay = () => {
+    if (isPlaying) {
+      pause();
+    } else {
+      playMusic();
+    }
+    setIsPlaying(!isPlaying);
+  }  
   // Manage combat events for each game tick
   useEffect(() => {
     let newPlayerData = {...playerData}
@@ -181,44 +202,58 @@ function App() {
     }
 
   return (
-    <Box sx={{display: 'flex'}}>
-      <CssBaseline />
-      <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, activeCombat, setActiveCombat, sellQuantity, setSellQuantity}}>
-      <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
-        <Box
-            component="main"
-            sx={{
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'light'
-                  ? theme.palette.grey[100]
-                  : theme.palette.grey[900],
-              flexGrow: 1,
-              height: '100vh',
-              overflow: 'auto',
-            }}
-          >
-          <Box className='row1'>
-            <Tasks skill={activeSkill}/>
-            <Inventory/>
-          </Box>
-          <Box className="row2">
-            <Events skill={activeSkill}/>
-            <div className="combatContainer">
-            <CombatFrame combatData={playerData.combatStats} name="You" attackProg={attackProg} activeAttack={activeAttack} />
-            {(JSON.stringify(activeMonster) !== "{}" && activeMonster.combatStats.currentHp >= 0) 
-              && <CombatFrame 
-                combatData={activeMonster.combatStats} 
-                name={activeMonster.name} 
-                attackProg={enemyAttackProg}
-                activeAttack={activeEnemyAttack}/>
-            }
+    <Box>
+        <Stack spacing={0} direction="row" sx={{ mb: 1, width:"15%", height:"7px", marginLeft:"auto"}} alignItems="center">
+            <a className="audioLabel">Music {isPlaying ? "On" : "Off"}</a>
+            <IconButton variant="contained" color="primary" onClick={togglePlay}>{isPlaying ? <VolumeUpOutlinedIcon/> : <VolumeOffOutlinedIcon/>}</IconButton>
+            <Slider
+              sx = {{width:'50%', height: '3px'}}
+              size="small"
+              value={musicVolume}
+              aria-label="Small"
+              onChange={(e) => adjustSlider(e, setMusicVolume, false)} 
+              />
+        </Stack>
+      <Box sx={{display: 'flex'}}>
+        <CssBaseline />
+        <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, activeCombat, setActiveCombat, sellQuantity, setSellQuantity}}>
+        <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
+          <Box
+              component="main"
+              sx={{
+                backgroundColor: (theme) =>
+                  theme.palette.mode === 'light'
+                    ? theme.palette.grey[100]
+                    : theme.palette.grey[900],
+                flexGrow: 1,
+                height: '100vh',
+                overflow: 'auto',
+              }}
+            >
+
+            <Box className='row1'>
+              <Tasks skill={activeSkill}/>
+              <Inventory/>
+            </Box>
+            <Box className="row2">
+              <Events skill={activeSkill}/>
+              <div className="combatContainer">
+              <CombatFrame combatData={playerData.combatStats} name="You" attackProg={attackProg} activeAttack={activeAttack} />
+              {(JSON.stringify(activeMonster) !== "{}" && activeMonster.combatStats.currentHp >= 0) 
+                && <CombatFrame 
+                  combatData={activeMonster.combatStats} 
+                  name={activeMonster.name} 
+                  attackProg={enemyAttackProg}
+                  activeAttack={activeEnemyAttack}/>
+              }
+              </div>
+            </Box>
+            <div className='flexContainer smallMargin'>
+              <Button variant="contained" color="error" onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg, activeTask, setActiveTask)}}>Fight!</Button>
             </div>
           </Box>
-          <div className='flexContainer smallMargin'>
-            <Button variant="contained" color="error" onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg, activeTask, setActiveTask)}}>Fight!</Button>
-          </div>
-        </Box>
-    </PlayerDataContext.Provider>
+      </PlayerDataContext.Provider>
+      </Box>
     </Box>
   );
 }
