@@ -3,6 +3,15 @@ import { xpToLevel } from '../helpers/gameData';
 
 // Functions for calculating various game mechanics
 
+
+export function calculateColor(percent) {
+  // Calculate colour of health bar based on percentage
+  // value from 0 to 100
+  var hue=(percent*1.2).toString(10);
+  return ["hsl(",hue,",90%,40%)"].join("");
+
+}
+
 export function calculateLevels(playerData) {
     // Calculate levels based on cumulative XP
     // args: 

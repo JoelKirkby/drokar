@@ -8,7 +8,6 @@ import { useContext } from "react";
 import './ItemInfoPanel.css'
 
 const measureSlider = (event, setSellQuantity) => {
-  console.log(`Slider value = ${event.target.value}`)
   setSellQuantity(event.target.value)
 }
 

@@ -1,15 +1,10 @@
 import { LinearProgress, createTheme } from "@mui/material";
 import { Favorite, AutoAwesome, Cyclone, ColorizeSharp } from "@mui/icons-material";
 import { ThemeProvider } from "@mui/material/styles";
+import { calculateColor } from "../functions/calcs.js";
 import "./Combat.css";
 
-const calculateColor = (percent) => {
-    //value from 0 to 100
-    // percent = percent / 100
-    var hue=(percent*1.2).toString(10);
-    return ["hsl(",hue,",90%,40%)"].join("");
 
-}
 
 const theme = createTheme({
     palette: {
