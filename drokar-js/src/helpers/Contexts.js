@@ -26,11 +26,11 @@ const DUMMY_EQUIPMENT = {
 const DUMMY_COMBAT_STATS = {
     maxHp: 50,
     img: hero,
-    currentHp : 45,
-    currentMana: 10,
+    currentHp : 50,
+    currentMana: 20,
     maxMana: 20,
     meleeDamage: 1,
-    furyRate: 1,
+    furyRate: 20,
     rangedDamage: 0, // 0 for now, will be added later
     magicDamage: 0, // 0 for now, will be added later
     attackSpeed: 2600, //ms
