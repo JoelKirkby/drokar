@@ -1,8 +1,10 @@
 {
   "files": {
-    "main.css": "/drokar/static/css/main.7858802d.css",
-    "main.js": "/drokar/static/js/main.d6375e15.js",
+    "main.css": "/drokar/static/css/main.1859813a.css",
+    "main.js": "/drokar/static/js/main.d418b95b.js",
+    "static/js/885.7f453b81.chunk.js": "/drokar/static/js/885.7f453b81.chunk.js",
     "static/js/453.80d87281.chunk.js": "/drokar/static/js/453.80d87281.chunk.js",
+    "static/media/Where_Is_Home.mp3": "/drokar/static/media/Where_Is_Home.d53285b3bf46735ea6d1.mp3",
     "static/media/goblinWizard.svg": "/drokar/static/media/goblinWizard.465ed564359a84b671d2600797024773.svg",
     "static/media/goblin.svg": "/drokar/static/media/goblin.a6a5176baeef5b3aa2f03255813507f4.svg",
     "static/media/gold.svg": "/drokar/static/media/gold.a6379fbfc0169a0ffacc6ee8a3148f0c.svg",
@@ -17,12 +19,13 @@
     "static/media/pickaxe.svg": "/drokar/static/media/pickaxe.4404ca5d338719595c94b0533c250d91.svg",
     "index.html": "/drokar/index.html",
     "static/media/helmet.svg": "/drokar/static/media/helmet.0b4b56bd13acdcf9d941bbae1c3498a3.svg",
-    "main.7858802d.css.map": "/drokar/static/css/main.7858802d.css.map",
-    "main.d6375e15.js.map": "/drokar/static/js/main.d6375e15.js.map",
+    "main.1859813a.css.map": "/drokar/static/css/main.1859813a.css.map",
+    "main.d418b95b.js.map": "/drokar/static/js/main.d418b95b.js.map",
+    "885.7f453b81.chunk.js.map": "/drokar/static/js/885.7f453b81.chunk.js.map",
     "453.80d87281.chunk.js.map": "/drokar/static/js/453.80d87281.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7858802d.css",
-    "static/js/main.d6375e15.js"
+    "static/css/main.1859813a.css",
+    "static/js/main.d418b95b.js"
   ]
 }
