@@ -20,6 +20,10 @@ import {calculateLevels, rollLootTable, rollAttackType} from './functions/calcs.
 // My data
 import { PlayerDataContext } from './helpers/Contexts';
 
+const adjustSlider = (event, setFunc) => {
+  let percent = event.target.value
+  setFunc(percent)
+}
 function App() {
   // Game constants
  const TICKRATE = 40;
@@ -195,6 +199,13 @@ function App() {
     }
 
   return (
+            <Slider
+              sx = {{width:'50%', height: '3px'}}
+              size="small"
+              value={musicVolume}
+              aria-label="Small"
+              onChange={(e) => adjustSlider(e, setMusicVolume, false)} 
+              />
     <Box sx={{display: 'flex'}}>
       <CssBaseline />
       <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, activeCombat, setActiveCombat, sellQuantity, setSellQuantity}}>
