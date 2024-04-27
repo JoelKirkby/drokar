@@ -2,6 +2,8 @@
 import './App.css';
 
 // import libraries and components
+import useSound from 'use-sound';
+import whereIsHome from './helpers/sounds/Where_Is_Home.mp3';
 import { Box } from '@mui/material';
 import { useState, useContext, useMemo, useRef, useEffect} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -40,6 +42,18 @@ function App() {
   const refAttackProg = useRef('') // Player previous attack progress to determine completed attack
   const refEnemyAttackProg = useRef('') // Enemy previous attack progress to determine completed attack
 
+  const [musicVolume, setMusicVolume] = useState(50)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [playMusic, {pause, duration}] = useSound(whereIsHome, {volume: musicVolume/100, loop: true, interrupt:false})
+
+  const togglePlay = () => {
+    if (isPlaying) {
+      pause();
+    } else {
+      playMusic();
+    }
+    setIsPlaying(!isPlaying);
+  }  
   // Manage combat events for each game tick
   useEffect(() => {
     let newPlayerData = {...playerData}
