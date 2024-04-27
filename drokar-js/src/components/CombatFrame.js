@@ -1,5 +1,5 @@
 import { LinearProgress, createTheme } from "@mui/material";
-import { Gavel, Favorite, AutoAwesome, Cyclone, ColorizeSharp } from "@mui/icons-material";
+import { Favorite, AutoAwesome, Cyclone, ColorizeSharp } from "@mui/icons-material";
 import { ThemeProvider } from "@mui/material/styles";
 import "./Combat.css";
 

@@ -1,7 +1,5 @@
 import { ItemData } from "../helpers/ItemData";
 
-
-
 function InventoryItem({itemName, quantity}) {
     return (
       <div className="inventoryItem">

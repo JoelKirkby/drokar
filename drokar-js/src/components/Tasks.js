@@ -3,8 +3,6 @@ import { Box } from '@mui/material';
 import { ProspectingTasks, MetallurgyTasks} from '../helpers/TaskData';
 import { useContext} from 'react';
 import { PlayerDataContext } from '../helpers/Contexts';
-import { ItemData } from '../helpers/ItemData';
-import ProgressLine from './ProgressLine';
 import CombatTasks from './CombatTasks';
 
 const tasks = {

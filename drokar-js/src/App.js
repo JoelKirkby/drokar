@@ -158,6 +158,7 @@ function App() {
 
     // If combat is not active, start the combat loop and set states
     if (!activeCombat) {
+      // Set the combat loop
       const timer = setInterval(() => {
           prog = 100 / (playerData.combatStats.attackSpeed / TICKRATE)
           enemyProg = 100 / (activeMonster.combatStats.attackSpeed / TICKRATE) 
