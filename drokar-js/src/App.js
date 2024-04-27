@@ -199,6 +199,10 @@ function App() {
     }
 
   return (
+    <Box>
+        <Stack spacing={0} direction="row" sx={{ mb: 1, width:"15%", height:"7px", marginLeft:"auto"}} alignItems="center">
+            <a className="audioLabel">Music {isPlaying ? "On" : "Off"}</a>
+            <IconButton variant="contained" color="primary" onClick={togglePlay}>{isPlaying ? <VolumeUpOutlinedIcon/> : <VolumeOffOutlinedIcon/>}</IconButton>
             <Slider
               sx = {{width:'50%', height: '3px'}}
               size="small"
@@ -206,6 +210,7 @@ function App() {
               aria-label="Small"
               onChange={(e) => adjustSlider(e, setMusicVolume, false)} 
               />
+        </Stack>
     <Box sx={{display: 'flex'}}>
       <CssBaseline />
       <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, activeCombat, setActiveCombat, sellQuantity, setSellQuantity}}>
