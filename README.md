@@ -20,6 +20,6 @@ Using Metallurgy, refine ores and turn them into powerful weapons and armor that
 
 For skills such as Prospecting and Metallurgy, you will unlock more tasks as you level up your skills.
 
-Original composition "Where Is Home" can be played as background music.
+Original composition "Where Is Home" by Joel Kirkby
 
 
