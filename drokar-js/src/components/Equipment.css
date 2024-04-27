@@ -53,7 +53,6 @@ background-color: #5D3413;
 background-size: 30px 30px;
 padding: 10px;
 width:100%;
-z-index: 10;
 }
 
 .equipmentTip {
@@ -68,7 +67,6 @@ z-index: 10;
 
 .grid-container > div {
 background-color: rgba(255, 255, 255, 0.3);
-/* padding: 20px 0; */
 border-radius: 4px;
 height: 80px;
 width: 200px;

@@ -2,12 +2,10 @@
 import './App.css';
 
 // import libraries and components
-import { styled } from '@mui/material/styles'
-import {Box } from '@mui/material';
+import { Box } from '@mui/material';
 import { useState, useContext, useMemo, useRef, useEffect} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import MuiDrawer from '@mui/material/Drawer';
-import { Drawer, Button } from '@mui/material';
+import { Button } from '@mui/material';
 
 // My components
 import Tasks from  './components/Tasks';
@@ -15,104 +13,44 @@ import Inventory from './components/Inventory';
 import Events from './components/Events';
 import SideBar from './components/SideBar';
 import CombatFrame from './components/CombatFrame';
+import {calculateLevels, rollLootTable, rollAttackType} from './functions/calcs.js';
 
 // My data
-import { xpToLevel } from './helpers/gameData';
 import { PlayerDataContext } from './helpers/Contexts';
 
-
-const calculateLevels = ((playerData) => {
-  var levels = {}
-  for (const [skill, xp] of Object.entries(playerData.skills)) {
-    let lvl = xpToLevel.findIndex((num) => num > xp)
-    let progressToNextLvl = 100 * ((xp - xpToLevel[lvl-1]) / (xpToLevel[lvl] - xpToLevel[lvl-1]))
-    levels[skill] = [lvl, progressToNextLvl]
-  }
-  return levels
-  
-})
-
-function roll(probabilities) {
-  // Roll an outcome based on input probabilities O[n]
-  const totalProbability = probabilities.reduce((sum, probability) => sum + probability, 0);
-  const randomValue = Math.random() * totalProbability;
-  let cumulativeProbability = 0;
-
-  for (let i = 0; i < probabilities.length; i++) {
-    cumulativeProbability += probabilities[i];
-    if (randomValue < cumulativeProbability) {
-      return i;
-    }
-  }
-
-  return probabilities.length - 1;
-}
-const rollLootTable = (rates, drops) => {
-  let dropRates = [...rates]
-  let noLootProb = 1 - dropRates.reduce((a, b) => a + b, 0)
-  dropRates.push(noLootProb)
-  let lootRoll = roll(dropRates)
-
-  if (lootRoll === (dropRates.length -1)) {
-    return ['', 0]
-  }
-  else {
-    return [drops[lootRoll], 1]
-  }
-}
-  const rollAttackType = (entityData) => {
-    let attackProbs = entityData.combatStats.attackChances
-    let rolledAttack
-    // Roll for fury attack if fury is full
-    if (entityData.combatStats.currentFury >= entityData.combatStats.maxFury) {
-      
-      attackProbs = entityData.combatStats.furyAttackChances
-      rolledAttack = entityData.combatStats.furyAttacks[roll(attackProbs)]
-      console.log("FURY ATTACK")
-      console.log('rolledAttack.name = ' + rolledAttack.name)
-    }
-    else {rolledAttack = entityData.combatStats.attacks[roll(attackProbs)]
-    }
-    entityData.combatStats.selectedAttack = rolledAttack.name
-    entityData.combatStats.attackSpeed = rolledAttack.speed
-    
-    return entityData
-  }
-
-
-
 function App() {
-  // Declare active states for the app
-  const [activeSkill, setActiveSkill] = useState("Prospecting")
-  const loadPlayerData = useContext(PlayerDataContext)
-  const [playerData, setPlayerData] = useState(loadPlayerData)
-  let playerLevels = useMemo(() => calculateLevels(playerData), [playerData])
-  const [activeTask, setActiveTask] = useState({})
-  const [activeMonster, setActiveMonster] = useState({})
-  const tickRate = 40;
-  const [attackProg, setAttackProg] = useState(0)
-  const [enemyAttackProg, setEnemyAttackProg] = useState(0)
-  const [activeCombat, setActiveCombat] = useState(false)
-  const [sellQuantity, setSellQuantity] = useState(1)
+  // Game constants
+ const TICKRATE = 40;
 
-  const [activeAttack, setActiveAttack] = useState([])
-  const [activeEnemyAttack, setActiveEnemyAttack] = useState([])
-  const refAttackProg = useRef('')
-  const refEnemyAttackProg = useRef('')
+  // Game state hooks
+  const [activeSkill, setActiveSkill] = useState("Prospecting") // active skill page player is viewing
+  const loadPlayerData = useContext(PlayerDataContext) // Load player data from context
+  const [playerData, setPlayerData] = useState(loadPlayerData) // Set player data as a state hook
+  let playerLevels = useMemo(() => calculateLevels(playerData), [playerData]) // Calculate player levels based on player data
+  const [activeTask, setActiveTask] = useState({}) // Active task the player is performing, eg. Combat or Prospecting
+  const [activeMonster, setActiveMonster] = useState({}) // Monster that is loaded into the combat frame next to player frame
+
+  // Combat related hooks
+  const [activeCombat, setActiveCombat] = useState(false) // Boolean true if combat is running
+  const [sellQuantity, setSellQuantity] = useState(1) // Quantity of items to sell in equipment window
+  const [activeAttack, setActiveAttack] = useState([]) // Player's active attack
+  const [activeEnemyAttack, setActiveEnemyAttack] = useState([]) // Enemy's active attack
+  const [attackProg, setAttackProg] = useState(0) // Attack progress for player
+  const [enemyAttackProg, setEnemyAttackProg] = useState(0) // Attack progress for enemy
+  const refAttackProg = useRef('') // Player previous attack progress to determine completed attack
+  const refEnemyAttackProg = useRef('') // Enemy previous attack progress to determine completed attack
+
+  // Manage combat events for each game tick
   useEffect(() => {
     let newPlayerData = {...playerData}
     let newMonsterData = {...activeMonster}
+
     // If attack progress is completed, and combat is active, attack the monster
     if ((refAttackProg.current > attackProg) && activeCombat) {
-        console.log("Attacking")
-        // console.log(`newPlayerData = ${JSON.stringify(newPlayerData)}`)
-        
         // Get attack data whether it's a fury attack or not
         let attackData, attackType
         if (newPlayerData.combatStats.currentFury == newPlayerData.combatStats.maxFury) {
-          console.log(`Tick`)
           attackData = newPlayerData.combatStats.furyAttacks.find((obj) => obj.name == newPlayerData.combatStats.selectedAttack)
-          console.log('Tack')
           newPlayerData.combatStats.currentFury = 0
         }
         else {
@@ -129,12 +67,10 @@ function App() {
         // let newAttackData = newPlayerData.combatStats.attacks.find((obj) => obj.name == newPlayerData.combatStats.selectedAttack)
 
         // TODO - Kickback from attack, heavy weaponry can kick back attack charges
-        // console.log(`newPlayerData = ${JSON.stringify(newPlayerData)}`)
         // setActiveAttack(newPlayerData.combatStats.selectedAttack)
         // setEnemyAttackProg(prev => Math.max(prev-35, 0))
         let death = false
         if (newMonsterData.combatStats.currentHp <= 0) {
-          console.log("Monster Dead")
           death = true
           const [drop, quantity] = rollLootTable(activeMonster.dropRates, activeMonster.drops)
           if (drop) {
@@ -155,7 +91,6 @@ function App() {
     
       // If enemy attack progress is completed, and combat is active, attack the player
     if ((refEnemyAttackProg.current > enemyAttackProg) && activeCombat) {
-        console.log("Enemy Attacking")
         let newPlayerData = {...playerData}
         let newMonsterData = {...activeMonster}
 
@@ -200,7 +135,7 @@ function App() {
       }, [attackProg, enemyAttackProg])
 
   const launchCombat = (activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeTask, setActiveTask) => {
-    // Calculate per tick progression based on attackSpeed and tickRate
+    // Calculate per tick progression based on attackSpeed and TICKRATE
 
     // Clear running Prospecting or Metallurgy task if it exists
     clearInterval(activeTask.taskId)
@@ -217,18 +152,19 @@ function App() {
     refEnemyAttackProg.current = 0
 
     // Calculate attack progression per tick
-    let prog = 100 / (playerData.combatStats.attackSpeed / tickRate)
-    let enemyProg = 100 / (activeMonster.combatStats.attackSpeed / tickRate)
+    let prog = 100 / (playerData.combatStats.attackSpeed / TICKRATE)
+    let enemyProg = 100 / (activeMonster.combatStats.attackSpeed / TICKRATE)
     
 
     // If combat is not active, start the combat loop and set states
     if (!activeCombat) {
+      // Set the combat loop
       const timer = setInterval(() => {
-          prog = 100 / (playerData.combatStats.attackSpeed / tickRate)
-          enemyProg = 100 / (activeMonster.combatStats.attackSpeed / tickRate) 
+          prog = 100 / (playerData.combatStats.attackSpeed / TICKRATE)
+          enemyProg = 100 / (activeMonster.combatStats.attackSpeed / TICKRATE) 
           setAttackProg(prev => (prev + prog)% 100)
           setEnemyAttackProg(prev => (prev + enemyProg)% 100)
-          }, tickRate)
+          }, TICKRATE)
       setActiveAttack([playerData.combatStats.selectedAttack, playerData.combatStats.attackSpeed])
       setActiveEnemyAttack([activeMonster.combatStats.selectedAttack, activeMonster.combatStats.attackSpeed])
       setPlayerData(playerData)
