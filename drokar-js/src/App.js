@@ -15,10 +15,12 @@ import Inventory from './components/Inventory';
 import Events from './components/Events';
 import SideBar from './components/SideBar';
 import CombatFrame from './components/CombatFrame';
+import {calculateLevels, rollLootTable, rollAttackType} from './functions/calcs.js';
 
 // My data
 import { PlayerDataContext } from './helpers/Contexts';
 
+function App() {
 
 const calculateLevels = ((playerData) => {
   var levels = {}
