@@ -2,12 +2,10 @@
 import './App.css';
 
 // import libraries and components
-import { styled } from '@mui/material/styles'
-import {Box } from '@mui/material';
+import { Box } from '@mui/material';
 import { useState, useContext, useMemo, useRef, useEffect} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import MuiDrawer from '@mui/material/Drawer';
-import { Drawer, Button } from '@mui/material';
+import { Button } from '@mui/material';
 
 // My components
 import Tasks from  './components/Tasks';
