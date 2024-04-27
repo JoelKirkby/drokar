@@ -1,0 +1,82 @@
+
+import { xpToLevel } from '../helpers/gameData';
+
+// Functions for calculating various game mechanics
+
+export function calculateLevels(playerData) {
+    // Calculate levels based on cumulative XP
+    // args: 
+    //      playerData(object): Player data, !TODO: levels for monsters
+    // returns:
+    //      levels(object): Skill levels and progress to next level
+
+    var levels = {}
+    for (const [skill, xp] of Object.entries(playerData.skills)) {
+      let lvl = xpToLevel.findIndex((num) => num > xp)
+      let progressToNextLvl = 100 * ((xp - xpToLevel[lvl-1]) / (xpToLevel[lvl] - xpToLevel[lvl-1]))
+      levels[skill] = [lvl, progressToNextLvl]
+    }
+    return levels
+    
+  }
+  
+
+export function roll(probabilities) {
+    // Roll an outcome based on input probabilities O[n]
+    // args: 
+    //  probabilities(list[float..]): list of probabilities each between 0 and 1
+    // returns:
+    //      outcome(int) : index of the probability that was rolled
+
+    const totalProbability = probabilities.reduce((sum, probability) => sum + probability, 0);
+    const randomValue = Math.random() * totalProbability;
+    let cumulativeProbability = 0;
+  
+    for (let i = 0; i < probabilities.length; i++) {
+      cumulativeProbability += probabilities[i];
+      if (randomValue < cumulativeProbability) {
+        return i;
+      }
+    }
+    
+    let outcome = probabilities.length - 1
+    return outcome;
+  }
+  
+export function rollLootTable(rates, drops){
+    let dropRates = [...rates]
+    let noLootProb = 1 - dropRates.reduce((a, b) => a + b, 0)
+    dropRates.push(noLootProb)
+    let lootRoll = roll(dropRates)
+  
+    if (lootRoll === (dropRates.length -1)) {
+      return ['', 0]
+    }
+    else {
+      return [drops[lootRoll], 1]
+    }
+  }
+  
+export function rollAttackType(entityData) {
+    // Roll for attack type based on entity's attack chances
+    // args: 
+    //      entityData(object): entity data
+    // returns:
+    //      entityData(object): modified entity data with a selected attack type and new attack speed        
+    
+    let attackProbs = entityData.combatStats.attackChances
+    let rolledAttack
+    // Roll for fury attack if fury is full
+    if (entityData.combatStats.currentFury >= entityData.combatStats.maxFury) {
+    
+    attackProbs = entityData.combatStats.furyAttackChances
+    rolledAttack = entityData.combatStats.furyAttacks[roll(attackProbs)]
+    }
+    else {rolledAttack = entityData.combatStats.attacks[roll(attackProbs)]
+    }
+    entityData.combatStats.selectedAttack = rolledAttack.name
+    entityData.combatStats.attackSpeed = rolledAttack.speed
+    
+    return entityData
+}
+  
