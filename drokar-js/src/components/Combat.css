@@ -23,21 +23,19 @@
     width: 40%;
 }
 
-
 .combatStatList > p {
     margin: 0 auto;
 }
+
 .monsterTask {
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* justify-content: space-between; */
     border: 5px solid black;
     height: 100px;
     width: 100%;
 }
   
-
 .combatBarIcon {
     display: flex;
     flex-direction: row;
@@ -45,7 +43,6 @@
     width:100%;
 } 
   
-
 .combatFrame {
     width: 50%;
     display: flex;
