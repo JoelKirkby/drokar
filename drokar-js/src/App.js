@@ -211,44 +211,46 @@ function App() {
               onChange={(e) => adjustSlider(e, setMusicVolume, false)} 
               />
         </Stack>
-    <Box sx={{display: 'flex'}}>
-      <CssBaseline />
-      <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, activeCombat, setActiveCombat, sellQuantity, setSellQuantity}}>
-      <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
-        <Box
-            component="main"
-            sx={{
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'light'
-                  ? theme.palette.grey[100]
-                  : theme.palette.grey[900],
-              flexGrow: 1,
-              height: '100vh',
-              overflow: 'auto',
-            }}
-          >
-          <Box className='row1'>
-            <Tasks skill={activeSkill}/>
-            <Inventory/>
-          </Box>
-          <Box className="row2">
-            <Events skill={activeSkill}/>
-            <div className="combatContainer">
-            <CombatFrame combatData={playerData.combatStats} name="You" attackProg={attackProg} activeAttack={activeAttack} />
-            {(JSON.stringify(activeMonster) !== "{}" && activeMonster.combatStats.currentHp >= 0) 
-              && <CombatFrame 
-                combatData={activeMonster.combatStats} 
-                name={activeMonster.name} 
-                attackProg={enemyAttackProg}
-                activeAttack={activeEnemyAttack}/>
-            }
+      <Box sx={{display: 'flex'}}>
+        <CssBaseline />
+        <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, activeCombat, setActiveCombat, sellQuantity, setSellQuantity}}>
+        <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
+          <Box
+              component="main"
+              sx={{
+                backgroundColor: (theme) =>
+                  theme.palette.mode === 'light'
+                    ? theme.palette.grey[100]
+                    : theme.palette.grey[900],
+                flexGrow: 1,
+                height: '100vh',
+                overflow: 'auto',
+              }}
+            >
+
+            <Box className='row1'>
+              <Tasks skill={activeSkill}/>
+              <Inventory/>
+            </Box>
+            <Box className="row2">
+              <Events skill={activeSkill}/>
+              <div className="combatContainer">
+              <CombatFrame combatData={playerData.combatStats} name="You" attackProg={attackProg} activeAttack={activeAttack} />
+              {(JSON.stringify(activeMonster) !== "{}" && activeMonster.combatStats.currentHp >= 0) 
+                && <CombatFrame 
+                  combatData={activeMonster.combatStats} 
+                  name={activeMonster.name} 
+                  attackProg={enemyAttackProg}
+                  activeAttack={activeEnemyAttack}/>
+              }
+              </div>
+            </Box>
+            <div className='flexContainer smallMargin'>
+              <Button variant="contained" color="error" onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg, activeTask, setActiveTask)}}>Fight!</Button>
             </div>
           </Box>
-          <div className='flexContainer smallMargin'>
-            <Button variant="contained" color="error" onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg, activeTask, setActiveTask)}}>Fight!</Button>
-          </div>
-        </Box>
-    </PlayerDataContext.Provider>
+      </PlayerDataContext.Provider>
+      </Box>
     </Box>
   );
 }
