@@ -7,6 +7,7 @@ https://joelkirkby.github.io/drokar/
 
 An original composition is available as background music by clicking the speaker icon in the top right.
 There is also a volume slider next to the button.
+
 ![image](https://github.com/JoelKirkby/drokar/assets/39950909/32d3334f-7f9a-48f0-b486-d8995aa02e60)
 
 ## How to play
