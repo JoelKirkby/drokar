@@ -61,7 +61,6 @@ const Tasks = (props) => {
   }
 
   var skill = props.skill
-  console.log(`skill = ${skill}`)
   return (
     <Box className="Tasks">
       {/* If irregular task, render special window. Otherwise list tasks out in a basic fashion */}

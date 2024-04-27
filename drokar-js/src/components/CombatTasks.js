@@ -22,7 +22,6 @@ const setMonsterData = (selectedMonster, setActiveMonster) => {
 }
 
 const fleeCombat = (activeCombat, setActiveCombat, setActiveMonster) => {
-    console.log("Fleeing combat")
     if (activeCombat) {
         setActiveCombat(false)
         clearInterval(activeCombat)

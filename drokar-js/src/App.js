@@ -44,17 +44,13 @@ function App() {
   useEffect(() => {
     let newPlayerData = {...playerData}
     let newMonsterData = {...activeMonster}
+
     // If attack progress is completed, and combat is active, attack the monster
     if ((refAttackProg.current > attackProg) && activeCombat) {
-        console.log("Attacking")
-        // console.log(`newPlayerData = ${JSON.stringify(newPlayerData)}`)
-        
         // Get attack data whether it's a fury attack or not
         let attackData, attackType
         if (newPlayerData.combatStats.currentFury == newPlayerData.combatStats.maxFury) {
-          console.log(`Tick`)
           attackData = newPlayerData.combatStats.furyAttacks.find((obj) => obj.name == newPlayerData.combatStats.selectedAttack)
-          console.log('Tack')
           newPlayerData.combatStats.currentFury = 0
         }
         else {
@@ -71,12 +67,10 @@ function App() {
         // let newAttackData = newPlayerData.combatStats.attacks.find((obj) => obj.name == newPlayerData.combatStats.selectedAttack)
 
         // TODO - Kickback from attack, heavy weaponry can kick back attack charges
-        // console.log(`newPlayerData = ${JSON.stringify(newPlayerData)}`)
         // setActiveAttack(newPlayerData.combatStats.selectedAttack)
         // setEnemyAttackProg(prev => Math.max(prev-35, 0))
         let death = false
         if (newMonsterData.combatStats.currentHp <= 0) {
-          console.log("Monster Dead")
           death = true
           const [drop, quantity] = rollLootTable(activeMonster.dropRates, activeMonster.drops)
           if (drop) {
@@ -97,7 +91,6 @@ function App() {
     
       // If enemy attack progress is completed, and combat is active, attack the player
     if ((refEnemyAttackProg.current > enemyAttackProg) && activeCombat) {
-        console.log("Enemy Attacking")
         let newPlayerData = {...playerData}
         let newMonsterData = {...activeMonster}
 
