@@ -4,8 +4,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import { calculateColor } from "../functions/calcs.js";
 import "./Combat.css";
 
-
-
 const theme = createTheme({
     palette: {
       primary: {
