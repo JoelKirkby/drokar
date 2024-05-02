@@ -14,13 +14,24 @@ const setMonsterData = (monsterName, setActiveMonster) => {
                     maxFury: 100,
                     }
 
-    let activeMonster = {...MonsterData[monsterName], combatStats: combatStats}
+    let activeMonster = {...MonsterData[selectedMonster], 
+            combatStats: combatStats,
+            name: selectedMonster
+        }
     setActiveMonster(activeMonster)
+}
+
+const fleeCombat = (activeCombat, setActiveCombat, setActiveMonster) => {
+    if (activeCombat) {
+        setActiveCombat(false)
+        clearInterval(activeCombat)
+    }
+    setActiveMonster({})
 }
 
 function CombatTasks() { 
     const [selectedMonster, setSelectedMonster] = useState('')
-    const {activeMonster, setActiveMonster} = useContext(PlayerDataContext)
+    const {activeMonster, setActiveMonster, activeCombat, setActiveCombat} = useContext(PlayerDataContext)
     return (
         <div className="combatTasks">
             {Object.keys(MonsterData).map(function(monsterName, i) {
@@ -30,8 +41,15 @@ function CombatTasks() {
                     </div>
             }         
             )}
-            {selectedMonster ? <div>Selected Monster: {selectedMonster}</div> : null}
-            {/* <Button variant="contained" color="error" onClick={() => setMonsterData(selectedMonster, setActiveMonster)}> Fight! </Button> */}
+            {selectedMonster 
+                ? <div>
+                    Selected Monster: {selectedMonster}
+                    <div className="fightButtons">
+                    <Button variant="contained" className="paddedBtn" color="error" onClick={() => setMonsterData(selectedMonster, setActiveMonster)}> Target </Button>
+                    <Button variant="contained" color="warning" onClick={() => fleeCombat(activeCombat, setActiveCombat, setActiveMonster)}> Flee in Terror! </Button>
+                    </div>
+                </div>
+             : null}
         </div>
     )
     }

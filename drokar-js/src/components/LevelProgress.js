@@ -7,7 +7,7 @@ import { PlayerDataContext } from "../helpers/Contexts"
 function LevelProgress({skill, size}) {
   const {playerLevels, activeVocation} = useContext(PlayerDataContext)
   return (
-      <div className='vocationXp'>
+      <div className='vocationXp width80'>
         <a>Level {playerLevels[skill][0]}</a>
         <div className="vocationProgressBar">
           <LinearProgress style={{padding: `${size}px`, borderRadius: "5px"}} variant="determinate" value={playerLevels[skill][1]}/>

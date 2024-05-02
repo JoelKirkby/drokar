@@ -2,13 +2,26 @@ import { ItemData } from "../helpers/ItemData";
 import InventoryItem from "./InventoryItem";
 import { Slider, Button } from "@mui/material";
 import TollIcon from '@mui/icons-material/Toll';
-import { useState } from "react";
+import { Security } from "@mui/icons-material";
+import { PlayerDataContext } from "../helpers/Contexts";
+import { useContext } from "react";
 import './ItemInfoPanel.css'
 
 const measureSlider = (event, setSellQuantity) => {
-  console.log(`Slider value = ${event.target.value}`)
   setSellQuantity(event.target.value)
 }
+
+const statNames = {
+  'meleeDamage': 'Melee Damage', 
+  'armor': 'Melee Armor', 
+  'rangedArmor': 'Ballistic Armor',
+  'magicArmor': 'Magic Armor',
+  'attackSpeed': 'Attack Speed', 
+  'maxHp': 'Max HP', 
+  'maxMana': 'Max Mana', 
+  'maxFury': 'Max Fury',
+  'blockChance': 'Block Chance',
+  'blockAmount':'Block Amount'}
 
 const sellItem = (itemName, sellQuantity, playerData, setPlayerData, setActiveItem) => {
   console.log(JSON.stringify(playerData))
@@ -73,7 +86,7 @@ const equipItem = (itemName, playerData, setPlayerData, setActiveItem) => {
 // Item information panel which shows the item, description, sell value, and slider to sell
 // TODO = Acquired and used by section, it's own tab?
 function ItemInfoPanel({itemName, quantity, playerData, setPlayerData, setActiveItem}) {
-    const [sellQuantity, setSellQuantity] = useState(1)
+  const {sellQuantity, setSellQuantity} = useContext(PlayerDataContext)
     return (
       <div className="itemInfoPanel">
         <div className="imageDescription">
@@ -85,28 +98,42 @@ function ItemInfoPanel({itemName, quantity, playerData, setPlayerData, setActive
             <p className="itemDescription">{ItemData[itemName].description}</p>
           </div>
           </div>
-        <div>Sells for {ItemData[itemName].sellValue}gp each
+        <div className="sellContainer">Sells for {ItemData[itemName].sellValue}gp each
           <Slider
             sx = {{width:'80%',}}
             size="small"
             defaultValue={1}
+            value={sellQuantity}
             aria-label="Small"
             min = {1}
-            max = {quantity}
+            max = {playerData.inventory[itemName].quantity}
             valueLabelDisplay="auto"
             onChange={(e) => measureSlider(e, setSellQuantity)} 
             />
-          <div style={{"display":"flex"}}>
+          <p className='marginAuto'>Sell {sellQuantity} for {ItemData[itemName].sellValue * sellQuantity} gp?</p>
+          <div style={{"display":"flex", 'gap': '6px'}}>
           <Button variant="contained" endIcon={<TollIcon/>} onClick={()=> sellItem(itemName, sellQuantity, playerData, setPlayerData, setActiveItem)}>
           Sell
           </Button>
           {"equip" in ItemData[itemName] ?
-          <Button variant="contained" endIcon={<TollIcon/>} sx={{backgroundColor:'orange'}} onClick={()=> equipItem(itemName, playerData, setPlayerData, setActiveItem)}> Equip </Button>
+          <Button variant="contained" endIcon={<Security/>} sx={{backgroundColor:'orange'}} onClick={()=> equipItem(itemName, playerData, setPlayerData, setActiveItem)}> Equip </Button>
           : null
           }
           </div>
-          <br></br>
-          Sell {sellQuantity} for {ItemData[itemName].sellValue * sellQuantity} gp?
+          {"equip" in ItemData[itemName] 
+            ? <div className='combatStatList'>
+                <p><b>Bonuses when equipped:</b></p>
+                  {Object.entries(ItemData[itemName].combatStats).map(([stat, value]) => {
+                    if (stat == "attackSpeed") {
+                      value = (value / 1000).toFixed(2).toString() + " /s"
+                    }
+                    else if (value >0) 
+                      {value = `+${value.toString()}`} 
+                    return <p className="combatText">{statNames[stat]}: {value}</p>
+                  })}
+              </div>
+            : null
+          }
         </div>
       </div>
     );

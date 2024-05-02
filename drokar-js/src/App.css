@@ -2,6 +2,12 @@
   text-align: center;
 }
 
+.audioLabel {
+  font-size: 11px;
+  margin: 0;
+  padding: 0;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -16,6 +22,15 @@
 .spaceAround {
   justify-content: space-around;
 }
+
+.infoPanel {  
+  margin: 0 auto;
+}
+
+.smallMargin {
+  margin: 5px;
+}
+
 
 .flexContainerNoCenter {
   display: flex;
@@ -35,7 +50,7 @@ base background = #14232D */
   color: white;
   flex-direction: row;
   grid-template-columns: 50%, 50%;
-  border: 2px solid black;
+  border: 2px solid darkslategray;
   border-radius: 2px;
   height:400px;
 }
@@ -53,6 +68,7 @@ base background = #14232D */
   height: 100%;
   width: 100%;
   border: 1px solid grey;
+  z-index: 10;
 }
 
 
@@ -63,5 +79,7 @@ base background = #14232D */
 .Events {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  border: 2px solid darkslategray;
+  padding: 8px;
 }
-

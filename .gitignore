@@ -37,11 +37,9 @@ MANIFEST
 *.txt
 !requirements.txt
 *.p
-*.json
 *.mat
 *.png
 *.exe
-*.mp3 
 *.jpg
 *.pdf
 !testdata/*

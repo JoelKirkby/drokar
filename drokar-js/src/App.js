@@ -2,28 +2,27 @@
 import './App.css';
 
 // import libraries and components
+import useSound from 'use-sound';
+import whereIsHome from './helpers/sounds/Where_Is_Home.mp3';
+import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
+import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 
-import {Box, Button} from '@mui/material';
-import { useState, useContext, useMemo } from 'react';
+import { Box } from '@mui/material';
+import { useState, useContext, useMemo, useRef, useEffect} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
+import { Button, IconButton, Slider, Stack } from '@mui/material';
 import { useLayoutEffect } from 'react'
-
-
-
-import {useRef, useEffect} from 'react';
-
 // My components
 import Tasks from  './components/Tasks';
 import Events from './components/Events';
 import SideBar from './components/SideBar';
 import Drawer from './components/Drawer';
 import CombatFrame from './components/CombatFrame';
+import {calculateLevels, rollLootTable, rollAttackType} from './functions/calcs.js';
 
 // My data
-import { xpToLevel } from './helpers/gameData';
 import { PlayerDataContext } from './helpers/Contexts';
 import { MonsterData } from './helpers/MonsterData';
-
 
 
 const calculateLevels = ((playerData) => {
@@ -85,29 +84,37 @@ const rollLootTable = (rates, drops) => {
     return entityData
   }
 
-
+const adjustSlider = (event, setFunc) => {
+  let percent = event.target.value
+  setFunc(percent)
+}
 function App() {
+  // Game constants
   useLayoutEffect(() => {
     document.body.style.backgroundColor = "#14232D"
   });
-  // Declare active states for the app
-  const [activeSkill, setActiveSkill] = useState("Prospecting")
-  const loadPlayerData = useContext(PlayerDataContext)
-  const [playerData, setPlayerData] = useState(loadPlayerData)
-  let playerLevels = useMemo(() => calculateLevels(playerData), [playerData])
-  const [activeTask, setActiveTask] = useState({})
-  const [activeMonster, setActiveMonster] = useState({})
-  const tickRate = 40;
-  const [attackProg, setAttackProg] = useState(0)
-  const [enemyAttackProg, setEnemyAttackProg] = useState(0)
-  const [activeCombat, setActiveCombat] = useState(false)
-  const [activeVocation, setActiveVocation] = useState('')
-  const [activeAttack, setActiveAttack] = useState([])
-  const [activeEnemyAttack, setActiveEnemyAttack] = useState([])
-  const refAttackProg = useRef('')
-  const refEnemyAttackProg = useRef('')
+ const TICKRATE = 40;
 
-  const respawnMonster = (selectedMonster, setActiveMonster) => {
+  //  const UseInterval = (callback, tickRate) => {
+  //   const savedCallback = useRef();
+
+  //   useEffect(() => {
+  //     savedCallback.current = callback;
+  //   });
+
+  //   useEffect(() => {
+  //     function tick() {
+  //       savedCallback.current();
+  //     }
+  //     if (tickRate !== null) {
+  //     let id = setInterval(tick, tickRate);
+  //     return () => clearInterval(id);
+  //     }
+  //   }, [tickRate]);
+  // }
+
+  // App Hooks
+ const respawnMonster = (selectedMonster, setActiveMonster) => {
     // Set current health values to max health
     let combatStats = {...MonsterData[selectedMonster].combatStats,
                     name: selectedMonster,
@@ -120,40 +127,51 @@ function App() {
     let activeMonster = {...MonsterData[selectedMonster], combatStats: combatStats}
     setActiveMonster(activeMonster)
     launchCombat(false, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg)
-}
-
-  const UseInterval = (callback, tickRate) => {
-    const savedCallback = useRef();
-  
-    useEffect(() => {
-      savedCallback.current = callback;
-    });
-  
-    useEffect(() => {
-      function tick() {
-        savedCallback.current();
-      }
-      if (tickRate !== null) {
-      let id = setInterval(tick, tickRate);
-      return () => clearInterval(id);
-      }
-    }, [tickRate]);
   }
 
+
+  // Game state hooks
+  const [activeSkill, setActiveSkill] = useState("Prospecting") // active skill page player is viewing
+  const loadPlayerData = useContext(PlayerDataContext) // Load player data from context
+  const [playerData, setPlayerData] = useState(loadPlayerData) // Set player data as a state hook
+  let playerLevels = useMemo(() => calculateLevels(playerData), [playerData]) // Calculate player levels based on player data
+  const [activeTask, setActiveTask] = useState({}) // Active task the player is performing, eg. Combat or Prospecting
+  const [activeMonster, setActiveMonster] = useState({}) // Monster that is loaded into the combat frame next to player frame
+  const [activeVocation, setActiveVocation] = useState('')
+
+  // Combat related hooks
+  const [activeCombat, setActiveCombat] = useState(false) // Boolean true if combat is running
+  const [sellQuantity, setSellQuantity] = useState(1) // Quantity of items to sell in equipment window
+  const [activeAttack, setActiveAttack] = useState([]) // Player's active attack
+  const [activeEnemyAttack, setActiveEnemyAttack] = useState([]) // Enemy's active attack
+  const [attackProg, setAttackProg] = useState(0) // Attack progress for player
+  const [enemyAttackProg, setEnemyAttackProg] = useState(0) // Attack progress for enemy
+  const refAttackProg = useRef('') // Player previous attack progress to determine completed attack
+  const refEnemyAttackProg = useRef('') // Enemy previous attack progress to determine completed attack
+
+  const [musicVolume, setMusicVolume] = useState(50)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [playMusic, {pause, duration}] = useSound(whereIsHome, {volume: musicVolume/100, loop: true, interrupt:false})
+
+  const togglePlay = () => {
+    if (isPlaying) {
+      pause();
+    } else {
+      playMusic();
+    }
+    setIsPlaying(!isPlaying);
+  }  
+  // Manage combat events for each game tick
   useEffect(() => {
     let newPlayerData = {...playerData}
     let newMonsterData = {...activeMonster}
+
     // If attack progress is completed, and combat is active, attack the monster
     if ((refAttackProg.current > attackProg) && activeCombat) {
-        console.log("Attacking")
-        // console.log(`newPlayerData = ${JSON.stringify(newPlayerData)}`)
-        
         // Get attack data whether it's a fury attack or not
         let attackData, attackType
         if (newPlayerData.combatStats.currentFury == newPlayerData.combatStats.maxFury) {
-          console.log(`Tick`)
           attackData = newPlayerData.combatStats.furyAttacks.find((obj) => obj.name == newPlayerData.combatStats.selectedAttack)
-          console.log('Tack')
           newPlayerData.combatStats.currentFury = 0
         }
         else {
@@ -170,12 +188,10 @@ function App() {
         // let newAttackData = newPlayerData.combatStats.attacks.find((obj) => obj.name == newPlayerData.combatStats.selectedAttack)
 
         // TODO - Kickback from attack, heavy weaponry can kick back attack charges
-        // console.log(`newPlayerData = ${JSON.stringify(newPlayerData)}`)
         // setActiveAttack(newPlayerData.combatStats.selectedAttack)
         // setEnemyAttackProg(prev => Math.max(prev-35, 0))
         let death = false
         if (newMonsterData.combatStats.currentHp <= 0) {
-          console.log("Monster Dead")
           death = true
           const [drop, quantity] = rollLootTable(activeMonster.dropRates, activeMonster.drops)
           if (drop) {
@@ -197,7 +213,6 @@ function App() {
     
     // If enemy attack progress is completed, and combat is active, attack the player
     if ((refEnemyAttackProg.current > enemyAttackProg) && activeCombat) {
-        console.log("Enemy Attacking")
         let newPlayerData = {...playerData}
         let newMonsterData = {...activeMonster}
 
@@ -240,22 +255,38 @@ function App() {
       refEnemyAttackProg.current = enemyAttackProg
 
       }, [attackProg, enemyAttackProg])
-    
-  const launchCombat = (activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg) => {
-    // Calculate per tick progression based on attackSpeed and tickRate
-    console.log('entering launchCombat function')
+
+  const launchCombat = (activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeTask, setActiveTask) => {
+    // Calculate per tick progression based on attackSpeed and TICKRATE
+
+    // Clear running Prospecting or Metallurgy task if it exists
+    clearInterval(activeTask.taskId)
+    setActiveTask({})
+
+    // Roll the type of attack to be made
     playerData = rollAttackType(playerData)
     activeMonster = rollAttackType(activeMonster)
-    let prog = 100 / (playerData.combatStats.attackSpeed / tickRate)
-    let enemyProg = 100 / (activeMonster.combatStats.attackSpeed / tickRate)
     
+    // Reset attack progress
+    setAttackProg(0)
+    setEnemyAttackProg(0)
+    refAttackProg.current = 0
+    refEnemyAttackProg.current = 0
+
+    // Calculate attack progression per tick
+    let prog = 100 / (playerData.combatStats.attackSpeed / TICKRATE)
+    let enemyProg = 100 / (activeMonster.combatStats.attackSpeed / TICKRATE)
+    
+
+    // If combat is not active, start the combat loop and set states
     if (!activeCombat) {
+      // Set the combat loop
       const timer = setInterval(() => {
-          prog = 100 / (playerData.combatStats.attackSpeed / tickRate)
-          enemyProg = 100 / (activeMonster.combatStats.attackSpeed / tickRate) 
+          prog = 100 / (playerData.combatStats.attackSpeed / TICKRATE)
+          enemyProg = 100 / (activeMonster.combatStats.attackSpeed / TICKRATE) 
           setAttackProg(prev => (prev + prog)% 100)
           setEnemyAttackProg(prev => (prev + enemyProg)% 100)
-          }, tickRate)
+          }, TICKRATE)
       setActiveAttack([playerData.combatStats.selectedAttack, playerData.combatStats.attackSpeed])
       setActiveEnemyAttack([activeMonster.combatStats.selectedAttack, activeMonster.combatStats.attackSpeed])
       setPlayerData(playerData)
@@ -271,26 +302,37 @@ function App() {
     }
     }
 
-
   return (
-    <Box sx={{ display: 'flex'}}>
-      <CssBaseline />
-      <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeCombat, setActiveCombat, activeVocation, setActiveVocation}}>
-        <Drawer variant="permanent" open={true} sx={{ position: 'relative' }}>
-          <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
-        </Drawer>
-        <Box
-            component="main"
-            sx={{
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'light'
-                  ? theme.palette.grey[100]
-                  : theme.palette.grey[900],
-              flexGrow: 1,
-              height: '100vh',
-              overflow: 'auto',
-            }}
-          >
+    <Box>
+      <Stack spacing={0} direction="row" sx={{ mb: 1, width:"15%", height:"7px", marginLeft:"auto"}} alignItems="center">
+          <a className="audioLabel">Music {isPlaying ? "On" : "Off"}</a>
+          <IconButton variant="contained" color="primary" onClick={togglePlay}>{isPlaying ? <VolumeUpOutlinedIcon/> : <VolumeOffOutlinedIcon/>}</IconButton>
+          <Slider
+            sx = {{width:'50%', height: '3px'}}
+            size="small"
+            value={musicVolume}
+            aria-label="Small"
+            onChange={(e) => adjustSlider(e, setMusicVolume, false)} 
+            />
+      </Stack>
+      <Box sx={{ display: 'flex'}}>
+        <CssBaseline />
+        <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeCombat, setActiveCombat, activeVocation, setActiveVocation, sellQuantity, setSellQuantity}}>
+          <Drawer variant="permanent" open={true} sx={{ position: 'relative' }}>
+            <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
+          </Drawer>
+          <Box
+              component="main"
+              sx={{
+                backgroundColor: (theme) =>
+                  theme.palette.mode === 'light'
+                    ? theme.palette.grey[100]
+                    : theme.palette.grey[900],
+                flexGrow: 1,
+                height: '100vh',
+                overflow: 'auto',
+              }}
+            >
           <Box className='row1'>
             {/* TODO - set the activeTask to bank and skill tree and link to those components . Eventually should clean up and do the routing here rather than in Tasks.js */}
             <Tasks skill={activeSkill}/>
@@ -300,19 +342,80 @@ function App() {
             <div className="combatContainer">
             <CombatFrame combatData={playerData.combatStats} name="You" attackProg={attackProg} activeAttack={activeAttack} />
             {(JSON.stringify(activeMonster) !== "{}" && activeMonster.combatStats.currentHp >= 0) 
-              && <CombatFrame 
-                combatData={activeMonster.combatStats} 
-                name={activeMonster.name} 
-                attackProg={enemyAttackProg}
-                activeAttack={activeEnemyAttack}/>
+                && <CombatFrame 
+                  combatData={activeMonster.combatStats} 
+                  name={activeMonster.name} 
+                  attackProg={enemyAttackProg}
+                  activeAttack={activeEnemyAttack}/>
             }
             </div>
           </Box>
-          <Button variant="contained" color="error" onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg)}}>Start/Stop Combat</Button>
-        </Box>
-    </PlayerDataContext.Provider>
+            <div className='flexContainer smallMargin'>
+              <Button variant="contained" color="error" onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg, activeTask, setActiveTask)}}>Fight!</Button>
+            </div>        
+          </Box>
+        </PlayerDataContext.Provider>
+      </Box>
     </Box>
-  );
-}
+      );
+    }
+// =======
+
+//   return (
+//     <Box>
+//         <Stack spacing={0} direction="row" sx={{ mb: 1, width:"15%", height:"7px", marginLeft:"auto"}} alignItems="center">
+//             <a className="audioLabel">Music {isPlaying ? "On" : "Off"}</a>
+//             <IconButton variant="contained" color="primary" onClick={togglePlay}>{isPlaying ? <VolumeUpOutlinedIcon/> : <VolumeOffOutlinedIcon/>}</IconButton>
+//             <Slider
+//               sx = {{width:'50%', height: '3px'}}
+//               size="small"
+//               value={musicVolume}
+//               aria-label="Small"
+//               onChange={(e) => adjustSlider(e, setMusicVolume, false)} 
+//               />
+//         </Stack>
+//       <Box sx={{display: 'flex'}}>
+//         <CssBaseline />
+//         <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, activeCombat, setActiveCombat, sellQuantity, setSellQuantity}}>
+//         <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
+//           <Box
+//               component="main"
+//               sx={{
+//                 backgroundColor: (theme) =>
+//                   theme.palette.mode === 'light'
+//                     ? theme.palette.grey[100]
+//                     : theme.palette.grey[900],
+//                 flexGrow: 1,
+//                 height: '100vh',
+//                 overflow: 'auto',
+//               }}
+//             >
+
+//             <Box className='row1'>
+//               <Tasks skill={activeSkill}/>
+//               <Inventory/>
+//             </Box>
+//             <Box className="row2">
+//               <Events skill={activeSkill}/>
+//               <div className="combatContainer">
+//               <CombatFrame combatData={playerData.combatStats} name="You" attackProg={attackProg} activeAttack={activeAttack} />
+//               {(JSON.stringify(activeMonster) !== "{}" && activeMonster.combatStats.currentHp >= 0) 
+//                 && <CombatFrame 
+//                   combatData={activeMonster.combatStats} 
+//                   name={activeMonster.name} 
+//                   attackProg={enemyAttackProg}
+//                   activeAttack={activeEnemyAttack}/>
+//               }
+//               </div>
+//             </Box>
+//             <div className='flexContainer smallMargin'>
+//               <Button variant="contained" color="error" onClick={(e)=>{launchCombat(activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg, activeTask, setActiveTask)}}>Fight!</Button>
+//             </div>
+//           </Box>
+//       </PlayerDataContext.Provider>
+//       </Box>
+// >>>>>>> master
+    // </Box>
+
 
 export default App;

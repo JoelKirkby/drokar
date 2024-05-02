@@ -14,7 +14,7 @@ export const ItemData = {
     // Prospecting items
     "Copper Ore":{
         sellValue: 5,
-        description: "A red ore, can be refined using Metallurgy",
+        description: "A red ore, can be refined using Metallurgy. It's red, trust me.",
         image: copper,
         acquiredBy: ["Prospecting Level 1", "Combat"],
         usedIn: {'Metallurgy':1}
@@ -22,7 +22,7 @@ export const ItemData = {
     "Tin Ore":
         {
         sellValue: 5,
-        description: "A faint silver ore, can be refined using Metallurgy",
+        description: "A faint silver ore, smelt with Copper Ore using Metallurgy",
         image: tin,
         acquiredBy: ["Prospecting Level 1", "Combat"],
         usedIn: {'Metallurgy':1}

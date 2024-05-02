@@ -55,9 +55,18 @@ padding: 10px;
 width:50%;
 }
 
+.equipmentTip {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Calibri';
+    position: absolute;
+    bottom: 0;
+    right: 6%;
+}
+
 .grid-container > div {
 background-color: rgba(255, 255, 255, 0.3);
-/* padding: 20px 0; */
 border-radius: 4px;
 height: 80px;
 width: 200px;

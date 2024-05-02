@@ -3,8 +3,6 @@ import { Box } from '@mui/material';
 import { ProspectingTasks, MetallurgyTasks} from '../helpers/TaskData';
 import { useContext} from 'react';
 import { PlayerDataContext } from '../helpers/Contexts';
-import { ItemData } from '../helpers/ItemData';
-import ProgressLine from './ProgressLine';
 import CombatTasks from './CombatTasks';
 import AbilityWindow from './AbilityWindow';
 import ItemWindow from './ItemWindow';
@@ -43,7 +41,7 @@ const runTask = (load_task, skill, playerData, setPlayerData) => {
 };
 
 const Tasks = (props) => {
-  const {playerData, setPlayerData, activeTask, setActiveTask, playerLevels} = useContext(PlayerDataContext)
+  const {playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeCombat} = useContext(PlayerDataContext)
   const irregularTasks = {'Combat': <CombatTasks/>, 'Arsenal': <ItemWindow/>, 'Skills':<AbilityWindow/>}
   const launchTask = (task, skill, playerData, setPlayerData) => {
     clearInterval(activeTask.taskId)
@@ -51,7 +49,7 @@ const Tasks = (props) => {
 
     var load_task = tasks[skill].find((obj) => obj.name == task.name)
 
-    if (activeTask.name != task.name) {
+    if (activeTask.name != task.name && activeCombat == false) {
       var intervalId = setInterval(runTask, task.duration, load_task, skill, playerData, setPlayerData)
       newTask = {...task,
       taskId: intervalId}
@@ -63,7 +61,6 @@ const Tasks = (props) => {
   }
 
   var skill = props.skill
-  console.log(`skill = ${skill}`)
   return (
     <Box className="Tasks">
       {/* If irregular task, render special window. Otherwise list tasks out in a basic fashion */}
