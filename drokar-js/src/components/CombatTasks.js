@@ -4,12 +4,12 @@ import { useState, useContext } from "react";
 import { PlayerDataContext } from "../helpers/Contexts";
 import "./Combat.css";
 
-const setMonsterData = (monsterName, setActiveMonster) => {
+const setMonsterData = (selectedMonster, setActiveMonster) => {
     // Set current health values to max health
-    let combatStats = {...MonsterData[monsterName].combatStats,
-                    name: monsterName,
-                    currentHp: MonsterData[monsterName].combatStats.maxHp,
-                    currentMana: MonsterData[monsterName].combatStats.maxMana,
+    let combatStats = {...MonsterData[selectedMonster].combatStats,
+                    name: selectedMonster,
+                    currentHp: MonsterData[selectedMonster].combatStats.maxHp,
+                    currentMana: MonsterData[selectedMonster].combatStats.maxMana,
                     currentFury: 0,
                     maxFury: 100,
                     }
