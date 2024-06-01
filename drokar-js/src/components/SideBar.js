@@ -1,6 +1,8 @@
 import { ListItem, Box, ListItemButton, ListItemIcon, ListItemText, Divider, List, LinearProgress } from "@mui/material";
 import { Landscape, Gavel, ColorizeSharp, Castle, Hub } from "@mui/icons-material";
 
+
+
 function SideBar({playerLevels, setActiveSkill}) {
     var iconMap = {
         'Prospecting': <Landscape />, 
@@ -10,8 +12,10 @@ function SideBar({playerLevels, setActiveSkill}) {
         'Skills': <Hub />
     }
     
-    return ( 
-            <Box sx={{ width: '15%' }} role="presentation">
+    return (
+            <Box sx={{ width: '100%',
+                      // backgroundColor: (theme) => theme.palette.mode === "light" ? "f5f5f5" : "#0f0f0f"
+            }} role="presentation" bcolor="dark">
               <List>
                 {['Prospecting', 'Metallurgy'].map((text, index) => (
                   <Box>
