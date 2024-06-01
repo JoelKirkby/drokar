@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
 import { MonsterData } from "../helpers/MonsterData";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { PlayerDataContext } from "../helpers/Contexts";
 import CombatFrame from "./CombatFrame";
-import { rollAttackType } from "../functions/calcs";
+import { rollAttackType, rollLootTable } from "../functions/calcs";
 import "./Combat.css";
 
 const launchCombat = (activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeTask, setActiveTask, TICKRATE, setActiveAttack, setActiveEnemyAttack, refAttackProg, refEnemyAttackProg) => {
@@ -52,15 +52,6 @@ const launchCombat = (activeCombat, setActiveCombat, playerData, setPlayerData, 
     }
 
 
-// const respawnMonster = (selectedMonster, setActiveMonster) => {
-//     // Set current health values to max health
-//     let combatStats = {...MonsterData[selectedMonster].combatStats,
-//                     name: selectedMonster,
-//                     currentHp: MonsterData[selectedMonster].combatStats.maxHp,
-//                     currentMana: MonsterData[selectedMonster].combatStats.maxMana,
-//                     currentFury: 0,
-//                     maxFury: 100,
-//                     }
 
 
 function CombatTasks() { 
@@ -86,7 +77,6 @@ function CombatTasks() {
     setActiveMonster(activeMonster)
     launchCombat(false, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg, activeTask, setActiveTask, TICKRATE, setActiveAttack, setActiveEnemyAttack, refAttackProg, refEnemyAttackProg)
   }
-  
   // Manage combat events for each game tick
   useEffect(() => {
     let newPlayerData = {...playerData}
