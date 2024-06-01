@@ -8,7 +8,7 @@ import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 
 import { Box } from '@mui/material';
-import { useState, useContext, useMemo, useRef, useEffect} from 'react';
+import { useState, useContext, createContext, useMemo, useRef, useEffect} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Button, IconButton, Slider, Stack } from '@mui/material';
 import { useLayoutEffect } from 'react'
@@ -17,8 +17,6 @@ import Tasks from  './components/Tasks';
 import Events from './components/Events';
 import SideBar from './components/SideBar';
 import Drawer from './components/Drawer';
-import CombatFrame from './components/CombatFrame';
-import {calculateLevels, rollLootTable, rollAttackType} from './functions/calcs.js';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 // import CssBaseline from "@mui/material/CssBaseline";
