@@ -24,39 +24,46 @@ export const ABILITIES = {
         {
             name: "It's greeeeeen!",
             description: 'A green spell of an unknown origin to you, but it deals 16 damage', //On mouseover will print description
-            abilityType: 'spell', //Passive, proc, or attack
+            abilityType: 'spell', //Passive, proc, or spell
             img: spell_green, //image
+            levelRequirement: 5,
             attackData: {
                 name: "It's greeeeeen!",
                 accuracy: 0.8,
                 speed: 2600,
-                damage: 2,
+                damage: 16,
                 type: "magic",
-                manacost: 0,
+                manacost: 7,
                 },
-            chance: 0.75, //if proc or attack
-            damage: 16,
             attackType: 'magic',
-            applyStatusChance: 0.1,
-            applyStatus: 'confuse',
+            applyEffect: 'confuse',
+            applyEffectChance: 0.1,
+            applyTarget: 'enemy',
+            applyEffectDuration: 5000,
         },
         {
             name: 'Mana Leech',
             description: 'Chance to mana leech 25% of damage dealt', //On mouseover will print description
-            abilityType: 'passive', //Passive, proc, or attack
+            abilityType: 'proc',
+            levelRequirement: 1, //Passive, proc, or attack
             img: spell_manaLeech,
             chance: 0.25, //if proc or attack
-            applyStatusChance: 0.25,
-            applyStatus: 'manaDrain',
+            applyEffect: 'manaDrain',
+            applyEffectChance: 0.25, // percent to drain
+            applyEffectTarget: 'enemy',
+            applyEffectAmount: 0.25,
         },
         {
             name: 'Energy Drain',
             description: 'Enemies are slowed on hit for 2 seconds', //On mouseover will print description
-            abilityType: 'passive', //Passive, proc, or attack
+            abilityType: 'proc', //Passive, proc, or attack
+            levelRequirement: 10,
             img: spell_tired,
             chance: 0.25, //if proc or attack
-            applyStatusChance: 1,
-            applyStatus: 'slow',
+            applyEffect: 'slow',
+            applyEffectChance: 1,
+            applyEffectTarget: 'enemy',
+            applyEffectDuration: 2000,
         },
     ],
     'Ruffian':
@@ -69,9 +76,11 @@ export const ABILITIES = {
             // chance: //if proc or attack
             damage: 0,
             healing: 0, 
-            applyStatusChance: 0.15,
-            applyStatus: 'kickAttack',
-            applyStatusAmount: 5, 
+            levelRequirement: 5,
+            applyEffect: 'pushback',
+            applyEffectChance: 1,
+            applyEffectTarget: 'enemy',
+            applyStatusAmount: 300, 
         },
         {
             name: "Pilfer",
@@ -79,11 +88,13 @@ export const ABILITIES = {
             description: "Chance to loot gold on hit", //On mouseover will print description
             abilityType: 'passive', //Passive, proc, or attack
             // chance: //if proc or attack
+            levelRequirement: 1,
             damage: 0,
             healing: 0, 
             applyStatusChance: 0.15,
-            applyStatus: 'goldDrain',
-            applyStatusAmount: 5, 
+            applyEffect: 'goldDrain',
+            applyEffectTarget: 'enemy',
+            applyEffectAmount: 5, 
         },
         {
             name: 'Empty Pockets',
@@ -93,9 +104,10 @@ export const ABILITIES = {
             // chance: //if proc or attack
             damage: 0,
             healing: 0,
-            applyStatusChance: 1,
-            applyStatus: 'armorShred', 
-            applyStatusAmount: 'goldDrain'
+            levelRequirement: 10,
+            applyEffect: 'armorShred',
+            applyEffectChance: 1,
+            applyEffectAmount: 'goldDrain',
         },
     ],
     'Warden':
@@ -104,9 +116,9 @@ export const ABILITIES = {
             name: "Vicious Strike",
             img: viciousStrike, 
             description: "Chance to attack for 40% more damage", //On mouseover will print description
+            levelRequirement: 5,
             abilityType: 'proc', //Passive, proc, or attack
             procChance: 0.25,
-            // chance: //if proc or attack
             addedDamage: 0,
             damageMultiplier: 1.4,
             healing: 0, 
@@ -116,20 +128,14 @@ export const ABILITIES = {
             description: 'Add 40% of your melee Armor to your attack damage',
             img: armorTackle,  //On mouseover will print description
             abilityType: 'passive', //Passive, proc, or attack
-            damageMultiplier: 0.4,
-            mulitplierValue: ['self', 'meleeArmor'],
+            passiveEffect: {addedDamage: [0.4, 'meleeArmor']},
         },
         {
             name: 'Fortitude',
             description: '25% damage reduction from all sources',
             img: fortitude,  //On mouseover will print description
             abilityType: 'passive', //Passive, proc, or attack
-            damage: 0,
-            healing: 0,
-            damageReduction: 0.25,
-            applyStatusChance: 1,
-            applyStatus: 'armorShred', 
-            applyStatusAmount: 'goldDrain'
+            passiveEffect: {damageReduction: 0.25},
         },
     ]
 }  

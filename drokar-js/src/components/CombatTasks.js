@@ -77,6 +77,7 @@ function CombatTasks() {
     setActiveMonster(activeMonster)
     launchCombat(false, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg, activeTask, setActiveTask, TICKRATE, setActiveAttack, setActiveEnemyAttack, refAttackProg, refEnemyAttackProg)
   }
+  
   // Manage combat events for each game tick
   useEffect(() => {
     let newPlayerData = {...playerData}
