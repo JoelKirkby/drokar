@@ -3,7 +3,6 @@ import { xpToLevel } from '../helpers/gameData';
 
 // Functions for calculating various game mechanics
 
-
 export function calculateColor(percent) {
   // Calculate colour of health bar based on percentage
   // value from 0 to 100
@@ -53,17 +52,18 @@ export function roll(probabilities) {
   }
   
 export function rollLootTable(rates, drops){
-    let dropRates = [...rates]
-    let noLootProb = 1 - dropRates.reduce((a, b) => a + b, 0)
-    dropRates.push(noLootProb)
-    let lootRoll = roll(dropRates)
-  
-    if (lootRoll === (dropRates.length -1)) {
-      return ['', 0]
-    }
-    else {
-      return [drops[lootRoll], 1]
-    }
+  // Rolls drops from loot table
+  let dropRates = [...rates]
+  let noLootProb = 1 - dropRates.reduce((a, b) => a + b, 0)
+  dropRates.push(noLootProb)
+  let lootRoll = roll(dropRates)
+
+  if (lootRoll === (dropRates.length -1)) {
+    return ['', 0]
+  }
+  else {
+    return [drops[lootRoll], 1]
+  }
   }
   
 export function rollAttackType(entityData) {
