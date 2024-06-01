@@ -11,6 +11,7 @@ import { Box } from '@mui/material';
 import { useState, useContext, createContext, useMemo, useRef, useEffect} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Button, IconButton, Slider, Stack } from '@mui/material';
+import { calculateLevels } from './functions/calcs';
 import { useLayoutEffect } from 'react'
 // My components
 import Tasks from  './components/Tasks';
