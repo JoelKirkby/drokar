@@ -68,9 +68,11 @@ function App() {
   const refAttackProg = useRef('') // Player previous attack progress to determine completed attack
   const refEnemyAttackProg = useRef('') // Enemy previous attack progress to determine completed attack
   const CombatDataContext = createContext({attackProg, setAttackProg, enemyAttackProg, setEnemyAttackProg, 
-      activeCombat, setActiveCombat, activeMonster, setActiveMonster, playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeVocation, setActiveVocation, sellQuantity, setSellQuantity, activeAttack, setActiveAttack, activeEnemyAttack, setActiveEnemyAttack, refAttackProg, refEnemyAttackProg})
+      activeCombat, setActiveCombat, activeMonster, setActiveMonster, playerData, 
+      setPlayerData, activeTask, setActiveTask, activeAttack, setActiveAttack, 
+      activeEnemyAttack, setActiveEnemyAttack, refAttackProg, refEnemyAttackProg})
 
-
+  // Audio
   const [musicVolume, setMusicVolume] = useState(50)
   const [isPlaying, setIsPlaying] = useState(false)
   const [playMusic, {pause, duration}] = useSound(whereIsHome, {volume: musicVolume/100, loop: true, interrupt:false})
