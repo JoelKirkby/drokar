@@ -6,6 +6,7 @@ import { PlayerDataContext } from '../helpers/Contexts';
 import CombatTasks from './CombatTasks';
 import AbilityWindow from './AbilityWindow';
 import ItemWindow from './ItemWindow';
+import MonsterTasks from './MonsterTasks';
 
 const tasks = {
   Prospecting: ProspectingTasks,
@@ -42,7 +43,7 @@ const runTask = (load_task, skill, playerData, setPlayerData) => {
 
 const Tasks = (props) => {
   const {playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeCombat} = useContext(PlayerDataContext)
-  const irregularTasks = {'Combat': <CombatTasks/>, 'Arsenal': <ItemWindow/>, 'Skills':<AbilityWindow/>}
+  const irregularTasks = {'Combat': <CombatTasks/>, "Monsters": <MonsterTasks/>, 'Arsenal': <ItemWindow/>, 'Skills':<AbilityWindow/>}
   const launchTask = (task, skill, playerData, setPlayerData) => {
     clearInterval(activeTask.taskId)
     var newTask;
