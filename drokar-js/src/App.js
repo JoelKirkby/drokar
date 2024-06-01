@@ -19,7 +19,9 @@ import SideBar from './components/SideBar';
 import Drawer from './components/Drawer';
 import CombatFrame from './components/CombatFrame';
 import {calculateLevels, rollLootTable, rollAttackType} from './functions/calcs.js';
+
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+// import CssBaseline from "@mui/material/CssBaseline";
 
 // My data
 import { PlayerDataContext } from './helpers/Contexts';
@@ -29,6 +31,7 @@ const adjustSlider = (event, setFunc) => {
   let percent = event.target.value
   setFunc(percent)
 }
+
 const darkTheme = createTheme({
   palette: {
     background: {
@@ -38,30 +41,13 @@ const darkTheme = createTheme({
     mode: 'dark',
   },
 });
+
 function App() {
   // Game constants
   useLayoutEffect(() => {
     document.body.style.backgroundColor = "#14232D"
   });
  const TICKRATE = 40;
-
-  //  const UseInterval = (callback, tickRate) => {
-  //   const savedCallback = useRef();
-
-  //   useEffect(() => {
-  //     savedCallback.current = callback;
-  //   });
-
-  //   useEffect(() => {
-  //     function tick() {
-  //       savedCallback.current();
-  //     }
-  //     if (tickRate !== null) {
-  //     let id = setInterval(tick, tickRate);
-  //     return () => clearInterval(id);
-  //     }
-  //   }, [tickRate]);
-  // }
 
   // App Hooks
  const respawnMonster = (selectedMonster, setActiveMonster) => {
@@ -76,7 +62,7 @@ function App() {
 
     let activeMonster = {...MonsterData[selectedMonster], combatStats: combatStats}
     setActiveMonster(activeMonster)
-    launchCombat(false, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg)
+    launchCombat(false, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeTask, setActiveTask)
   }
 
 
@@ -111,6 +97,7 @@ function App() {
     }
     setIsPlaying(!isPlaying);
   }  
+  
   // Manage combat events for each game tick
   useEffect(() => {
     let newPlayerData = {...playerData}
@@ -128,6 +115,7 @@ function App() {
           attackData = newPlayerData.combatStats.attacks.find((obj) => obj.name == newPlayerData.combatStats.selectedAttack)
           newPlayerData.combatStats.currentFury = Math.min(100, newPlayerData.combatStats.currentFury + newPlayerData.combatStats.furyRate)
         }
+
         attackType = attackData.type
         let damageCalculation = newPlayerData.combatStats[`${attackType}Damage`] + attackData.damage - newMonsterData.combatStats[`${attackType}Armor`] 
         let calculatedDamage = Math.max(damageCalculation, 0)
