@@ -19,6 +19,7 @@ import SideBar from './components/SideBar';
 import Drawer from './components/Drawer';
 import CombatFrame from './components/CombatFrame';
 import {calculateLevels, rollLootTable, rollAttackType} from './functions/calcs.js';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 // My data
 import { PlayerDataContext } from './helpers/Contexts';
@@ -28,6 +29,15 @@ const adjustSlider = (event, setFunc) => {
   let percent = event.target.value
   setFunc(percent)
 }
+const darkTheme = createTheme({
+  palette: {
+    background: {
+      default: "#14232D",
+      paper: "#14232D"
+    },
+    mode: 'dark',
+  },
+});
 function App() {
   // Game constants
   useLayoutEffect(() => {
@@ -258,9 +268,11 @@ function App() {
       <Box sx={{ display: 'flex'}}>
         <CssBaseline />
         <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeCombat, setActiveCombat, activeVocation, setActiveVocation, sellQuantity, setSellQuantity}}>
+          <ThemeProvider theme={darkTheme}>
           <Drawer variant="permanent" open={true} sx={{ position: 'relative' }}>
             <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>
           </Drawer>
+          </ThemeProvider>
           <Box
               component="main"
               sx={{
