@@ -8,8 +8,6 @@ function Events(props) {
     let skill = activeTask.skill
     return (
       <div className="Events">
-        <div>{activeTask.name} - {(activeTask.duration/1000).toFixed(2)}s</div>
-
         {JSON.stringify(activeTask) === "{}"
           ? <div className="testo"><p className="infoPanel">Click on Prospecting or Metallurgy to start a task or start fighting from the Combat window. You cannot work on tasks while in combat.
           <br/> Mine ores with Prospecting, smelt them with Metallurgy, smith bars into weapons and armor and fight the goblins! 
