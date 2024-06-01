@@ -49,23 +49,6 @@ function App() {
   });
  const TICKRATE = 40;
 
-  // App Hooks
- const respawnMonster = (selectedMonster, setActiveMonster) => {
-    // Set current health values to max health
-    let combatStats = {...MonsterData[selectedMonster].combatStats,
-                    name: selectedMonster,
-                    currentHp: MonsterData[selectedMonster].combatStats.maxHp,
-                    currentMana: MonsterData[selectedMonster].combatStats.maxMana,
-                    currentFury: 0,
-                    maxFury: 100,
-                    }
-
-    let activeMonster = {...MonsterData[selectedMonster], combatStats: combatStats}
-    setActiveMonster(activeMonster)
-    launchCombat(false, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeTask, setActiveTask)
-  }
-
-
   // Game state hooks
   const [activeSkill, setActiveSkill] = useState("Prospecting") // active skill page player is viewing
   const loadPlayerData = useContext(PlayerDataContext) // Load player data from context

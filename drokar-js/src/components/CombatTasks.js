@@ -73,8 +73,20 @@ function CombatTasks() {
         enemyAttackProg, setEnemyAttackProg,
         playerData, setPlayerData, activeTask, setActiveTask,
         setActiveMonster, activeCombat, setActiveCombat,
-        activeAttack, activeEnemyAttack, setActiveAttack, setActiveEnemyAttack, TICKRATE,
-        refAttackProg, refEnemyAttackProg} = useContext(PlayerDataContext)
+  const respawnMonster = (selectedMonster, setActiveMonster) => {
+    // Set current health values to max health
+    let combatStats = {...MonsterData[selectedMonster].combatStats,
+                    name: selectedMonster,
+                    currentHp: MonsterData[selectedMonster].combatStats.maxHp,
+                    currentMana: MonsterData[selectedMonster].combatStats.maxMana,
+                    currentFury: 0,
+                    maxFury: 100,
+                    }
+
+    let activeMonster = {...MonsterData[selectedMonster], combatStats: combatStats}
+    setActiveMonster(activeMonster)
+    launchCombat(false, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg, activeTask, setActiveTask, TICKRATE, setActiveAttack, setActiveEnemyAttack, refAttackProg, refEnemyAttackProg)
+  }
 
     return (
         <div>
