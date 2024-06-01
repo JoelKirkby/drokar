@@ -24,66 +24,6 @@ import {calculateLevels, rollLootTable, rollAttackType} from './functions/calcs.
 import { PlayerDataContext } from './helpers/Contexts';
 import { MonsterData } from './helpers/MonsterData';
 
-
-const calculateLevels = ((playerData) => {
-  var levels = {}
-  for (const [skill, xp] of Object.entries(playerData.skills)) {
-    let lvl = xpToLevel.findIndex((num) => num > xp)
-    let progressToNextLvl = 100 * ((xp - xpToLevel[lvl-1]) / (xpToLevel[lvl] - xpToLevel[lvl-1]))
-    levels[skill] = [lvl, progressToNextLvl]
-  }
-  return levels
-  
-})
-
-function roll(probabilities) {
-  // Roll an outcome based on input probabilities O[n]
-  const totalProbability = probabilities.reduce((sum, probability) => sum + probability, 0);
-  const randomValue = Math.random() * totalProbability;
-  let cumulativeProbability = 0;
-
-  for (let i = 0; i < probabilities.length; i++) {
-    cumulativeProbability += probabilities[i];
-    if (randomValue < cumulativeProbability) {
-      return i;
-    }
-  }
-  return probabilities.length - 1;
-}
-
-const rollLootTable = (rates, drops) => {
-  let dropRates = [...rates]
-  let noLootProb = 1 - dropRates.reduce((a, b) => a + b, 0)
-  dropRates.push(noLootProb)
-  let lootRoll = roll(dropRates)
-
-  if (lootRoll === (dropRates.length -1)) {
-    return ['', 0]
-  }
-  else {
-    return [drops[lootRoll], 1]
-  }
-}
-
-  const rollAttackType = (entityData) => {
-    let attackProbs = entityData.combatStats.attackChances
-    let rolledAttack
-    // Roll for fury attack if fury is full
-    if (entityData.combatStats.currentFury >= entityData.combatStats.maxFury) {
-      
-      attackProbs = entityData.combatStats.furyAttackChances
-      rolledAttack = entityData.combatStats.furyAttacks[roll(attackProbs)]
-      console.log("FURY ATTACK")
-      console.log('rolledAttack.name = ' + rolledAttack.name)
-    }
-    else {rolledAttack = entityData.combatStats.attacks[roll(attackProbs)]
-    }
-    entityData.combatStats.selectedAttack = rolledAttack.name
-    entityData.combatStats.attackSpeed = rolledAttack.speed
-    
-    return entityData
-  }
-
 const adjustSlider = (event, setFunc) => {
   let percent = event.target.value
   setFunc(percent)
