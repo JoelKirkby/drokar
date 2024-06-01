@@ -62,17 +62,16 @@ const launchCombat = (activeCombat, setActiveCombat, playerData, setPlayerData, 
 //                     maxFury: 100,
 //                     }
 
-//     let activeMonster = {...MonsterData[selectedMonster], combatStats: combatStats}
-//     setActiveMonster(activeMonster)
-//     launchCombat(false, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeTask, setActiveTask)
-//   }
 
 function CombatTasks() { 
-    const [selectedMonster, setSelectedMonster] = useState('')
-    const {activeMonster, attackProg, setAttackProg, 
-        enemyAttackProg, setEnemyAttackProg,
-        playerData, setPlayerData, activeTask, setActiveTask,
-        setActiveMonster, activeCombat, setActiveCombat,
+  const [selectedMonster, setSelectedMonster] = useState('')
+  const {activeMonster, attackProg, setAttackProg, 
+      enemyAttackProg, setEnemyAttackProg,
+      playerData, setPlayerData, activeTask, setActiveTask,
+      setActiveMonster, activeCombat, setActiveCombat,
+      activeAttack, activeEnemyAttack, setActiveAttack, setActiveEnemyAttack, TICKRATE, refAttackProg, refEnemyAttackProg} = useContext(PlayerDataContext)
+
+
   const respawnMonster = (selectedMonster, setActiveMonster) => {
     // Set current health values to max health
     let combatStats = {...MonsterData[selectedMonster].combatStats,
@@ -87,6 +86,102 @@ function CombatTasks() {
     setActiveMonster(activeMonster)
     launchCombat(false, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg, activeTask, setActiveTask, TICKRATE, setActiveAttack, setActiveEnemyAttack, refAttackProg, refEnemyAttackProg)
   }
+  
+  // Manage combat events for each game tick
+  useEffect(() => {
+    let newPlayerData = {...playerData}
+    let newMonsterData = {...activeMonster}
+
+    // If attack progress is completed, and combat is active, attack the monster
+    if ((refAttackProg.current > attackProg) && activeCombat) {
+        // Get attack data whether it's a fury attack or not
+        let attackData, attackType
+        if (newPlayerData.combatStats.currentFury == newPlayerData.combatStats.maxFury) {
+          attackData = newPlayerData.combatStats.furyAttacks.find((obj) => obj.name == newPlayerData.combatStats.selectedAttack)
+          newPlayerData.combatStats.currentFury = 0
+        }
+        else {
+          attackData = newPlayerData.combatStats.attacks.find((obj) => obj.name == newPlayerData.combatStats.selectedAttack)
+          newPlayerData.combatStats.currentFury = Math.min(100, newPlayerData.combatStats.currentFury + newPlayerData.combatStats.furyRate)
+        }
+
+        attackType = attackData.type
+        let damageCalculation = newPlayerData.combatStats[`${attackType}Damage`] + attackData.damage - newMonsterData.combatStats[`${attackType}Armor`] 
+        let calculatedDamage = Math.max(damageCalculation, 0)
+        newMonsterData.combatStats.currentHp -= calculatedDamage
+        
+        
+        newPlayerData = rollAttackType(newPlayerData)
+        // let newAttackData = newPlayerData.combatStats.attacks.find((obj) => obj.name == newPlayerData.combatStats.selectedAttack)
+
+        // TODO - Kickback from attack, heavy weaponry can kick back attack charges
+        // setActiveAttack(newPlayerData.combatStats.selectedAttack)
+        // setEnemyAttackProg(prev => Math.max(prev-35, 0))
+        let death = false
+        if (newMonsterData.combatStats.currentHp <= 0) {
+          death = true
+          const [drop, quantity] = rollLootTable(activeMonster.dropRates, activeMonster.drops)
+          if (drop) {
+            console.log(`Loot found! ${drop}`)
+            drop in newPlayerData.inventory 
+            ? newPlayerData.inventory[drop].quantity += 1
+            : newPlayerData.inventory[drop] = {"quantity": 1}
+          }
+          setActiveMonster({})
+          setTimeout(() => {respawnMonster(newMonsterData.combatStats.name, setActiveMonster)}, 2000)
+          clearInterval(activeCombat)
+          setActiveCombat(false)
+        } 
+        setActiveAttack([newPlayerData.combatStats.selectedAttack, newPlayerData.combatStats.attackSpeed])
+        setPlayerData(newPlayerData)
+        setActiveMonster(newMonsterData)
+        }
+      
+  
+    // If enemy attack progress is completed, and combat is active, attack the player
+    if ((refEnemyAttackProg.current > enemyAttackProg) && activeCombat) {
+        let newPlayerData = {...playerData}
+        let newMonsterData = {...activeMonster}
+
+        
+        // Get attack data whether it's a fury attack or not
+        let attackData, attackType
+        if (newMonsterData.combatStats.currentFury == newMonsterData.combatStats.maxFury) {
+          attackData = newMonsterData.combatStats.furyAttacks.find((obj) => obj.name == newMonsterData.combatStats.selectedAttack)
+          newMonsterData.combatStats.currentFury = 0
+          
+        }
+        else {
+          attackData = newMonsterData.combatStats.attacks.find((obj) => obj.name == newMonsterData.combatStats.selectedAttack)
+          newMonsterData.combatStats.currentFury = Math.min(100, newMonsterData.combatStats.currentFury + newMonsterData.combatStats.furyRate)
+        }
+        attackType = attackData.type
+
+        let damageCalculation = newMonsterData.combatStats[`${attackType}Damage`] + attackData.damage - newPlayerData.combatStats[`${attackType}Armor`]
+        let calculatedDamage = Math.max(damageCalculation, 0)
+      
+        newPlayerData.combatStats.currentHp -= Math.max(calculatedDamage, 0)
+
+        newMonsterData = rollAttackType(newMonsterData)
+
+        if (newPlayerData.combatStats.currentHp <= 0) {
+          console.log("Player Dead")
+
+          setActiveMonster({})
+          clearInterval(activeCombat)
+          setActiveCombat(false)
+        } 
+
+        setActiveEnemyAttack([newMonsterData.combatStats.selectedAttack, newMonsterData.combatStats.attackSpeed])
+        setActiveMonster(newMonsterData)
+        setPlayerData(newPlayerData)
+    }
+
+      // Cache previous attack progress values, if the new value is lower then the attack charge has been completed
+      refAttackProg.current = attackProg
+      refEnemyAttackProg.current = enemyAttackProg
+
+      }, [attackProg, enemyAttackProg])
 
     return (
         <div>
