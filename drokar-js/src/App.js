@@ -52,6 +52,7 @@ function App() {
   // Game state hooks
   const [activeSkill, setActiveSkill] = useState("Prospecting") // active skill page player is viewing
   const loadPlayerData = useContext(PlayerDataContext) // Load player data from context
+
   const [playerData, setPlayerData] = useState(loadPlayerData) // Set player data as a state hook
   let playerLevels = useMemo(() => calculateLevels(playerData), [playerData]) // Calculate player levels based on player data
   const [activeTask, setActiveTask] = useState({}) // Active task the player is performing, eg. Combat or Prospecting
@@ -67,6 +68,9 @@ function App() {
   const [enemyAttackProg, setEnemyAttackProg] = useState(0) // Attack progress for enemy
   const refAttackProg = useRef('') // Player previous attack progress to determine completed attack
   const refEnemyAttackProg = useRef('') // Enemy previous attack progress to determine completed attack
+  const CombatDataContext = createContext({attackProg, setAttackProg, enemyAttackProg, setEnemyAttackProg, 
+      activeCombat, setActiveCombat, activeMonster, setActiveMonster, playerData, setPlayerData, activeTask, setActiveTask, playerLevels, activeVocation, setActiveVocation, sellQuantity, setSellQuantity, activeAttack, setActiveAttack, activeEnemyAttack, setActiveEnemyAttack, refAttackProg, refEnemyAttackProg})
+
 
   const [musicVolume, setMusicVolume] = useState(50)
   const [isPlaying, setIsPlaying] = useState(false)
