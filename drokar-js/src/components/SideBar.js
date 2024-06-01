@@ -1,5 +1,5 @@
 import { ListItem, Box, ListItemButton, ListItemIcon, ListItemText, Divider, List, LinearProgress } from "@mui/material";
-import { Landscape, Gavel, ColorizeSharp, Castle, Hub } from "@mui/icons-material";
+import { Landscape, Gavel, ColorizeSharp, Castle, Hub, Forest } from "@mui/icons-material";
 
 
 
@@ -9,7 +9,8 @@ function SideBar({playerLevels, setActiveSkill}) {
         'Metallurgy': <Gavel />, 
         'Combat': <ColorizeSharp/>, 
         'Arsenal': <Castle />, 
-        'Skills': <Hub />
+        'Skills': <Hub />,
+        'Monsters': <Forest/>
     }
     
     return (
@@ -35,7 +36,7 @@ function SideBar({playerLevels, setActiveSkill}) {
               </List>
               <Divider />
               <List>
-                {['Combat', 'Arsenal', 'Skills'].map((text, index) => (
+                {['Monsters', 'Combat', 'Arsenal', 'Skills'].map((text, index) => (
                   <ListItem key={text} disablePadding>
                      <ListItemButton onClick={() => setActiveSkill(text)}>
                       <ListItemIcon>
