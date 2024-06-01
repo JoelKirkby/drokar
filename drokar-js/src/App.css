@@ -52,7 +52,7 @@ base background = #14232D */
   grid-template-columns: 50%, 50%;
   border: 2px solid darkslategray;
   border-radius: 2px;
-  height:400px;
+  height:80%;
 }
 
 .row2 {
