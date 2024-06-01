@@ -46,13 +46,13 @@ base background = #14232D */
 
 .row1 {
   display: flex;
-  background-color: #36454F;
+  background-color: #25343E;
   color: white;
   flex-direction: row;
   grid-template-columns: 50%, 50%;
   border: 2px solid darkslategray;
   border-radius: 2px;
-  height:80%;
+  height:90%;
 }
 
 .row2 {
