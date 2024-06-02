@@ -86,7 +86,7 @@ export const ABILITIES = {
             name: "Pilfer",
             img: pilfer,
             description: "Chance to loot gold on hit", //On mouseover will print description
-            abilityType: 'passive', //Passive, proc, or attack
+            abilityType: 'proc', //Passive, proc, or attack
             // chance: //if proc or attack
             levelRequirement: 1,
             damage: 0,
@@ -126,6 +126,7 @@ export const ABILITIES = {
         {
             name: 'Armor Tackle',
             description: 'Add 40% of your melee Armor to your attack damage',
+            levelRequirement: 1,
             img: armorTackle,  //On mouseover will print description
             abilityType: 'passive', //Passive, proc, or attack
             passiveEffect: {addedDamage: [0.4, 'meleeArmor']},
@@ -133,6 +134,7 @@ export const ABILITIES = {
         {
             name: 'Fortitude',
             description: '25% damage reduction from all sources',
+            levelRequirement: 10,
             img: fortitude,  //On mouseover will print description
             abilityType: 'passive', //Passive, proc, or attack
             passiveEffect: {damageReduction: 0.25},
