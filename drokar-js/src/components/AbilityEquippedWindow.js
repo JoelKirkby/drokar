@@ -6,21 +6,31 @@ import { PlayerDataContext } from '../helpers/Contexts';
 import AbilityRow from './AbilityRow';
 import { ABILITIES } from '../helpers/AbilityData';
 import LevelProgress from './LevelProgress';
+import Tooltip from '@mui/material/Tooltip';
 
 function AbilityEquippedWindow({playerData}) {
   const {playerLevels, activeVocation} = useContext(PlayerDataContext)
-  var ability0_className = playerData.flexAbility0 == [] ? "ability empty" : "ability active"
-  var ability1_className = playerData.flexAbility1 == [] ? "ability empty" : "ability active"
+
+  // If no flex abilities selected, placeholder text is shown
+  let placeholder = {
+    description: "Double click on any unlocked ability to equip it here.",
+  }
+  var flexAbility0 = playerData.flexAbility0 ? playerData.flexAbility0 : placeholder
+  var flexAbility1 = playerData.flexAbility1 ? playerData.flexAbility1 : placeholder
+  var flex0unlocked = playerLevels[activeVocation][0] >= 8 ? ' unlocked' : ' locked'
+  var flex1unlocked = playerLevels[activeVocation][0] >= 16 ? ' unlocked' : ' locked'
+  
     return (
           <div className='equippedWindow'>
             <p>{playerData.name} the {activeVocation}</p>
-            <LevelProgress size="5" skill={activeVocation}/>
+            <LevelProgress size="6" skill={activeVocation}/>
             <p>Bonuses from active Vocation</p>
-            <AbilityRow abilityList={ABILITIES[activeVocation]}/>
+            <AbilityRow vocation={activeVocation} levels={playerLevels}/>
             <h3> Flex abilities </h3>
             <p> At vocation levels 8 and 16 you can choose an extra passive or active ability from any other vocation. </p>
             <div className="textWrapper">
-                
+              <div className='flexContainer spaceAround'>
+
                 <div className={flex0unlocked}>
                     <a className='lvlText'>Level 8</a>   
                     <div className={"ability passive"}>
@@ -38,53 +48,7 @@ function AbilityEquippedWindow({playerData}) {
                         </Tooltip>
                     </div>
                 </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            Flex Abilities
               </div>
-            Flex Abilities
-              </div>
-            </div>
-            Flex Abilities
-              </div>
-            Flex Abilities
-              </div>
-            </div>
-            </div>
-            Flex Abilities
-              </div>
-            Flex Abilities
-              </div>
-            </div>
-            Flex Abilities
-              </div>
-            Flex Abilities
-              </div>
-            </div>
-            </div>
-            </div>
-            Flex Abilities
-              </div>
-            Flex Abilities
-              </div>
-            </div>
-            Flex Abilities
-              </div>
-            Flex Abilities
-              </div>
-            </div>
-            </div>
-            Flex Abilities
-              </div>
-            Flex Abilities
-              </div>
-            </div>
-            Flex Abilities
-              </div>
-            Flex Abilities
         </div>
           </div>
     );
