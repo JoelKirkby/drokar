@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import hero from './images/ui/hero.svg'
+import { ABILITIES } from "./AbilityData";
 
 const DUMMY_INVENTORY = {
     "Copper Ore": {
@@ -89,10 +90,9 @@ const playerInfo = {
     gold: 0,
     equipped: DUMMY_EQUIPMENT,
     combatStats: DUMMY_COMBAT_STATS,
-
     activeVocation: "",
-    flexAbility0: [],
-    flexAbility1: [],
+    flexAbility0: null,
+    flexAbility1: null,
 };
 
 export const PlayerDataContext = createContext(playerInfo)
