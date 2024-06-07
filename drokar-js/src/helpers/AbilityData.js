@@ -13,10 +13,9 @@ import armorTackle from '../helpers/images/abilities/spell_armorTackle.svg';
 // ABILITIES
 // abilityTypes = passive, spell, or attack
 // spell = costs mana, will always cast when sufficient mana
-// passive = always active
-// proc = chance to proc on hit
+// passive = always active, permanent changes to base stats
+// proc = chance to proc on hit, includes 100% chances
 // TBD - attack. Replaces default attack
-
 
 export const ABILITIES = {
     'Acolyte':
@@ -100,13 +99,13 @@ export const ABILITIES = {
             name: 'Empty Pockets',
             img: emptyPockets,
             description: 'Reduces enemy ranged and melee defenses based on gold stolen', //On mouseover will print description
-            abilityType: 'passive',
-            // chance: //if proc or attack
+            abilityType: 'proc',
             damage: 0,
             healing: 0,
             levelRequirement: 10,
             applyEffect: 'armorShred',
             applyEffectChance: 1,
+            applyEffectTarget: 'enemy',
             applyEffectAmount: 'goldDrain',
         },
     ],
@@ -129,7 +128,7 @@ export const ABILITIES = {
             levelRequirement: 1,
             img: armorTackle,  //On mouseover will print description
             abilityType: 'passive', //Passive, proc, or attack
-            passiveEffect: {addedDamage: [0.4, 'meleeArmor']},
+            passiveEffect: {meleeArmorToDamage: 0.4},
         },
         {
             name: 'Fortitude',
