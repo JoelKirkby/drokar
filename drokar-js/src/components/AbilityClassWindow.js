@@ -8,6 +8,7 @@ import { ABILITIES } from '../helpers/AbilityData';
 import { useState } from 'react';
 import { LinearProgress } from "@mui/material";
 import { Button } from '@mui/material';
+import { calculateLevels } from '../functions/calcs';
 
 
 import './AbilityWindow.css';
@@ -99,11 +100,10 @@ const switchVocation = (vocation, playerData, setPlayerData, playerLevels, setAc
   setPlayerData(newPlayerData)
   setActiveVocation(vocation)
 }
+
+
 function AbilityClassWindow({vocation}) {
-    const {activeTask, setActivetask, playerData, playerLevels, activeVocation, setActiveVocation} = useContext(PlayerDataContext)
-    console.log(`playerData.activeVocation: ${playerData.activeVocation}`)
-    console.log(`ClassWindow = ${vocation}`)
-    console.log(`playerLevels = ${JSON.stringify(playerLevels)}`)
+    const {activeTask, setActivetask, playerData, setPlayerData, playerLevels, activeVocation, setActiveVocation} = useContext(PlayerDataContext)
     
     return (
         <div className="classWindow">
@@ -118,7 +118,7 @@ function AbilityClassWindow({vocation}) {
               <LinearProgress style={{padding: "5px", borderRadius: "5px"}} variant="determinate" value={playerLevels[vocation][1]}/>
             </div>
             <a>{playerLevels[vocation][1].toFixed(1)}%</a>
-            <Button sx={{fontSize: "10px", fontWeight: "bold"}} variant="contained" className="sellButton" onClick={(e) => setActiveVocation(vocation)}> Equip </Button>
+            <Button sx={{fontSize: "10px", fontWeight: "bold"}} variant="contained" className="sellButton" onClick={(e) => switchVocation(vocation, playerData, setPlayerData, playerLevels, setActiveVocation)}> Equip </Button>
           </div>
         </div>
     );
