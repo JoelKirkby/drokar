@@ -1,5 +1,13 @@
 import { useContext } from "react";
 import { PlayerDataContext } from '../helpers/Contexts';
+
+
+const calcDamage = (combatData) => {
+    let damage = combatData.meleeDamage + combatData.addedDamage
+    let armorComponent = (combatData.meleeArmorToDamage ?? 0) * combatData.meleeArmor 
+    return damage + armorComponent
+}
+
 function CombatDetails(props) {
     const {playerData, setPlayerData} = useContext(PlayerDataContext)
     let combatData = playerData.combatStats
@@ -7,7 +15,7 @@ function CombatDetails(props) {
         <div className="combatDetails">
             {playerData.name} - Lv {combatData.level || 1}
             <div className= "divider"></div>
-            Damage: {combatData.meleeDamage} <br></br>
+            Damage: {calcDamage(combatData)} <br></br>
             Attack speed : {combatData.attackSpeed/1000}s<br></br>
             <div className= "divider"></div>
             Melee Defense: {combatData.meleeArmor}<br></br>
