@@ -40,6 +40,48 @@ function AbilityEquippedWindow({playerData}) {
                 </div>
             </div>
             </div>
+            </div>
+            </div>
+            </div>
+            Flex Abilities
+              </div>
+            Flex Abilities
+              </div>
+            </div>
+            Flex Abilities
+              </div>
+            Flex Abilities
+              </div>
+            </div>
+            </div>
+            Flex Abilities
+              </div>
+            Flex Abilities
+              </div>
+            </div>
+            Flex Abilities
+              </div>
+            Flex Abilities
+              </div>
+            </div>
+            </div>
+            </div>
+            Flex Abilities
+              </div>
+            Flex Abilities
+              </div>
+            </div>
+            Flex Abilities
+              </div>
+            Flex Abilities
+              </div>
+            </div>
+            </div>
+            Flex Abilities
+              </div>
+            Flex Abilities
+              </div>
+            </div>
             Flex Abilities
               </div>
             Flex Abilities
