@@ -31,9 +31,12 @@ const DUMMY_COMBAT_STATS = {
     maxMana: 20,
     meleeDamage: 1,
     furyRate: 20,
+    addedDamage: 0,
     rangedDamage: 0, // 0 for now, will be added later
     magicDamage: 0, // 0 for now, will be added later
     attackSpeed: 2600, //ms
+    spells: [],
+    onHitEffects: [],
     attacks: [
         {
             name: "Attack",
@@ -70,6 +73,7 @@ const DUMMY_COMBAT_STATS = {
     meleeArmor: 1,
     rangedArmor: 2,
     magicArmor: 3,
+    damageReduction : 1,
 }
 
 const playerInfo = {
@@ -85,6 +89,7 @@ const playerInfo = {
     gold: 0,
     equipped: DUMMY_EQUIPMENT,
     combatStats: DUMMY_COMBAT_STATS,
+
     activeVocation: "",
     flexAbility0: [],
     flexAbility1: [],
