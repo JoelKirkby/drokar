@@ -18,15 +18,8 @@ const descriptions = {
   'Warden': 'A stalwart, obediant warrior who excels in wearing heavy armor. At level 10 reduces damage taken',
 }
 
-const calculateBonuses = (playerData, input, parameter) => {
-  // eg. ['+', 0.4, '*', 'meleeArmor'], parameter = addedDamage
-  // Would be for ADDING 40% of meleeArmor to addedDamage
-  let statOperator, calcValue, calcOperator, calcProperty = input 
-  var bonus
-  if (calcOperator === '*') {
-    bonus = calcValue * playerData.combatStats[calcProperty]
-  } else if (calcOperator === '+') {
-    bonus = calcValue
+
+
   }
   
 
