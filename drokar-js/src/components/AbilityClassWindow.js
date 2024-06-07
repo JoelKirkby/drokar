@@ -20,6 +20,7 @@ const descriptions = {
 
 
 
+const switchVocation = (vocation, playerData, setPlayerData, playerLevels, setActiveVocation) => {
   }
   
 
