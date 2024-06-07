@@ -111,7 +111,7 @@ function AbilityClassWindow({vocation}) {
           <p className="classDescription">
             {descriptions[vocation]}
           </p>
-          <AbilityRow abilityList={ABILITIES[vocation]}/>
+          <AbilityRow vocation={vocation} levels={playerLevels}/>
           <div className="vocationXp">
           <a>Level {playerLevels[vocation][0]}</a>
             <div className="vocationProgressBar">
