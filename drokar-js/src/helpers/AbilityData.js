@@ -22,7 +22,7 @@ export const ABILITIES = {
     [
         {
             name: "It's greeeeeen!",
-            description: 'A green spell of an unknown origin to you, but it deals 16 damage', //On mouseover will print description
+            description: "It's greeeeeen!: You're not entirely sure what it does, but it deals 25 damage and sometimes confuses foes. Unlocked at Acolyte level 5", //On mouseover will print description
             abilityType: 'spell', //Passive, proc, or spell
             img: spell_green, //image
             levelRequirement: 5,
@@ -30,7 +30,7 @@ export const ABILITIES = {
                 name: "It's greeeeeen!",
                 accuracy: 0.8,
                 speed: 2600,
-                damage: 16,
+                damage: 25,
                 type: "magic",
                 manacost: 7,
                 },
@@ -42,7 +42,7 @@ export const ABILITIES = {
         },
         {
             name: 'Mana Leech',
-            description: 'Chance to mana leech 25% of damage dealt', //On mouseover will print description
+            description: 'Mana Leech: Chance to mana leech 25% of damage dealt. Unlocked at Acolyte Level 1', //On mouseover will print description
             abilityType: 'proc',
             levelRequirement: 1, //Passive, proc, or attack
             img: spell_manaLeech,
@@ -54,7 +54,7 @@ export const ABILITIES = {
         },
         {
             name: 'Energy Drain',
-            description: 'Enemies are slowed on hit for 2 seconds', //On mouseover will print description
+            description: 'Energy Drain: Enemies are slowed on hit for 2 seconds. Unlocked at Acolyte level 10', //On mouseover will print description
             abilityType: 'proc', //Passive, proc, or attack
             levelRequirement: 10,
             img: spell_tired,
@@ -70,7 +70,7 @@ export const ABILITIES = {
         {
             name: "Throat Jab",
             img: throatJab,
-            description: "Attacks kickback your enemy's attack progress by 0.3 seconds", //On mouseover will print description
+            description: "Throat Jab: Attacks kickback your enemy's attack progress by 0.3 seconds. Unlocked at Ruffian level 5", //On mouseover will print description
             abilityType: 'proc', //Passive, proc, or attack
             // chance: //if proc or attack
             damage: 0,
@@ -84,7 +84,7 @@ export const ABILITIES = {
         {
             name: "Pilfer",
             img: pilfer,
-            description: "Chance to loot gold on hit", //On mouseover will print description
+            description: "Pilfer: Chance to steal some gold on hit. Unlocked at Ruffian level 1", //On mouseover will print description
             abilityType: 'proc', //Passive, proc, or attack
             // chance: //if proc or attack
             levelRequirement: 1,
@@ -98,7 +98,7 @@ export const ABILITIES = {
         {
             name: 'Empty Pockets',
             img: emptyPockets,
-            description: 'Reduces enemy ranged and melee defenses based on gold stolen', //On mouseover will print description
+            description: 'Empty Pockets: Reduce enemy ranged and melee defenses based on the amount gold stolen. Unlocked at Ruffian level 10', //On mouseover will print description
             abilityType: 'proc',
             damage: 0,
             healing: 0,
@@ -114,7 +114,7 @@ export const ABILITIES = {
         {
             name: "Vicious Strike",
             img: viciousStrike, 
-            description: "Chance to attack for 40% more damage", //On mouseover will print description
+            description: "Vicious Strike: Chance to attack for 40% more damage. Unlocked at Warden level 5", //On mouseover will print description
             levelRequirement: 5,
             abilityType: 'proc', //Passive, proc, or attack
             procChance: 0.25,
@@ -124,7 +124,7 @@ export const ABILITIES = {
         },
         {
             name: 'Armor Tackle',
-            description: 'Add 40% of your melee Armor to your attack damage',
+            description: 'Armor Tackle: Add 40% of your melee Armor to your attack damage. Unlocked at Warden level 1',
             levelRequirement: 1,
             img: armorTackle,  //On mouseover will print description
             abilityType: 'passive', //Passive, proc, or attack
@@ -132,7 +132,7 @@ export const ABILITIES = {
         },
         {
             name: 'Fortitude',
-            description: '25% damage reduction from all sources',
+            description: 'Fortitude: Take 25% less damage from all sources. Unlocked at Warden Level 10',
             levelRequirement: 10,
             img: fortitude,  //On mouseover will print description
             abilityType: 'passive', //Passive, proc, or attack
