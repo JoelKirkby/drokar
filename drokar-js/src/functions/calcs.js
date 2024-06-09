@@ -27,8 +27,14 @@ export function calculateLevels(playerData) {
     return levels
     
   }
-  
 
+  export function roll_one(probability) {
+    // Roll a single probability
+    let probabilities = [Math.max(1 - probability, 0), Math.min(probability, 1)]
+    
+    return roll(probabilities)
+  }
+  
 export function roll(probabilities) {
     // Roll an outcome based on input probabilities O[n]
     // args: 
