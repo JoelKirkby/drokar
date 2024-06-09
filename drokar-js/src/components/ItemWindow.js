@@ -11,7 +11,7 @@ function ItemWindow(props) {
         <div className="flexContainer">
             <Inventory/>
             <Equipment playerData={playerData} setPlayerData={setPlayerData}/>
-            <CombatDetails/>
+            <CombatDetails combatData={playerData.combatStats} name={playerData.name}/>
       </div>
     );
   }
