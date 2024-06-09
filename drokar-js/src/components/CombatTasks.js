@@ -106,9 +106,15 @@ function CombatTasks() {
     let newMonsterData = {...activeMonster}
 
     // If attack progress is completed, and combat is active, attack the monster
-    if ((refAttackProg.current > attackProg) && activeCombat) {
+    if ((attackProg >= 100) && activeCombat) {
         // Get attack data whether it's a fury attack or not
         let attackData, attackType
+
+        // Apply on hit effects
+        for (let effect of newPlayerData.combatStats.onHitEffects) {
+            applyEffects(newPlayerData, newMonsterData, setEnemyAttackProg, effect)
+          }
+
         if (newPlayerData.combatStats.currentFury == newPlayerData.combatStats.maxFury) {
           attackData = newPlayerData.combatStats.furyAttacks.find((obj) => obj.name == newPlayerData.combatStats.selectedAttack)
           newPlayerData.combatStats.currentFury = 0
@@ -144,7 +150,8 @@ function CombatTasks() {
           setTimeout(() => {respawnMonster(newMonsterData.combatStats.name, setActiveMonster)}, 2000)
           clearInterval(activeCombat)
           setActiveCombat(false)
-        } 
+        }
+        setAttackProg(0) 
         setActiveAttack([newPlayerData.combatStats.selectedAttack, newPlayerData.combatStats.attackSpeed])
         setPlayerData(newPlayerData)
         setActiveMonster(newMonsterData)
@@ -152,7 +159,7 @@ function CombatTasks() {
       
   
     // If enemy attack progress is completed, and combat is active, attack the player
-    if ((refEnemyAttackProg.current > enemyAttackProg) && activeCombat) {
+    if (enemyAttackProg >= 100 && activeCombat) {
         let newPlayerData = {...playerData}
         let newMonsterData = {...activeMonster}
 
@@ -184,7 +191,7 @@ function CombatTasks() {
           clearInterval(activeCombat)
           setActiveCombat(false)
         } 
-
+        setEnemyAttackProg(0)
         setActiveEnemyAttack([newMonsterData.combatStats.selectedAttack, newMonsterData.combatStats.attackSpeed])
         setActiveMonster(newMonsterData)
         setPlayerData(newPlayerData)
