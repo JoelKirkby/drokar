@@ -27,49 +27,49 @@ const applyEffects = (friendlyData, enemyData, setEnemyAttackProg, effect) => {
 
 }
 const launchCombat = (activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeTask, setActiveTask, TICKRATE, setActiveAttack, setActiveEnemyAttack, refAttackProg, refEnemyAttackProg) => {
-    // Calculate per tick progression based on attackSpeed and TICKRATE
-    // Clear running Prospecting or Metallurgy task if it exists
-    clearInterval(activeTask.taskId)
-    setActiveTask({})
+  // Calculate per tick progression based on attackSpeed and TICKRATE
+  // Clear running Prospecting or Metallurgy task if it exists
+  clearInterval(activeTask.taskId)
+  setActiveTask({})
 
-    // Roll the type of attack to be made
-    playerData = rollAttackType(playerData)
-    activeMonster = rollAttackType(activeMonster)
-    
-    // Reset attack progress
+  // Roll the type of attack to be made
+  playerData = rollAttackType(playerData)
+  activeMonster = rollAttackType(activeMonster)
+  
+  // Reset attack progress
+  setAttackProg(0)
+  setEnemyAttackProg(0)
+  refAttackProg.current = 0
+  refEnemyAttackProg.current = 0
+
+  // Calculate attack progression per tick
+  let prog = 100 / (playerData.combatStats.attackSpeed / TICKRATE)
+  let enemyProg = 100 / (activeMonster.combatStats.attackSpeed / TICKRATE)
+  
+
+  // If combat is not active, start the combat loop and set states
+  if (!activeCombat) {
+    // Set the combat loop
+    const timer = setInterval(() => {
+        prog = 100 / (playerData.combatStats.attackSpeed / TICKRATE)
+        enemyProg = 100 / (activeMonster.combatStats.attackSpeed / TICKRATE) 
+        setAttackProg(prev => (prev + prog))
+        setEnemyAttackProg(prev => (prev + enemyProg))
+        }, TICKRATE)
+    setActiveAttack([playerData.combatStats.selectedAttack, playerData.combatStats.attackSpeed])
+    setActiveEnemyAttack([activeMonster.combatStats.selectedAttack, activeMonster.combatStats.attackSpeed])
+    setPlayerData(playerData)
+    setActiveMonster(activeMonster)
+    setActiveCombat(timer)
+  }
+  else {
+    // Stop combat, clear the loop, revert attack progress to 0
+    clearInterval(activeCombat)
     setAttackProg(0)
     setEnemyAttackProg(0)
-    refAttackProg.current = 0
-    refEnemyAttackProg.current = 0
-
-    // Calculate attack progression per tick
-    let prog = 100 / (playerData.combatStats.attackSpeed / TICKRATE)
-    let enemyProg = 100 / (activeMonster.combatStats.attackSpeed / TICKRATE)
-    
-
-    // If combat is not active, start the combat loop and set states
-    if (!activeCombat) {
-      // Set the combat loop
-      const timer = setInterval(() => {
-          prog = 100 / (playerData.combatStats.attackSpeed / TICKRATE)
-          enemyProg = 100 / (activeMonster.combatStats.attackSpeed / TICKRATE) 
-          setAttackProg(prev => (prev + prog)% 100)
-          setEnemyAttackProg(prev => (prev + enemyProg)% 100)
-          }, TICKRATE)
-      setActiveAttack([playerData.combatStats.selectedAttack, playerData.combatStats.attackSpeed])
-      setActiveEnemyAttack([activeMonster.combatStats.selectedAttack, activeMonster.combatStats.attackSpeed])
-      setPlayerData(playerData)
-      setActiveMonster(activeMonster)
-      setActiveCombat(timer)
+    setActiveCombat(false)
     }
-    else {
-      // Stop combat, clear the loop, revert attack progress to 0
-      clearInterval(activeCombat)
-      setAttackProg(0)
-      setEnemyAttackProg(0)
-      setActiveCombat(false)
-    }
-    }
+  }
 
 
 
