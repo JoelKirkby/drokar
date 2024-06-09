@@ -6,6 +6,26 @@ import CombatFrame from "./CombatFrame";
 import { rollAttackType, rollLootTable } from "../functions/calcs";
 import "./Combat.css";
 
+const applyEffects = (friendlyData, enemyData, setEnemyAttackProg, effect) => {
+  // Roll to see if the effect is applied
+  let success = roll_one(effect.applyEffectChance)
+  // Determine target of effect
+  let target = effect.applyEffectTarget === "enemy" ? enemyData : friendlyData
+
+  // Apply effect
+  if (success) {
+    if (effect.applyEffect === "manaDrain") {
+      target.combatStats.currentMana = Math.max(target.combatStats.currentMana - effect.applyEffectAmount, 0)
+      friendlyData.combatStats.currentMana = friendlyData.combatStats.currentMana + effect.applyEffectAmount
+    }
+    else if (effect.applyEffect === "pushback") {
+      let percent = (effect.applyStatusAmount / target.combatStats.attackSpeed) * 100
+      setEnemyAttackProg(prev => Math.max(prev-percent, 0))
+    }
+  }
+    
+
+}
 const launchCombat = (activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeTask, setActiveTask, TICKRATE, setActiveAttack, setActiveEnemyAttack, refAttackProg, refEnemyAttackProg) => {
     // Calculate per tick progression based on attackSpeed and TICKRATE
     // Clear running Prospecting or Metallurgy task if it exists
