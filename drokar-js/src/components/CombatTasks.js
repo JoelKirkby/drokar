@@ -3,7 +3,7 @@ import { MonsterData } from "../helpers/MonsterData";
 import { useState, useContext, useEffect } from "react";
 import { PlayerDataContext } from "../helpers/Contexts";
 import CombatFrame from "./CombatFrame";
-import { rollAttackType, rollLootTable } from "../functions/calcs";
+import { rollAttackType, rollLootTable, roll, roll_one } from "../functions/calcs";
 import "./Combat.css";
 
 const applyEffects = (friendlyData, enemyData, setEnemyAttackProg, effect) => {
@@ -26,6 +26,7 @@ const applyEffects = (friendlyData, enemyData, setEnemyAttackProg, effect) => {
     
 
 }
+
 const launchCombat = (activeCombat, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster, setAttackProg, setEnemyAttackProg, activeTask, setActiveTask, TICKRATE, setActiveAttack, setActiveEnemyAttack, refAttackProg, refEnemyAttackProg) => {
   // Calculate per tick progression based on attackSpeed and TICKRATE
   // Clear running Prospecting or Metallurgy task if it exists
@@ -128,14 +129,8 @@ function CombatTasks() {
         let damageCalculation = newPlayerData.combatStats[`${attackType}Damage`] + attackData.damage - newMonsterData.combatStats[`${attackType}Armor`] 
         let calculatedDamage = Math.max(damageCalculation, 0)
         newMonsterData.combatStats.currentHp -= calculatedDamage
-        
-        
         newPlayerData = rollAttackType(newPlayerData)
-        // let newAttackData = newPlayerData.combatStats.attacks.find((obj) => obj.name == newPlayerData.combatStats.selectedAttack)
 
-        // TODO - Kickback from attack, heavy weaponry can kick back attack charges
-        // setActiveAttack(newPlayerData.combatStats.selectedAttack)
-        // setEnemyAttackProg(prev => Math.max(prev-35, 0))
         let death = false
         if (newMonsterData.combatStats.currentHp <= 0) {
           death = true
