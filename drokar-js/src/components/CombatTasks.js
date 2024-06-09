@@ -95,7 +95,9 @@ function CombatTasks() {
 
     let activeMonster = {...MonsterData[selectedMonster], combatStats: combatStats}
     setActiveMonster(activeMonster)
-    launchCombat(false, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  setAttackProg, setEnemyAttackProg, activeTask, setActiveTask, TICKRATE, setActiveAttack, setActiveEnemyAttack, refAttackProg, refEnemyAttackProg)
+    launchCombat(false, setActiveCombat, playerData, setPlayerData, activeMonster, setActiveMonster,  
+      setAttackProg, setEnemyAttackProg, activeTask, setActiveTask, TICKRATE, setActiveAttack, 
+      setActiveEnemyAttack, refAttackProg, refEnemyAttackProg)
   }
   
   // Manage combat events for each game tick
