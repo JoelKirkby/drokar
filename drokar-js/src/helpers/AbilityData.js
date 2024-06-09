@@ -50,7 +50,7 @@ export const ABILITIES = {
             applyEffect: 'manaDrain',
             applyEffectChance: 0.25, // percent to drain
             applyEffectTarget: 'enemy',
-            applyEffectAmount: 0.25,
+            applyEffectAmount: 1,
         },
         {
             name: 'Energy Drain',
@@ -70,7 +70,7 @@ export const ABILITIES = {
         {
             name: "Throat Jab",
             img: throatJab,
-            description: "Throat Jab: Attacks kickback your enemy's attack progress by 0.3 seconds. Unlocked at Ruffian level 5", //On mouseover will print description
+            description: "Throat Jab: Attacks kickback your enemy's attack progress by 0.5 seconds. Unlocked at Ruffian level 5", //On mouseover will print description
             abilityType: 'proc', //Passive, proc, or attack
             // chance: //if proc or attack
             damage: 0,
@@ -79,7 +79,7 @@ export const ABILITIES = {
             applyEffect: 'pushback',
             applyEffectChance: 1,
             applyEffectTarget: 'enemy',
-            applyStatusAmount: 300, 
+            applyStatusAmount: 500, 
         },
         {
             name: "Pilfer",
@@ -116,11 +116,15 @@ export const ABILITIES = {
             img: viciousStrike, 
             description: "Vicious Strike: Chance to attack for 40% more damage. Unlocked at Warden level 5", //On mouseover will print description
             levelRequirement: 5,
-            abilityType: 'proc', //Passive, proc, or attack
-            procChance: 0.25,
-            addedDamage: 0,
-            damageMultiplier: 1.4,
-            healing: 0, 
+            abilityType: 'attack', //Passive, proc, or attack
+            attackData: {
+                name: "Vicious Strike",
+                accuracy: 0.9,
+                speed: 1500,
+                damage: 4,
+                type: "melee",
+                manacost: 0,
+            }
         },
         {
             name: 'Armor Tackle',
