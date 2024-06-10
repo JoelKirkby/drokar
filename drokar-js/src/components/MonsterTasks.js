@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import { MonsterData } from "../helpers/MonsterData";
 import { useState, useContext } from "react";
 import { PlayerDataContext } from "../helpers/Contexts";
+import { getAttackChance } from "../functions/calcs";
 import "./Combat.css";
 
 const setMonsterData = (selectedMonster, setActiveMonster) => {
@@ -18,6 +19,7 @@ const setMonsterData = (selectedMonster, setActiveMonster) => {
             combatStats: combatStats,
             name: selectedMonster
         }
+    getAttackChance(activeMonster)
     setActiveMonster(activeMonster)
 }
 
