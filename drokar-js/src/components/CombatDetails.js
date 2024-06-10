@@ -9,7 +9,7 @@ const calcDamage = (combatData) => {
 }
 
 function CombatDetails({combatData, name}) {
-
+    // class = combatDetails or combatStats. Figure it out
     return (
         <div className="combatDetails">
             {name} - Lv {combatData.level || 1}
@@ -24,7 +24,7 @@ function CombatDetails({combatData, name}) {
             <h3>Attacks</h3>
             {combatData.attacks.map((attack, i) => {
                 return <div key={i}>
-                    {attack.name} - {(combatData.attackChances[i]*100).toFixed(1)} %
+                    {attack.name} - {((attack.chance ?? 1) * 100).toFixed(0)} %
                 </div>
             }
             
