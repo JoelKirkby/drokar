@@ -71,6 +71,14 @@ export function rollLootTable(rates, drops){
     return [drops[lootRoll], 1]
   }
   }
+
+export function getAttackChance(entityData) {
+  // Update entityData's "attack" chance
+  let attackProbs = entityData.combatStats.attacks.map(a => a.chance ?? 0)
+  
+  // Basic attack probability is 1 - sum of all other attack probabilities
+  entityData.combatStats.attacks[0].chance = 1 - attackProbs.slice(1).reduce((a, b) => a + b, 0)
+}
   
 export function rollAttackType(entityData) {
     // Roll for attack type based on entity's attack chances
