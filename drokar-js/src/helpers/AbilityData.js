@@ -123,6 +123,7 @@ export const ABILITIES = {
                 speed: 1500,
                 damage: 4,
                 type: "melee",
+                chance: 0.2,
                 manacost: 0,
             }
         },

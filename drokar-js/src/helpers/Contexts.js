@@ -47,16 +47,7 @@ const DUMMY_COMBAT_STATS = {
             type: "melee",
             manacost: 0,
         },
-        {
-            name: "Vicious Strike",
-            accuracy: 0.9,
-            speed: 1500,
-            damage: 4,
-            type: "melee",
-            manacost: 0,
-        },
     ],
-    attackChances: [0.7, 0.3],
     currentFury: 1,
     furyAttacks : [
         {
