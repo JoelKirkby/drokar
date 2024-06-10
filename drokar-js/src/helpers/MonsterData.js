@@ -58,9 +58,9 @@ export const MonsterData = {
                         damage: 8,
                         type: "magic",
                         manacost: 8,
+                        chance: 0.2,
                         }
             ],
-            attackChances: [0.8, 0.2],
             furyAttacks : [
                             {
                             name: "WAAAAAAAGH",
