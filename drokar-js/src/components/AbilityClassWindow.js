@@ -8,7 +8,7 @@ import { ABILITIES } from '../helpers/AbilityData';
 import { useState } from 'react';
 import { LinearProgress } from "@mui/material";
 import { Button } from '@mui/material';
-import { calculateLevels } from '../functions/calcs';
+import { calculateLevels, getAttackChance } from '../functions/calcs';
 
 
 import './AbilityWindow.css';
@@ -18,8 +18,6 @@ const descriptions = {
   'Ruffian': 'A rogue who steals coins and disrupts casters. At level 10 will shed armor based on gold looted.',
   'Warden': 'A stalwart, obediant warrior who excels in wearing heavy armor. At level 10 reduces damage taken',
 }
-
-
 
 const switchVocation = (vocation, playerData, setPlayerData, playerLevels, setActiveVocation) => {
   console.log("Switching vocation")
@@ -44,6 +42,10 @@ const switchVocation = (vocation, playerData, setPlayerData, playerLevels, setAc
         else if (unlock.abilityType === 'proc') {
           console.log(`Removed ${unlock.name} from onHitEffects for player`)
           newPlayerData.combatStats.onHitEffects = newPlayerData.combatStats.onHitEffects.filter(onHit => onHit.name !== unlock.name);
+        }
+
+        else if (unlock.abilityType === 'attack') {
+          newPlayerData.combatStats.attacks = newPlayerData.combatStats.attacks.filter(attack => attack.name !== unlock.attackData.name);
         }
 
         // Add passive bonuses
@@ -75,6 +77,10 @@ const switchVocation = (vocation, playerData, setPlayerData, playerLevels, setAc
         newPlayerData.combatStats.onHitEffects.push(unlock)
       }
 
+      else if (unlock.abilityType === 'attack') {
+        newPlayerData.combatStats.attacks.push(unlock.attackData)
+      }
+
       // Add passive bonuses
       else if (unlock.abilityType === 'passive') {
         for (const [bonus, amount] of Object.entries(unlock.passiveEffect)) {
@@ -91,12 +97,10 @@ const switchVocation = (vocation, playerData, setPlayerData, playerLevels, setAc
 
       }
     }
-  
-
 
   console.log('Updating!')
-  console.log(`newPlayerData =  ${JSON.stringify(newPlayerData)}`)
   newPlayerData.activeVocation = vocation
+  getAttackChance(newPlayerData)
   setPlayerData(newPlayerData)
   setActiveVocation(vocation)
 }
