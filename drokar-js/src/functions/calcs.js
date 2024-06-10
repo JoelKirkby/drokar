@@ -87,7 +87,7 @@ export function rollAttackType(entityData) {
     // returns:
     //      entityData(object): modified entity data with a selected attack type and new attack speed        
     
-    let attackProbs = entityData.combatStats.attackChances
+    let attackProbs = entityData.combatStats.attacks.map(a => a.chance ?? 0)
     let rolledAttack
     // Roll for fury attack if fury is full
     if (entityData.combatStats.currentFury >= entityData.combatStats.maxFury) {
