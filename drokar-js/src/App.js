@@ -104,7 +104,7 @@ function App() {
         <PlayerDataContext.Provider value={{playerData, setPlayerData, activeTask, setActiveTask, 
             playerLevels, activeMonster, setActiveMonster, attackProg, enemyAttackProg, setAttackProg, 
             setEnemyAttackProg, activeCombat, setActiveCombat, activeVocation, setActiveVocation, 
-            sellQuantity, setSellQuantity, TICKRATE, activeAttack, setActiveAttack, activeEnemyAttack, setActiveEnemyAttack, refAttackProg, refEnemyAttackProg}}>
+            sellQuantity, setSellQuantity, TICKRATE, activeAttack, setActiveAttack, activeEnemyAttack, setActiveEnemyAttack, refAttackProg, refEnemyAttackProg, activeVocation}}>
           <ThemeProvider theme={darkTheme}>
           <Drawer variant="permanent" open={true} sx={{ position: 'relative' }}>
             <SideBar playerLevels={playerLevels} setActiveSkill={setActiveSkill}/>

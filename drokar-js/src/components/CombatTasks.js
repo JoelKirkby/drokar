@@ -81,7 +81,7 @@ function CombatTasks() {
       enemyAttackProg, setEnemyAttackProg,
       playerData, setPlayerData, activeTask, setActiveTask,
       setActiveMonster, activeCombat, setActiveCombat,
-      activeAttack, activeEnemyAttack, setActiveAttack, setActiveEnemyAttack, TICKRATE, refAttackProg, refEnemyAttackProg} = useContext(PlayerDataContext)
+      activeAttack, activeEnemyAttack, setActiveAttack, setActiveEnemyAttack, TICKRATE, refAttackProg, refEnemyAttackProg, activeVocation} = useContext(PlayerDataContext)
 
 
   const respawnMonster = (selectedMonster, setActiveMonster) => {
@@ -131,9 +131,7 @@ function CombatTasks() {
         newMonsterData.combatStats.currentHp -= calculatedDamage
         newPlayerData = rollAttackType(newPlayerData)
 
-        let death = false
         if (newMonsterData.combatStats.currentHp <= 0) {
-          death = true
           const [drop, quantity] = rollLootTable(activeMonster.dropRates, activeMonster.drops)
           if (drop) {
             console.log(`Loot found! ${drop}`)
@@ -145,6 +143,10 @@ function CombatTasks() {
           setTimeout(() => {respawnMonster(newMonsterData.combatStats.name, setActiveMonster)}, 2000)
           clearInterval(activeCombat)
           setActiveCombat(false)
+        }
+        if (activeVocation) {
+          console.log("Adding combat xp")
+          newPlayerData.skills[activeVocation] += 5
         }
         setAttackProg(0) 
         setActiveAttack([newPlayerData.combatStats.selectedAttack, newPlayerData.combatStats.attackSpeed])
